@@ -1,5 +1,4 @@
 @extends('layouts.frontend')
-@extends('layouts.partials.navbar')
 
 @section('content')
 
