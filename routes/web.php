@@ -10,7 +10,9 @@ Route::get('/', function () {
 
 // Route::get('/frontend',  [frontendController::class, 'index']);
 
-
+// routes/web.php
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
