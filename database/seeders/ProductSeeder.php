@@ -27,5 +27,13 @@ class ProductSeeder extends Seeder
             'image_url' => '/images/keyboard.jpg',
             'stock' => 30,
         ]);
+
+        Product::create([
+            'name' => 'GPU',
+            'description' => 'Graphical Processing Unit, fit for a Gaming Desktop Setup',
+            'price' => 89.99,
+            'image_url' => '/images/GPU.jpg',
+            'stock' => 0,
+        ]);
     }
 }
