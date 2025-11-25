@@ -22,6 +22,6 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
 
         // Pass product to the purchase page
-        return view('products.show', compact('product'));
+        return view('frontend.show', compact('product'));
     }
 }

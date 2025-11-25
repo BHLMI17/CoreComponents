@@ -24,6 +24,11 @@
                             ${{ number_format($product->price, 2) }}
                         </p>
 
+                        {{-- Product Stock --}}
+                        <p class="card-text text-success fw-bold">
+                            <h5>Remaining Stock: {{ $product->stock }}</h5>
+                        </p>
+
                         {{-- Link to purchase page --}}
                         <a href="{{ route('products.show', $product->id) }}" 
                            class="btn btn-primary mt-auto">
