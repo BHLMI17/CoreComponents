@@ -7,7 +7,7 @@
 <p class="card-text text-success fw-bold">
     ${{ number_format($product->price, 2) }}
 </p>
-<a href="{{ route('frontend.show', $product->id) }}" 
+<a href="{{ route('products.show', $product->id) }}" 
     class="btn btn-primary mt-auto">
     Buy Now
 </a>
