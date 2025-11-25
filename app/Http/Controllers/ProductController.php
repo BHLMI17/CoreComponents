@@ -13,7 +13,7 @@ class ProductController extends Controller
         $products = Product::all();
 
         // Pass products to the view
-        return view('products.index', compact('products'));
+        return view('frontend.index', compact('products'));
     }
 
     public function show($id)
