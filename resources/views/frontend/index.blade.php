@@ -1,4 +1,5 @@
 
+use app\Models\Product.php
 
 @section('content')
 
@@ -26,15 +27,19 @@
 
                         {{-- Product Stock --}}
 
-                        if({{$product->stock}} > 0){
+                        
+                        @if($product->stock > 0)
                         <p class="card-text text-success fw-bold">
                             <h5>Remaining Stock: {{ $product->stock }}</h5>
                         </p>
-                    }else{
+                    @else
                         <p class="card-text text-success fw-bold">
                             <h5>Out of Stock</h5>
                         </p>
-                    }
+                    @endif
+                    
+
+                
 
                         {{-- Link to purchase page --}}
                         <a href="{{ route('products.show', $product->id) }}" 
