@@ -8,7 +8,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/frontend',  [frontendController::class, 'index']);
+// Route::get('/frontend',  [frontendController::class, 'index']);
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
