@@ -1,0 +1,230 @@
+#footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #000;
+    padding: 10px;
+    color: white;
+    font-size: 8px;
+    text-align: center;
+}
+
+/* bg colour of main page*/
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #121212;
+    color: #f0f0f0;
+  }
+  
+  .top-bar {
+    position: sticky; /* makes sure absolute elements like search-wrapper are scoped here */
+    top: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #1e1e1e;
+    border-bottom: 1px solid #333;
+    z-index: 10; /* Optional: keeps it layered above */
+  }
+  
+  /* Logo stays left */
+  .logo-img {
+    height: 38px;
+    width: auto;
+  }
+  
+  /* Search wrapper is centered cuz ts was off centre due to logo and icon positioning */
+  .search-wrapper {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+  }
+  
+  .search-bar {
+    display: flex;
+    background-color: #ebebeb;
+    border-radius: 4px;
+    padding: 0.3rem 0.5rem;
+  }
+  
+  .search-bar input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #121212;
+    padding: 0.3rem;
+    outline: none;
+  }
+  
+  /*text color change when u move ur mouse over it */
+  .search-bar button {
+    background: none;
+    border: none;
+    color: #00ffa2;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  /* Icons stay right */
+  .icon-group {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .icon {
+    font-size: 1.2rem;
+    color: #f0f0f0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .icon:hover {
+    color: #00ffcc;
+  }
+  
+  /* Lower Nav Bar */
+  .nav-bar {
+    position: sticky;
+    top: 70px;
+    z-index: 999;
+    background-color: #181818;
+    padding: 0.5rem 2rem;
+    border-bottom: 1px solid #333;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: #f0f0f0;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    color: #00ffcc;
+  }
+
+
+  /* End of Nav Bar CSS */
+
+ /* Contact Page CSS */ 
+ .contact-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+ }
+
+  .field-design {
+    width: 60%;
+    padding: 8px;
+    margin-bottom: 10px;
+    text-align: left;
+    margin-left: 120px;
+    background-color: #272626;
+    color: rgb(244, 244, 244);
+    border: 1px solid rgb(99, 99, 99);
+    border-radius: 10px;
+  }
+  
+  .message-design {
+    width: 60%;
+    color : #121212;
+    height: 150px;
+    padding: 10px;
+    font-size: 14px;
+    text-align: left;
+    margin-left: 120px;
+    background-color: #272626;
+    color: rgb(244, 244, 244);
+    border: 1px solid rgb(99, 99, 99);
+    border-radius: 10px;
+  }
+
+  #form-container {
+    padding: 20px;
+    color: rgb(255, 255, 255);
+}
+
+  #contact-info {
+    padding:20px;
+  }
+
+  .form-subtext {
+    margin-left: 120px;
+  }
+
+  #submit-button {
+    background-color: #e3e0e0;
+    color: rgb(1, 1, 1);
+    padding: 10px 15px;
+    margin-left: 120px;
+    width: 60%;
+    cursor: pointer;
+    border: 1px solid rgb(99, 99, 99);
+    border-radius: 10px;
+  }
+
+  #submit-button:hover {
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+  }
+
+  #contact-info {
+    text-align: center;
+  }
+
+  #form-title {
+    margin-left: 120px;
+  }
+
+  /* End of Contact CSS */
+
+
+  /* Main Page CSS */
+
+  .main-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: inline;
+ }
+
+ #welcome-text {
+  position: absolute;
+  text-align: center;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+ }
+
+ #welcome-button {
+  color: white;
+  background-color: transparent;
+  position: absolute;
+  text-align: center;
+  top: 120%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+  border: 2px solid white; 
+  border-radius: 12px;
+  padding: 10px 80px;
+ }
+
+ #welcome-button:hover {
+  background-color: white;
+  color: black;
+ }
+
+
+
