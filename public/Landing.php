@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css"
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="icon" href="images/favicon-96x96.png" type="image/x-icon">
+    <link rel="icon" href="images/CCfavicon.png" type="image/x-icon">
     <script src="JavaScript/script.js"></script>
 </head>
 
