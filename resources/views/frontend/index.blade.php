@@ -32,6 +32,11 @@
                         <p class="card-text text-success fw-bold">
                             <h5>Remaining Stock: {{ $product->stock }}</h5>
                         </p>
+                        {{-- Link to purchase page --}}
+                        <a href="{{ route('products.show', $product->id) }}" 
+                           class="btn btn-primary mt-auto">
+                            Buy Now
+                        </a>
                     @else
                         <p class="card-text text-success fw-bold">
                             <h5>Out of Stock</h5>
@@ -41,11 +46,7 @@
 
                 
 
-                        {{-- Link to purchase page --}}
-                        <a href="{{ route('products.show', $product->id) }}" 
-                           class="btn btn-primary mt-auto">
-                            Buy Now
-                        </a>
+                        
                     </div>
                 </div>
             </div>
