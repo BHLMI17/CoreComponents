@@ -24,4 +24,15 @@ class ProductController extends Controller
         // Pass product to the purchase page
         return view('frontend.show', compact('product'));
     }
+
+    public function purchase($id)
+    {
+        // Find product by ID or fail
+        $product = Product::findOrFail($id);
+
+
+        
+        // Pass product to the purchase page
+        return view('frontend.basket', compact('product'));
+    }
 }
