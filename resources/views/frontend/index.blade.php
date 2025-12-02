@@ -1,12 +1,11 @@
 
 
 
-@section('content')
 
+
+@section('content')
 {{-- resources/views/frontend/index.blade.php --}}
 @extends('layouts.frontend')
-
-@section('content')
 <div class="container mt-5">
     <h2 class="mb-4">Our Products</h2>
     <div class="row">
@@ -53,5 +52,4 @@
         @endforeach
     </div>
 </div>
-@endsection
 @endsection

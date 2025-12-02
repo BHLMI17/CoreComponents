@@ -5,6 +5,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 
+
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -12,6 +15,9 @@ Route::get('/', function () {
 // Route::get('/frontend',  [frontendController::class, 'index']);
 
 // routes/web.php
+Route::get('/about-us', function () {
+    return view('frontend.about_us');
+});
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 
