@@ -33,6 +33,6 @@ class ProductController extends Controller
 
         
         // Pass product to the purchase page
-        return view('frontend.basket', compact('product'));
+        return view('frontend.basket', compact('product-basket'));
     }
 }
