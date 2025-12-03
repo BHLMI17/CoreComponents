@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CoreComponents Product List Page</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="seanstyles.css" />
 </head>
 <body>
   <!-- Top Navigation -->
@@ -70,7 +70,7 @@
   <!-- Apply Button -->
   <button class="apply-filter">Apply Filters</button>
   </section>
-  <script src="script.js"></script>
+  <script src="seanscript.js"></script>
 
   <!-- products here, div class copy n pastable-->
   <main class="product-listing">
