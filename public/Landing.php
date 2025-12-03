@@ -13,7 +13,7 @@
     <script src="JavaScript/script.js"></script>
 </head>
 
-<link rel = "stylesheet" type="text/css"  href="css/style.css" />
+<link rel = "stylesheet" type="text/css"  href="css/samistyles.css" />
 <head>
   <body>
 <!-- Header -->
