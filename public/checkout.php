@@ -12,14 +12,14 @@
     <img src="logo.png" alt="CoreComponents Logo" class="logo-img" />
 
     <div class="search-wrapper">
-      <form class="search-bar" action="ProductListing.php" method="GET">
-        <input type="text" name="q" placeholder="Search..." />
+      <form class="search-bar">
+        <input type="text" placeholder="Search..." />
         <button type="submit">🔍</button>
       </form>
     </div>
 
     <div class="icon-group">
-      <a href="ProductListing.php" class="icon">🛒</a>
+      <a href="#" class="icon">🛒</a>
       <a href="#" class="icon">👤</a>
     </div>
   </header>
@@ -27,10 +27,10 @@
   <!-- Lower Navigation -->
   <nav class="nav-bar">
     <ul class="nav-links">
-      <li><a href="Landing.php">Home</a></li>
-      <li><a href="ProductListing.php">Browse</a></li>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Browse</a></li>
       <li><a href="#">Compatibility</a></li>
-      <li><a href="index.php">About Us</a></li>
+      <li><a href="#">About Us</a></li>
       <li><a href="#">Orders/Returns</a></li>
     </ul>
   </nav>
@@ -52,7 +52,5 @@
   </main>
 
   <script src="checkout.js"></script>
-  <script src="seanscript.js"></script>
-<script src="search_logic.js"></script>
 </body>
 </html>
