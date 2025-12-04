@@ -208,6 +208,7 @@ body {
  }
 
  #welcome-button {
+  text-decoration: none;
   color: white;
   background-color: transparent;
   position: absolute;

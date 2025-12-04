@@ -38,10 +38,10 @@
 <!-- Lower Navigation -->
 <nav class="nav-bar">
   <ul class="nav-links">
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Browse</a></li>
-    <li><a href="#">Compatibility</a></li>
-    <li><a href="#">About Us</a></li>
+  <li><a href="Landing.php">Home</a></li>
+    <li><a href="ProductListing.php">Browse</a></li>
+    <li><a href="Contact.php">Contact</a></li>
+    <li><a href="about_us.php">About Us</a></li>
     <li><a href="#">Orders/Returns</a></li>
   </ul>
 </nav>   
