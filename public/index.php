@@ -13,14 +13,14 @@
 <body>
   <header class="navbar">
     <div class="nav-left">
-      <a href="#" class="logo" id="nav-logo" data-route="home">
+      <a href="Landing.php" class="logo" id="nav-logo" data-route="home">
         <img src="img/logo.png" alt="CoreComponents Logo" class="logo-icon" />
         <span class="logo-text">Core<span class="logo-accent">Components</span></span>
       </a>
     </div>
 
     <div class="nav-center">
-      <form class="search-bar" id="search-form" method="GET" action="">
+      <form class="search-bar" id="search-form" method="GET" action="ProductListing.php">
         <button type="submit" class="search-icon-btn">
           <img src="img/icon-search.png" alt="Search" class="icon-search"/>
         </button>
@@ -40,12 +40,12 @@
   </header>
 
   <nav class="main-menu">
-    <a href="#" id="nav-home" data-route="home">Home</a>
-    <a href="#" id="nav-browse" data-route="browse">Browse</a>
+    <a href="Landing.php" id="nav-home" data-route="home">Home</a>
+    <a href="ProductListing.php" id="nav-browse" data-route="browse">Browse</a>
     <a href="#" id="nav-compatibility" data-route="compatibility">Compatibility</a>
     <a href="#" id="nav-pc-builder" data-route="pc-builder">PC Builder</a>
-    <a href="#" id="nav-about" data-route="about" class="active">About Us</a>
-    <a href="#" id="nav-contact" data-route="contact">Contact Us</a>
+    <a href="index.php" id="nav-about" data-route="about" class="active">About Us</a>
+    <a href="Contact.php" id="nav-contact" data-route="contact">Contact Us</a>
     <a href="#" id="nav-orders" data-route="orders-returns">Orders/Returns</a>
   </nav>
 
