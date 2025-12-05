@@ -9,8 +9,8 @@
     </div>
 
     <div class="icon-group">
-        <a id="btn-cart" class="icon">🛒</a>
-        <a id="btn-account" class="icon">👤</a>
+        <a href="{{ route('checkout') }}" id="btn-cart" class="icon">🛒</a>
+        <a href="{{ route('login') }}" id="btn-account" class="icon">👤</a>
     </div>
 </header>
 
