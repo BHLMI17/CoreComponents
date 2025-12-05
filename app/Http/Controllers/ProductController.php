@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,7 @@ class ProductController extends Controller
         $products = Product::all();
 
         // Pass products to the view
-        return view('frontend.index', compact('products'));
+        return view('ProductListing', compact('products'));
     }
 
     public function show($id)

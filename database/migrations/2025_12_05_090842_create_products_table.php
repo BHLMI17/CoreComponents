@@ -18,6 +18,8 @@ return new class extends Migration
         $table->decimal('price', 10, 2);
         $table->string('image_url')->nullable();
         $table->integer('stock')->default(0);
+        $table->json('compatibility');
+        $table->enum('type', ['mouse', 'keyboard', 'cpu', 'gpu','monitor']);
         $table->timestamps();
     });
 }

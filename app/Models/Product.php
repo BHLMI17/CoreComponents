@@ -20,6 +20,8 @@ class Product extends Model
         'price',
         'image_url',
         'stock',
+        'compatibility',
+        'type',
     ];
 
     /**
@@ -30,5 +32,6 @@ class Product extends Model
     protected $casts = [
         'price' => 'decimal:2',
         'stock' => 'integer',
+        'compatibility' => 'array',
     ];
 }

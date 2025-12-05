@@ -27,9 +27,11 @@ Route::get('/landing', function () {
     return redirect('/landing.php');
 });
 
-Route::get('/product-listing', function () {
-    return redirect('/products.php');
-});
+// Route::get('/product-listing', function () {
+//     return redirect('/products.php');
+// });
+
+Route::get('/ProductListing', [ProductController::class, 'index']);
 
 // ✅ Product controller routes (these stay as-is)
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
