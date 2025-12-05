@@ -147,7 +147,13 @@
     <button class="add-to-cart">Add to Cart</button>
   </div>
 </main>
+<!-- your products list, cards, grid, etc. -->
+    <div class="product-listing">
+        <!-- product cards here -->
+    </div>
 
+    <!-- Add the script here -->
+    <script src="search_logic.js"></script>
 </body>
 
 </html>
