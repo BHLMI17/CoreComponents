@@ -3,6 +3,7 @@
 @section('title', 'About Us')
 
 @section('content')
+<link rel="stylesheet" href="/css/nazeerstyles.css">
 <main class="hero">
   <div class="hero-overlay">
     <section class="about-section">
