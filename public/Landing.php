@@ -10,7 +10,7 @@
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" href="images/CCfavicon.png" type="image/x-icon">
-    <script src="JavaScript/script.js"></script>
+    <script src="js/script.js"></script>
 </head>
 
 <link rel = "stylesheet" type="text/css"  href="css/samistyles.css" />

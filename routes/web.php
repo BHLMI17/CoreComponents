@@ -5,22 +5,37 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 
-
-
-
+// ✅ Home page now points to your public/index.php (or landing.php if preferred)
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/Landing.php');   // or '/landing.php'
 });
 
-// Route::get('/frontend',  [frontendController::class, 'index']);
-
-// routes/web.php
+// ✅ Static pages now in public/
 Route::get('/about-us', function () {
-    return view('frontend.about_us');
+    return redirect('/about_us.php');
 });
+
+Route::get('/contact', function () {
+    return redirect('/contact.php');
+});
+
+Route::get('/checkout', function () {
+    return redirect('/checkout.php');
+});
+
+Route::get('/landing', function () {
+    return redirect('/landing.php');
+});
+
+Route::get('/product-listing', function () {
+    return redirect('/products.php');
+});
+
+// ✅ Product controller routes (these stay as-is)
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 
+// ✅ Dashboard + Auth
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
