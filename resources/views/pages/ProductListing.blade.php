@@ -1,0 +1,65 @@
+@extends('layouts.main')
+
+@section('title', 'Product Listing')
+
+@section('content')
+
+<link rel="stylesheet" href="/css/seanstyles.css">
+<script src="/js/seanscript.js"></script>
+
+<section class="filter-bar">
+
+    <!-- Category Dropdown -->
+    <div class="filter-group">
+        <label for="category">Category:</label>
+        <select id="category" name="category">
+            <option value="">All</option>
+            <option value="mouse">Mice</option>
+            <option value="keyboard">Keyboards</option>
+            <option value="monitor">Monitors</option>
+            <option value="accessories">Accessories</option>
+        </select>
+    </div>
+
+    <!-- Price Range -->
+    <div class="filter-group">
+        <label for="price">Price Range:</label>
+        <input type="range" id="price" name="price" min="0" max="400" step="10" />
+        <span id="price-value">£0 - £400</span>
+    </div>
+
+    <!-- Compatibility Checkbox -->
+    <div class="filter-group">
+        <label>Compatibility:</label>
+        <div class="checkboxes">
+            <label><input type="checkbox" name="compatibility" value="windows" /> Windows</label>
+            <label><input type="checkbox" name="compatibility" value="mac" /> Mac</label>
+            <label><input type="checkbox" name="compatibility" value="linux" /> Linux</label>
+        </div>
+    </div>
+
+    <button class="apply-filter">Apply Filters</button>
+
+</section>
+
+<main class="product-listing">
+    @foreach ($products as $product)
+        <div class="product-card">
+            <img 
+                src="{{ $product->image_url }}"
+                alt="{{ $product->name }}"
+                class="{{ $product->type === 'mouse' || $product->type === 'keyboard' ? 'product-img' : 'product-img2' }}"
+            />
+
+            <h3 class="product-title">{{ $product->name }}</h3>
+
+            <p class="product-price">£{{ number_format($product->price, 2) }}</p>
+
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+    @endforeach
+</main>
+
+<script src="/js/search_logic.js"></script>
+
+@endsection

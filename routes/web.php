@@ -1,41 +1,29 @@
 <?php
 
-use App\Http\Controllers\Frontend\frontendController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 
-// ✅ Home page now points to your public/index.php (or landing.php if preferred)
-Route::get('/', function () {
-    return redirect('/Landing.php');   // or '/landing.php'
-});
+// // ✅ Static Blade views (now in resources/views/pages)
+// Route::view('/', 'pages.Landing')->name('landing');
+// Route::view('/about-us', 'pages.about_us')->name('about');
+// Route::view('/contact', 'pages.Contact')->name('contact');
+// Route::view('/checkout', 'pages.checkout')->name('checkout');
 
-// ✅ Static pages now in public/
-Route::get('/about-us', function () {
-    return redirect('/about_us.php');
-});
+// // ✅ Product listing (dynamic)
+// Route::get('/ProductListing', [ProductController::class, 'index'])->name('products.list');
 
-Route::get('/contact', function () {
-    return redirect('/contact.php');
-});
+// // ✅ Optional cleaner alias for product listing
+// Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+// Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 
-Route::get('/checkout', function () {
-    return redirect('/checkout.php');
-});
+Route::view('/', 'pages.Landing')->name('landing');
+Route::view('/contact', 'pages.Contact')->name('contact');
+Route::view('/about-us', 'pages.about_us')->name('about');
+Route::view('/checkout', 'pages.checkout')->name('checkout');
 
-Route::get('/landing', function () {
-    return redirect('/landing.php');
-});
+Route::get('/products', [ProductController::class, 'index'])->name('products.list');
 
-// Route::get('/product-listing', function () {
-//     return redirect('/products.php');
-// });
-
-Route::get('/ProductListing', [ProductController::class, 'index']);
-
-// ✅ Product controller routes (these stay as-is)
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 
 // ✅ Dashboard + Auth
 Route::get('/dashboard', function () {

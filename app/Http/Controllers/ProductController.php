@@ -14,7 +14,7 @@ class ProductController extends Controller
         $products = Product::all();
 
         // Pass products to the view
-        return view('ProductListing', compact('products'));
+        return view('pages.ProductListing', compact('products'));
     }
 
     public function show($id)
