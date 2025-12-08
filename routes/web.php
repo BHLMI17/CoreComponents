@@ -20,7 +20,7 @@ use App\Http\Controllers\ProfileController;
 Route::view('/', 'pages.Landing')->name('landing');
 Route::view('/contact', 'pages.Contact')->name('contact');
 Route::view('/about-us', 'pages.about_us')->name('about');
-Route::view('/checkout', 'pages.checkout')->name('checkout');
+Route::view('/checkout', 'pages.checkout.checkout')->name('checkout');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.list');
 
