@@ -8,14 +8,14 @@ use App\Http\Controllers\BasketController;
 
 // // ✅ Static Blade views (now in resources/views/pages)
 // Route::view('/', 'pages.Landing')->name('landing');
-// Route::view('/about-us', 'pages.about_us')->name('about');
+Route::view('/about-us', 'pages.about_us')->name('about');
 // Route::view('/contact', 'pages.Contact')->name('contact');
 // Route::view('/checkout', 'pages.checkout')->name('checkout');
 
 // // ✅ Product listing (dynamic)
 // Route::get('/ProductListing', [ProductController::class, 'index'])->name('products.list');
 
-// // ✅ Optional cleaner alias for product listing
+// //  Optional cleaner alias for product listing
 // Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 // Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 
