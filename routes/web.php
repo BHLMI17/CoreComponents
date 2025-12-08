@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BasketController;
+
 
 // // ✅ Static Blade views (now in resources/views/pages)
 // Route::view('/', 'pages.Landing')->name('landing');
@@ -22,6 +24,7 @@ Route::view('/contact', 'pages.Contact')->name('contact');
 Route::view('/about-us', 'pages.about_us')->name('about');
 Route::view('/checkout', 'pages.checkout.checkout')->name('checkout');
 
+Route::post('/basket/add', [BasketController::class, 'add'])->name('basket.add');
 Route::get('/products', [ProductController::class, 'index'])->name('products.list');
 
 

@@ -65,15 +65,17 @@
 
                 <p class="product-price">£{{ number_format($product->price, 2) }}</p>
 
-                <button class="add-to-cart">Add to Cart</button>
+                {{-- ✅ Add to Basket Form (Basket Model) --}}
+                <form action="{{ route('basket.add') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <button type="submit" class="add-to-cart">Add to Basket</button>
+                </form>
             </div>
         @endforeach
 
     @endif
 
 </main>
-
-{{-- ✅ Remove old JS search logic (no longer needed) --}}
-{{-- <script src="/js/search_logic.js"></script> --}}
 
 @endsection
