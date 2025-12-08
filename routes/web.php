@@ -24,7 +24,10 @@ Route::view('/contact', 'pages.Contact')->name('contact');
 Route::view('/about-us', 'pages.about_us')->name('about');
 Route::view('/checkout', 'pages.checkout.checkout')->name('checkout');
 
-Route::post('/basket/add', [BasketController::class, 'add'])->name('basket.add');
+Route::post('/basket/add', [BasketController::class, 'add'])
+    ->middleware('auth')
+    ->name('basket.add');
+    
 Route::get('/products', [ProductController::class, 'index'])->name('products.list');
 
 
