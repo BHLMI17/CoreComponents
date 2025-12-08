@@ -8,14 +8,21 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
-    {
-        // Fetch all products from the database
-        $products = Product::all();
+    public function index(Request $request)
+{
+    // Get the search query from the URL (?q=...)
+    $query = $request->input('q');
 
-        // Pass products to the view
-        return view('pages.ProductListing', compact('products'));
-    }
+    // Fetch products, filtered if a search query exists
+    $products = Product::when($query, function ($q) use ($query) {
+        $q->where('name', 'LIKE', '%' . $query . '%')
+          ->orWhere('type', 'LIKE', '%' . $query . '%');
+    })->get();
+
+    // Pass products + query back to the view
+    return view('pages.ProductListing', compact('products', 'query'));
+}
+
 
     public function show($id)
     {

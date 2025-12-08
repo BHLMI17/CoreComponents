@@ -2,9 +2,9 @@
     <img src="/images/CoreComponentsLogo.png" alt="CoreComponents Logo" class="logo-img" />
 
     <div class="search-wrapper">
-        <form id="search-form" class="search-bar">
-            <input id="search-input" type="text" placeholder="Search..." />
-            <button type="submit">🔍</button>
+        <form id="search-form" class="search-bar" action="{{ route('products.list') }}" method="GET">
+          <input id="search-input" name="q" type="text" placeholder="Search..." />
+          <button type="submit">🔍</button>
         </form>
     </div>
 

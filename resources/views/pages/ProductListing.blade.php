@@ -43,23 +43,37 @@
 </section>
 
 <main class="product-listing">
-    @foreach ($products as $product)
-        <div class="product-card">
-            <img 
-                src="{{ $product->image_url }}"
-                alt="{{ $product->name }}"
-                class="{{ $product->type === 'mouse' || $product->type === 'keyboard' ? 'product-img' : 'product-img2' }}"
-            />
 
-            <h3 class="product-title">{{ $product->name }}</h3>
-
-            <p class="product-price">£{{ number_format($product->price, 2) }}</p>
-
-            <button class="add-to-cart">Add to Cart</button>
+    {{-- ✅ Show "No results" message if search returned nothing --}}
+    @if($products->isEmpty())
+        <div class="no-results-msg" style="text-align:center; padding:2rem; width:100%;">
+            <h3>No results found{{ isset($query) ? ' for "' . $query . '"' : '' }}</h3>
+            <p>Try checking your spelling or using different keywords.</p>
         </div>
-    @endforeach
+    @else
+
+        {{-- ✅ Loop through products normally --}}
+        @foreach ($products as $product)
+            <div class="product-card">
+                <img 
+                    src="{{ $product->image_url }}"
+                    alt="{{ $product->name }}"
+                    class="{{ $product->type === 'mouse' || $product->type === 'keyboard' ? 'product-img' : 'product-img2' }}"
+                />
+
+                <h3 class="product-title">{{ $product->name }}</h3>
+
+                <p class="product-price">£{{ number_format($product->price, 2) }}</p>
+
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        @endforeach
+
+    @endif
+
 </main>
 
-<script src="/js/search_logic.js"></script>
+{{-- ✅ Remove old JS search logic (no longer needed) --}}
+{{-- <script src="/js/search_logic.js"></script> --}}
 
 @endsection
