@@ -4,77 +4,74 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Basket;
 
 class BasketController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display all basket items.
      */
     public function index()
-    {
-        // Returns all items in current user's basket
-        $cart = session()->get('cart', []);
-        return response()->json($cart);
-    }
-
+{
+    $items = Basket::all();
+    return response()->json($items);
+}
 
     /**
-     * Store a newly created resource in storage.
+     * Add a product to the basket.
      */
-    public function store(Request $request, $productId)
+    public function add(Request $request)
     {
-        $product = Product::findOrFail($productId); // Grabs details of product
+        $product = Product::findOrFail($request->product_id);
 
-        $cart = session()->get('cart', []);
+        // Check if product already exists in basket
+        $existing = Basket::where('product_id', $product->id)->first();
 
-        if(isset($cart[$productId])) {
-            $cart[$productId]['quantity']++;
-    } else {
-        $cart[$productId] = [
-            'name' => $product->name,
-            'price' => $product->price,
-            'quantity' => 1,
-            'image' => $product->image_url ?? null // image for frontend
-        ];
-    }
-
-    session()->put('cart', $cart);
-    return response()->json($cart);
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        $quantity = $request->input('quantity');
-        $cart = session()->get('cart', []);
-
-        if(isset($cart[$id])) {
-            $cart[$id]['quantity'] = $quantity;
-            session()->put('cart', $cart);
+        if ($existing) {
+            $existing->quantity += 1;
+            $existing->save();
+        } else {
+            Basket::create([
+                'product_id' => $product->id,
+                'name'       => $product->name,
+                'price'      => $product->price,
+                'quantity'   => 1,
+                'image'      => $product->image_url ?? null,
+            ]);
         }
 
-        return response()->json($cart);
+        return redirect()->back()->with('success', 'Added to basket!');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Update quantity of a basket item.
      */
-    public function destroy(string $id)
+    public function update(Request $request, $id)
     {
-        $cart = session()->get('cart', []);
-        if(isset($cart[$id])) {
-            unset($cart[$id]);
-            session()->put('cart', $cart);
-        }
-        return response()->json($cart);
+        $item = Basket::findOrFail($id);
+        $item->quantity = $request->quantity;
+        $item->save();
+
+        return response()->json($item);
     }
 
+    /**
+     * Remove a single item from basket.
+     */
+    public function destroy($id)
+    {
+        $item = Basket::findOrFail($id);
+        $item->delete();
+
+        return response()->json(['message' => 'Item removed']);
+    }
+
+    /**
+     * Clear the entire basket.
+     */
     public function clear()
     {
-        session()->forget('cart');
-        return response()->json([]);
+        Basket::truncate();
+        return response()->json(['message' => 'Basket cleared']);
     }
-    }
+}
