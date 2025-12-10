@@ -5,37 +5,29 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BasketController;
 
-
-// // ✅ Static Blade views (now in resources/views/pages)
-// Route::view('/', 'pages.Landing')->name('landing');
-Route::view('/about-us', 'pages.about_us')->name('about');
-// Route::view('/contact', 'pages.Contact')->name('contact');
-// Route::view('/checkout', 'pages.checkout')->name('checkout');
-
-// // ✅ Product listing (dynamic)
-// Route::get('/ProductListing', [ProductController::class, 'index'])->name('products.list');
-
-// //  Optional cleaner alias for product listing
-// Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-// Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
-
 Route::view('/', 'pages.Landing')->name('landing');
 Route::view('/contact', 'pages.Contact')->name('contact');
 Route::view('/about-us', 'pages.about_us')->name('about');
-Route::view('/checkout', 'pages.checkout.checkout')->name('checkout');
 
-Route::post('/basket/add', [BasketController::class, 'add'])
-    ->middleware('auth')
-    ->name('basket.add');
-    
 Route::get('/products', [ProductController::class, 'index'])->name('products.list');
 
-
-// ✅ Dashboard + Auth
+// Dashboard + Auth
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// Basket/Cart routes - PROTECTED BY AUTH
+Route::middleware(['auth'])->group(function () {
+    Route::get('/basket', [BasketController::class, 'index'])->name('basket.index');
+    Route::post('/basket/add', [BasketController::class, 'add'])->name('basket.add');
+    Route::put('/basket/update/{id}', [BasketController::class, 'update'])->name('basket.update');
+    Route::delete('/basket/remove/{id}', [BasketController::class, 'destroy'])->name('basket.remove');
+    Route::delete('/basket/clear', [BasketController::class, 'clear'])->name('basket.clear');
+    
+    Route::view('/checkout', 'pages.checkout.checkout')->name('checkout');
+});
+
+// Profile routes
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
