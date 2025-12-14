@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Basket extends Model
 {
     protected $fillable = [
-        'user_id',
-        'product_id',
-        'quantity',
-    ];
+    'user_id',
+    'product_id',
+    'name',
+    'price',
+    'quantity',
+    'image',
+];
 
     /**
      * The product linked with the basket item
