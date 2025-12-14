@@ -9,13 +9,13 @@ use App\Models\Basket;
 class BasketController extends Controller
 {
     /**
-     * Display all basket items.
+     * Display all basket items for the logged‑in user.
      */
     public function index()
-{
-    $items = Basket::all();
-    return response()->json($items);
-}
+    {
+        $items = Basket::where('user_id', auth()->id())->get();
+        return view('pages.basket.index', compact('items'));
+    }
 
     /**
      * Add a product to the basket.
@@ -24,14 +24,16 @@ class BasketController extends Controller
     {
         $product = Product::findOrFail($request->product_id);
 
-        // Check if product already exists in basket
-        $existing = Basket::where('product_id', $product->id)->first();
+        $existing = Basket::where('user_id', auth()->id())
+                          ->where('product_id', $product->id)
+                          ->first();
 
         if ($existing) {
             $existing->quantity += 1;
             $existing->save();
         } else {
             Basket::create([
+                'user_id'    => auth()->id(),
                 'product_id' => $product->id,
                 'name'       => $product->name,
                 'price'      => $product->price,
@@ -44,15 +46,24 @@ class BasketController extends Controller
     }
 
     /**
+     * Show checkout page with basket items.
+     */
+    public function checkout()
+    {
+        $items = Basket::where('user_id', auth()->id())->get();
+        return view('pages.checkout.checkout', compact('items'));
+    }
+
+    /**
      * Update quantity of a basket item.
      */
     public function update(Request $request, $id)
     {
-        $item = Basket::findOrFail($id);
+        $item = Basket::where('user_id', auth()->id())->findOrFail($id);
         $item->quantity = $request->quantity;
         $item->save();
 
-        return response()->json($item);
+        return redirect()->back();
     }
 
     /**
@@ -60,18 +71,18 @@ class BasketController extends Controller
      */
     public function destroy($id)
     {
-        $item = Basket::findOrFail($id);
+        $item = Basket::where('user_id', auth()->id())->findOrFail($id);
         $item->delete();
 
-        return response()->json(['message' => 'Item removed']);
+        return redirect()->back();
     }
 
     /**
-     * Clear the entire basket.
+     * Clear the entire basket for this user.
      */
     public function clear()
     {
-        Basket::truncate();
-        return response()->json(['message' => 'Basket cleared']);
+        Basket::where('user_id', auth()->id())->delete();
+        return redirect()->back();
     }
 }

@@ -119,10 +119,30 @@
         <h2>Order Summary</h2>
         <div class="card">
 
-            {{-- You will populate this dynamically later --}}
-            <p style="text-align:center; padding:1rem; opacity:0.7;">
-                No items in summary yet.
-            </p>
+            @if($items->isEmpty())
+                <p style="text-align:center; padding:1rem; opacity:0.7;">
+                    Your basket is empty.
+                </p>
+            @else
+                @foreach($items as $item)
+                    <div class="checkout-item">
+                        <img src="{{ $item->image }}" alt="{{ $item->name }}" class="checkout-item-image">
+
+                        <div class="checkout-item-details">
+                            <h4>{{ $item->name }}</h4>
+                            <p>£{{ number_format($item->price, 2) }}</p>
+                            <p>Quantity: {{ $item->quantity }}</p>
+                        </div>
+                    </div>
+                @endforeach
+
+                <hr>
+
+                <div class="checkout-total">
+                    <strong>Total:</strong>
+                    £{{ number_format($items->sum(fn($i) => $i->price * $i->quantity), 2) }}
+                </div>
+            @endif
 
             <button class="btn-checkout" onclick="showPrototypeModal()">Complete Order</button>
         </div>
