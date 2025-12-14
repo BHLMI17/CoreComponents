@@ -9,13 +9,12 @@ use App\Models\Basket;
 class BasketController extends Controller
 {
     /**
-     * Display all basket items for the authenticated user.
+     * Display all basket items for the logged‑in user.
      */
     public function index()
     {
-        $userId = auth()->id();
-        $items = Basket::where('user_id', $userId)->get();
-        return response()->json($items);
+        $items = Basket::where('user_id', auth()->id())->get();
+        return view('pages.basket.index', compact('items'));
     }
 
     /**
@@ -23,32 +22,36 @@ class BasketController extends Controller
      */
     public function add(Request $request)
     {
-        $userId = auth()->id();
-        $productId = $request->input('product_id');
-        
-        if (!$productId) {
-            return response()->json(['error' => 'Product ID required'], 400);
-        }
-        
-        $product = Product::findOrFail($productId);
-        $existing = Basket::where('user_id', $userId)->where('product_id', $product->id)->first();
+        $product = Product::findOrFail($request->product_id);
+
+        $existing = Basket::where('user_id', auth()->id())
+                          ->where('product_id', $product->id)
+                          ->first();
 
         if ($existing) {
             $existing->quantity += 1;
             $existing->save();
         } else {
             Basket::create([
-                'user_id' => $userId,
+                'user_id'    => auth()->id(),
                 'product_id' => $product->id,
-                'name' => $product->name,
-                'price' => $product->price,
-                'quantity' => 1,
-                'image' => $product->image_url ?? null,
+                'name'       => $product->name,
+                'price'      => $product->price,
+                'quantity'   => 1,
+                'image'      => $product->image_url ?? null,
             ]);
         }
 
-        $items = Basket::where('user_id', $userId)->get();
-        return response()->json($items);
+        return redirect()->back()->with('success', 'Added to basket!');
+    }
+
+    /**
+     * Show checkout page with basket items.
+     */
+    public function checkout()
+    {
+        $items = Basket::where('user_id', auth()->id())->get();
+        return view('pages.checkout.checkout', compact('items'));
     }
 
     /**
@@ -56,11 +59,11 @@ class BasketController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $userId = auth()->id();
-        $item = Basket::where('id', $id)->where('user_id', $userId)->firstOrFail();
+        $item = Basket::where('user_id', auth()->id())->findOrFail($id);
         $item->quantity = $request->quantity;
         $item->save();
-        return response()->json($item);
+
+        return redirect()->back();
     }
 
     /**
@@ -68,20 +71,18 @@ class BasketController extends Controller
      */
     public function destroy($id)
     {
-        $userId = auth()->id();
-        $item = Basket::where('id', $id)->where('user_id', $userId)->firstOrFail();
+        $item = Basket::where('user_id', auth()->id())->findOrFail($id);
         $item->delete();
-        $items = Basket::where('user_id', $userId)->get();
-        return response()->json($items);
+
+        return redirect()->back();
     }
 
     /**
-     * Clear the entire basket for the current user.
+     * Clear the entire basket for this user.
      */
     public function clear()
     {
-        $userId = auth()->id();
-        Basket::where('user_id', $userId)->delete();
-        return response()->json(['message' => 'Basket cleared']);
+        Basket::where('user_id', auth()->id())->delete();
+        return redirect()->back();
     }
 }
