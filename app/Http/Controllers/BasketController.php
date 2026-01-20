@@ -13,8 +13,13 @@ class BasketController extends Controller
      */
     public function index()
     {
-        $items = Basket::where('user_id', auth()->id())->get();
-        return view('pages.basket.index', compact('items'));
+        $identifier = auth()->check()
+            ? ['user_id' => auth()->id()]
+            : ['session_id' => session()->getId()];
+
+        $items = Basket::where($identifier)->get();
+
+        return view('pages.basket', compact('items')); // adjust this line to match your file path
     }
 
     /**
@@ -24,16 +29,23 @@ class BasketController extends Controller
     {
         $product = Product::findOrFail($request->product_id);
 
-        $existing = Basket::where('user_id', auth()->id())
-                          ->where('product_id', $product->id)
-                          ->first();
+        // Identify guest or logged-in user
+        $identifier = auth()->check()
+            ? ['user_id' => auth()->id()]
+            : ['session_id' => session()->getId()];
+
+        // Check if item already exists for this user/session
+        $existing = Basket::where($identifier)
+                        ->where('product_id', $product->id)
+                        ->first();
 
         if ($existing) {
             $existing->quantity += 1;
             $existing->save();
         } else {
             Basket::create([
-                'user_id'    => auth()->id(),
+                'user_id'    => auth()->id(), // null for guests
+                'session_id' => auth()->check() ? null : session()->getId(),
                 'product_id' => $product->id,
                 'name'       => $product->name,
                 'price'      => $product->price,
@@ -50,7 +62,12 @@ class BasketController extends Controller
      */
     public function checkout()
     {
-        $items = Basket::where('user_id', auth()->id())->get();
+        $identifier = auth()->check()
+            ? ['user_id' => auth()->id()]
+            : ['session_id' => session()->getId()];
+
+        $items = Basket::where($identifier)->get();
+
         return view('pages.checkout.checkout', compact('items'));
     }
 

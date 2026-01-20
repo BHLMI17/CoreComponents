@@ -9,7 +9,7 @@
     </div>
 
     <div class="icon-group">
-        <a href="{{ route('checkout') }}" id="btn-cart" class="icon">🛒</a>
+        <a href="{{ route('basket.index') }}" id="btn-cart" class="icon">🛒</a>
         @auth
             <a href="{{ route('register') }}" id="btn-account" class="icon">👤</a>
         @endauth

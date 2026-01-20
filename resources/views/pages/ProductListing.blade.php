@@ -66,19 +66,19 @@
                 <p class="product-price">£{{ number_format($product->price, 2) }}</p>
 
                 {{-- ✅ Add to Basket Form (Basket Model) --}}
-                @auth
+                {{-- @auth --}}
                     <form action="{{ route('basket.add') }}" method="POST">
                         @csrf
                         <input type="hidden" name="product_id" value="{{ $product->id }}">
                         <button type="submit" class="add-to-cart">Add to Basket</button>
                     </form>
-                @endauth
+                {{-- @endauth --}}
 
-                @guest
+                {{-- @guest
                     <a href="{{ route('register') }}" class="add-to-cart">
                         Sign up to Add to Basket
                     </a>
-                @endguest
+                @endguest --}}
             </div>
         @endforeach
 

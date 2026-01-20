@@ -18,19 +18,23 @@ Route::get('/dashboard', function () {
 
 // Basket/Cart routes - PROTECTED BY AUTH
 Route::middleware(['auth'])->group(function () {
-    Route::get('/basket', [BasketController::class, 'index'])->name('basket.index');
-    Route::post('/basket/add', [BasketController::class, 'add'])->name('basket.add');
-    Route::put('/basket/update/{id}', [BasketController::class, 'update'])->name('basket.update');
-    Route::delete('/basket/remove/{id}', [BasketController::class, 'destroy'])->name('basket.remove');
-    Route::delete('/basket/clear', [BasketController::class, 'clear'])->name('basket.clear');
+   
     
     Route::view('/checkout', 'pages.checkout.checkout')->name('checkout');
 });
 
 
+Route::get('/basket', [BasketController::class, 'index'])->name('basket.index');
+Route::post('/basket/add', [BasketController::class, 'add'])->name('basket.add');
+Route::put('/basket/update/{id}', [BasketController::class, 'update'])->name('basket.update');
+Route::delete('/basket/remove/{id}', [BasketController::class, 'destroy'])->name('basket.remove');
+Route::delete('/basket/clear', [BasketController::class, 'clear'])->name('basket.clear');
+
+
+
+
 Route::middleware('auth')->group(function () {
-    Route::post('/basket/add', [BasketController::class, 'add'])->name('basket.add');
-    Route::get('/basket', [BasketController::class, 'index'])->name('basket.index');
+   
     Route::get('/checkout', [BasketController::class, 'checkout'])->name('checkout');
 });
 
