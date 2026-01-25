@@ -10,11 +10,9 @@
 
 <div class="container">
 
-
-
-    {{-- ✅ Order Summary (empty — no filler data) --}}
     <div class="order-summary">
         <h2>Order Summary</h2>
+
         <div class="card">
 
             @if($items->isEmpty())
@@ -22,34 +20,45 @@
                     Your basket is empty.
                 </p>
             @else
-                @foreach($items as $item)
-                    <div class="checkout-item">
-                        <img src="{{ $item->image }}" alt="{{ $item->name }}" class="checkout-item-image">
 
-                        <div class="checkout-item-details">
-                            <h4>{{ $item->name }}</h4>
-                            <p>£{{ number_format($item->price, 2) }}</p>
-                            <p>Quantity: {{ $item->quantity }}</p>
+                @foreach($items as $item)
+                    <div class="cart-item">
+                        <div class="item-info">
+                            {{-- Uses OG CSS: .item-img --}}
+                            <div class="item-img" style="background-image: url('{{ $item->image }}');"></div>
+
+                            <div class="item-details">
+                                <h4>{{ $item->name }}</h4>
+                                <p>£{{ number_format($item->price, 2) }}</p>
+                                <p>Quantity: {{ $item->quantity }}</p>
+                            </div>
                         </div>
+
+                        {{-- Remove button (right side) --}}
+                        <form action="{{ route('basket.remove', $item->id) }}" method="POST" class="remove-item-form">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="remove-item-btn" title="Remove item">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
                     </div>
                 @endforeach
 
-                <hr>
-
-                <div class="checkout-total">
-                    <strong>Total:</strong>
-                    £{{ number_format($items->sum(fn($i) => $i->price * $i->quantity), 2) }}
+                <div class="summary-totals">
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span>£{{ number_format($items->sum(fn($i) => $i->price * $i->quantity), 2) }}</span>
+                    </div>
                 </div>
+
             @endif
 
             <a href="{{ route('checkout') }}" class="btn-checkout">Complete Order</a>
+
         </div>
     </div>
 
 </div>
-
-
-
-
 
 @endsection

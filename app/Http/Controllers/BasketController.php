@@ -68,9 +68,11 @@ class BasketController extends Controller
             'quantity' => 'required|integer|min:1'
         ]);
 
+        // ✅ Securely find the item that belongs to this user/session
         $item = Basket::where($this->identifier())
-            ->with('product')   // ✅ Missing before — now added
-            ->findOrFail($id);
+            ->whereKey($id)
+            ->with('product')
+            ->firstOrFail();
 
         $item->quantity = $request->quantity;
         $item->save();
@@ -80,15 +82,19 @@ class BasketController extends Controller
 
     public function destroy($id)
     {
-        $item = Basket::where($this->identifier())->findOrFail($id);
+        // ✅ Securely delete only the item that belongs to this user/session
+        $item = Basket::where($this->identifier())
+            ->whereKey($id)
+            ->firstOrFail();
+
         $item->delete();
 
-        return back();
+        return back()->with('success', 'Item removed from cart.');
     }
 
     public function clear()
     {
         Basket::where($this->identifier())->delete();
-        return back();
+        return back()->with('success', 'Basket cleared.');
     }
 }

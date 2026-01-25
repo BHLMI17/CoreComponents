@@ -410,3 +410,23 @@ input:focus {
     .nav-links-row { flex-wrap: wrap; gap: 20px; }
     .payment-methods-grid { grid-template-columns: repeat(3, 1fr); }
 }
+/* --- REMOVE ITEM BUTTON (added, does not affect existing layout) --- */
+.remove-item-form { margin: 0; }
+
+.remove-item-btn{
+    background: rgba(220, 53, 69, 0.15);
+    border: 1px solid rgba(220, 53, 69, 0.35);
+    color: #dc3545;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: opacity 0.2s ease;
+}
+
+.remove-item-btn:hover{ opacity: 0.85; }
