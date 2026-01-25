@@ -114,43 +114,70 @@
         </form>
     </div>
 
-    {{-- ✅ Order Summary (empty — no filler data) --}}
-    <div class="order-summary">
-        <h2>Order Summary</h2>
-        <div class="card">
+ {{-- Order Summary --}}
+<div class="order-summary">
+    <h2>Order Summary</h2>
+    <div class="card">
 
-            @if($items->isEmpty())
-                <p style="text-align:center; padding:1rem; opacity:0.7;">
-                    Your basket is empty.
-                </p>
-            @else
-                @foreach($items as $item)
-                    <div class="checkout-item">
-                        <img src="{{ $item->image }}" alt="{{ $item->name }}" class="checkout-item-image">
+        @if($items->isEmpty())
+            <p style="text-align:center; padding:1rem; opacity:0.7;">
+                Your basket is empty.
+            </p>
+        @else
+            @php $netTotal = 0; @endphp
 
-                        <div class="checkout-item-details">
-                            <h4>{{ $item->name }}</h4>
-                            <p>£{{ number_format($item->price, 2) }}</p>
-                            <p>Quantity: {{ $item->quantity }}</p>
-                        </div>
-                    </div>
-                @endforeach
+@foreach($items as $item)
+    @php
+        $product = $item->product;
+        $lineTotal = $item->line_total;
+        $netTotal += $lineTotal;
+    @endphp
 
-                <hr>
+    <div class="checkout-item">
+        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="checkout-item-image">
 
-                <div class="checkout-total">
-                    <strong>Total:</strong>
-                    £{{ number_format($items->sum(fn($i) => $i->price * $i->quantity), 2) }}
-                </div>
-            @endif
+        <div class="checkout-item-details">
+            <h4>{{ $product->name }}</h4>
+            <p>Price: £{{ number_format($product->price, 2) }}</p>
 
-            <button class="btn-checkout" onclick="showPrototypeModal()">Complete Order</button>
+            <form action="{{ route('basket.update', $item->id) }}" method="POST" style="display:inline-block;">
+                @csrf
+                @method('PUT')
+                <label>Quantity:</label>
+                <input type="number" name="quantity" value="{{ $item->quantity }}" min="1" style="width:60px;">
+                <button type="submit" class="btn-small">Update</button>
+            </form>
+
+            <form action="{{ route('basket.remove', $item->id) }}" method="POST" style="display:inline-block;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn-small btn-danger">Remove</button>
+            </form>
+
+            <p>Line Total: £{{ number_format($lineTotal, 2) }}</p>
         </div>
     </div>
+@endforeach
 
+<hr>
+
+<div class="checkout-total">
+    <strong>Net Total (before VAT):</strong>
+    £{{ number_format($netTotal, 2) }}
+</div>
+            <hr>
+
+            <div class="checkout-total">
+                <strong>Net Total (before VAT):</strong>
+                £{{ number_format($netTotal, 2) }}
+            </div>
+        @endif
+
+        <button class="btn-checkout" onclick="showPrototypeModal()">Complete Order</button>
+    </div>
 </div>
 
-{{-- ✅ Prototype Modal --}}
+{{--  Prototype Modal --}}
 <div id="prototype-modal" class="modal-overlay">
     <div class="modal-content card">
         <i class="fa-solid fa-triangle-exclamation" style="font-size: 3rem; color: #ffc439; margin-bottom: 20px;"></i>
