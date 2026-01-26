@@ -38,6 +38,15 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
+                        <!-- Delete Account -->
+                        <x-dropdown-link
+                            href="#"
+                            x-data=""
+                            x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
+                        >
+                            {{ __('Delete Account') }}
+                        </x-dropdown-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -82,6 +91,15 @@
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
+                </x-responsive-nav-link>
+
+                <!-- Delete Account (Mobile) -->
+                <x-responsive-nav-link
+                    href="#"
+                    x-data=""
+                    x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
+                >
+                    {{ __('Delete Account') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
