@@ -10,7 +10,7 @@ class MergeGuestBasket
     public function handle(Authenticated $event)
     {
         $sessionId = session()->getId();
-        $userId = $event->user->id;
+        $userId = $event->user->getAuthIdentifier(); // <-- FIXED
 
         // Get guest basket items
         $guestItems = Basket::where('session_id', $sessionId)->get();
