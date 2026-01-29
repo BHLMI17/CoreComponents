@@ -25,10 +25,13 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
 
+        // Capture guest session ID BEFORE authentication regenerates it
         session(['guest_session_id' => session()->getId()]);
 
+        // This regenerates the session internally
         $request->authenticate();
 
+        // Laravel regenerates again (this is fine)
         $request->session()->regenerate();
 
         return redirect()->intended(route('landing'));

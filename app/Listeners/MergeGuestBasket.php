@@ -2,15 +2,16 @@
 
 namespace App\Listeners;
 
-use Illuminate\Auth\Events\Authenticated;
+use Illuminate\Auth\Events\Login;
 use App\Models\Basket;
 
 class MergeGuestBasket
 {
-    public function handle(Authenticated $event)
+    public function handle(Login $event)
     {
-        $sessionId = session()->getId();
-        $userId = $event->user->getAuthIdentifier(); // <-- FIXED
+        // Use the guest session ID captured before login
+        $sessionId = session()->pull('guest_session_id') ?? session()->getId();
+        $userId = $event->user->getAuthIdentifier();
 
         // Get guest basket items
         $guestItems = Basket::where('session_id', $sessionId)->get();
