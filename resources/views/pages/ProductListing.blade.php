@@ -9,50 +9,62 @@
 
 <section class="filter-bar">
 
-    <!-- Category Dropdown -->
+    {{-- Search box (controller reads ts as q so if u needa fw sum shi use q) --}}
+   <form method="GET" action="{{ route('products.list') }}" class="filter-bar">
     <div class="filter-group">
-        <label for="category">Category:</label>
-        <select id="category" name="category">
+        <label for="q">Search:</label>
+        <input id="q" name="q" type="text" value="{{ request('q') }}" placeholder="Search products..." />
+    </div>
+
+    {{-- Category dropdown (DB column is type) --}}
+    <div class="filter-group">
+        <label for="type">Category:</label>
+        <select id="type" name="type">
             <option value="">All</option>
-            <option value="mouse">Mice</option>
-            <option value="keyboard">Keyboards</option>
-            <option value="monitor">Monitors</option>
-            <option value="accessories">Accessories</option>
+            @foreach ($types as $t)
+                <option value="{{ $t }}" {{ request('type') === $t ? 'selected' : '' }}>
+                    {{ ucfirst($t) }}
+                </option>
+            @endforeach
         </select>
     </div>
 
-    <!-- Price Range -->
+     {{-- Min/Max price (controller reads min_price + max_price) --}}
     <div class="filter-group">
-        <label for="price">Price Range:</label>
-        <input type="range" id="price" name="price" min="0" max="400" step="10" />
-        <span id="price-value">£0 - £400</span>
+        <label>Price Range:</label>
+        <input type="number" step="0.01" name="min_price" placeholder="Min" value="{{ request('min_price') }}" />
+        <input type="number" step="0.01" name="max_price" placeholder="Max" value="{{ request('max_price') }}" />
     </div>
 
-    <!-- Compatibility Checkbox -->
+    {{-- Sort dropdown (newest / price asc / price desc) --}}
     <div class="filter-group">
-        <label>Compatibility:</label>
-        <div class="checkboxes">
-            <label><input type="checkbox" name="compatibility" value="windows" /> Windows</label>
-            <label><input type="checkbox" name="compatibility" value="mac" /> Mac</label>
-            <label><input type="checkbox" name="compatibility" value="linux" /> Linux</label>
-        </div>
+        <label for="sort">Sort:</label>
+        <select id="sort" name="sort">
+            <option value="newest" {{ request('sort','newest') === 'newest' ? 'selected' : '' }}>Newest</option>
+            <option value="price_asc" {{ request('sort') === 'price_asc' ? 'selected' : '' }}>Price: Low → High</option>
+            <option value="price_desc" {{ request('sort') === 'price_desc' ? 'selected' : '' }}>Price: High → Low</option>
+        </select>
     </div>
 
-    <button class="apply-filter">Apply Filters</button>
+     {{-- Submit + reset --}}
+    <button type="submit" class="apply-filter">Apply Filters</button>
 
-</section>
+    <a href="{{ route('products.list') }}" class="apply-filter" style="text-decoration:none;">
+        Reset
+    </a>
+</form>
 
 <main class="product-listing">
 
-    {{-- ✅ Show "No results" message if search returned nothing --}}
-    @if($products->isEmpty())
+    {{-- Show "No results" msg if search finds nothin --}}
+    @if($products->count() === 0)
         <div class="no-results-msg" style="text-align:center; padding:2rem; width:100%;">
             <h3>No results found{{ isset($query) ? ' for "' . $query . '"' : '' }}</h3>
             <p>Try checking your spelling or using different keywords.</p>
         </div>
     @else
 
-        {{-- ✅ Loop through products normally --}}
+        {{-- Loop thru products normally --}}
         @foreach ($products as $product)
             <div class="product-card">
                 <img 
@@ -65,7 +77,7 @@
 
                 <p class="product-price">£{{ number_format($product->price, 2) }}</p>
 
-                {{-- ✅ Add to Basket Form (Basket Model) --}}
+                {{-- Add to Basket Form (Basket Model) --}}
                 {{-- @auth --}}
                     <form action="{{ route('basket.add') }}" method="POST">
                         @csrf
@@ -81,7 +93,8 @@
                 @endguest --}}
             </div>
         @endforeach
-
+        
+       
     @endif
 
 </main>

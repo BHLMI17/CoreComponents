@@ -160,57 +160,116 @@ body {
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
-  align-items: center;
-  justify-content: center;
+  gap: 12px;                 /* tighter spacing */
+  align-items: flex-end;     /* align bottoms of inputs/buttons */
+  justify-content: flex-start; /* looks cleaner than centered */
   background-color: #1e1e1e;
-  padding: 1rem 2rem;
+  padding: 12px 16px;
   border-bottom: 1px solid #333;
 }
 
+/* Each label+control */
 .filter-group {
   display: flex;
   flex-direction: column;
   color: #f0f0f0;
   font-size: 0.9rem;
+  gap: 6px;
+  min-width: 180px;          /* stops it becoming too skinny */
 }
 
+/* Labels */
 .filter-group label {
-  margin-bottom: 0.3rem;
+  margin: 0;
 }
 
+/* Controls (style ALL inputs now, not just range) */
 .filter-group select,
-.filter-group input[type="range"] {
+.filter-group input[type="text"],
+.filter-group input[type="number"] {
   background-color: #2a2a2a;
   border: 1px solid #444;
-  border-radius: 4px;
+  border-radius: 6px;
   color: #f0f0f0;
-  padding: 0.3rem;
+  padding: 8px 10px;
+  height: 40px;              /* consistent height */
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.checkboxes {
-  display: flex;
-  gap: 1rem;
+/* Put min/max on one line if they share a group */
+.filter-group input[type="number"] + input[type="number"] {
+  margin-top: 8px;
 }
 
-.checkboxes label {
-  font-size: 0.85rem;
-}
-
+/* Buttons */
 .apply-filter {
   background-color: #00ffa2;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+  padding: 0 16px;
+  border-radius: 6px;
   color: #121212;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  height: 40px;              /* match inputs */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;     /* makes Reset <a> look like a button */
 }
 
 .apply-filter:hover {
   background-color: #00cc88;
 }
+
+/* Optional: make the price range group a bit narrower */
+.filter-group.price-range {
+  min-width: 140px;
+}
+
+/* Force filter controls to flow horizontally */
+.filter-bar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 16px;
+}
+
+/* Make each group take only as much space as needed */
+.filter-group {
+  flex: 0 0 auto;      /* don't grow to fill the row */
+  min-width: 220px;    /* adjust to taste */
+}
+
+/* Don't let inputs stretch to the full page width */
+.filter-group select,
+.filter-group input[type="text"],
+.filter-group input[type="number"] {
+  width: 220px;        /* match min-width above */
+}
+
+/* Put min/max side-by-side */
+.filter-group.price-range {
+  min-width: auto;
+}
+.filter-group.price-range .price-row {
+  display: flex;
+  gap: 10px;
+}
+.filter-group.price-range .price-row input[type="number"] {
+  width: 105px;
+}
+
+/* Buttons sit inline with everything else */
+.filter-actions {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
 
 /* Checkout Page Layout */
 .checkout-page {
