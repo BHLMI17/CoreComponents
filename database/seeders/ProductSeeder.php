@@ -108,5 +108,156 @@ class ProductSeeder extends Seeder
             'compatibility' => ['windows', 'linux'],
             'type' => 'monitor',
         ]);
+
+                Product::create([
+            'name' => 'Logitech G Pro X Superlight',
+            'description' => 'Ultra-light wireless esports mouse.',
+            'price' => 129.99,
+            'image_url' => '/images/Logitech G Pro X Superlight.png',
+            'stock' => 50,
+            'compatibility' => ['windows', 'mac'],
+            'type' => 'mouse',
+        ]);
+
+        Product::create([
+            'name' => 'SteelSeries Rival 3',
+            'description' => 'Lightweight RGB gaming mouse.',
+            'price' => 29.99,
+            'image_url' => '/images/SteelSeries Rival 3.png',
+            'stock' => 50,
+            'compatibility' => ['windows', 'linux'],
+            'type' => 'mouse',
+        ]);
+
+        Product::create([
+            'name' => 'Glorious Model O',
+            'description' => 'Honeycomb lightweight mouse with RGB.',
+            'price' => 49.99,
+            'image_url' => '/images/Glorious Model O.png',
+            'stock' => 50,
+            'compatibility' => ['windows', 'mac', 'linux'],
+            'type' => 'mouse',
+        ]);
+
+        Product::create([
+            'name' => 'Corsair K70 RGB MK.2',
+            'description' => 'Mechanical keyboard with per-key RGB.',
+            'price' => 149.99,
+            'image_url' => '/images/Corsair K70 RGB MK2.png',
+            'stock' => 50,
+            'compatibility' => ['windows', 'mac'],
+            'type' => 'keyboard',
+        ]);
+
+        Product::create([
+            'name' => 'Razer Huntsman Mini',
+            'description' => 'Compact 60% keyboard with optical switches.',
+            'price' => 109.99,
+            'image_url' => '/images/Razer Huntsman Mini.png',
+            'stock' => 50,
+            'compatibility' => ['windows', 'mac'],
+            'type' => 'keyboard',
+        ]);
+
+        Product::create([
+            'name' => 'Keychron K2',
+            'description' => 'Wireless mechanical keyboard, compact layout.',
+            'price' => 89.99,
+            'image_url' => '/images/Keychron K2.png',
+            'stock' => 50,
+            'compatibility' => ['windows', 'mac', 'linux'],
+            'type' => 'keyboard',
+        ]);
+
+        Product::create([
+            'name' => 'AMD Ryzen 5 7600X',
+            'description' => '6-core CPU great for gaming and productivity.',
+            'price' => 229.99,
+            'image_url' => '/images/AMD Ryzen 5 7600X.png',
+            'stock' => 50,
+            'compatibility' => ['windows', 'linux'],
+            'type' => 'cpu',
+        ]);
+
+        Product::create([
+            'name' => 'Intel Core i5-13600K',
+            'description' => 'High performance hybrid CPU for gaming.',
+            'price' => 289.99,
+            'image_url' => '/images/Intel Core i5 13600K.png',
+            'stock' => 50,
+            'compatibility' => ['windows', 'linux'],
+            'type' => 'cpu',
+        ]);
+
+        Product::create([
+            'name' => 'AMD Ryzen 9 7900X',
+            'description' => '12-core high-end CPU for heavy workloads.',
+            'price' => 399.99,
+            'image_url' => '/images/AMD Ryzen 9 7900X.png',
+            'stock' => 50,
+            'compatibility' => ['windows', 'linux'],
+            'type' => 'cpu',
+        ]);
+
+        Product::create([
+            'name' => 'NVIDIA GeForce RTX 4070',
+            'description' => 'Powerful GPU for 1440p gaming.',
+            'price' => 599.99,
+            'image_url' => '/images/NVIDIA RTX 4070.png',
+            'stock' => 50,
+            'compatibility' => ['windows', 'linux'],
+            'type' => 'gpu',
+        ]);
+
+        Product::create([
+            'name' => 'AMD Radeon RX 7800 XT',
+            'description' => 'Strong value GPU for high refresh gaming.',
+            'price' => 499.99,
+            'image_url' => '/images/AMD RX 7800 XT.png',
+            'stock' => 50,
+            'compatibility' => ['windows', 'linux'],
+            'type' => 'gpu',
+        ]);
+
+        Product::create([
+            'name' => 'NVIDIA GeForce RTX 4060 Ti',
+            'description' => 'Efficient GPU for 1080p/1440p gaming.',
+            'price' => 399.99,
+            'image_url' => '/images/NVIDIA RTX 4060 Ti.png',
+            'stock' => 50,
+            'compatibility' => ['windows', 'linux'],
+            'type' => 'gpu',
+        ]);
+
+        Product::create([
+            'name' => 'ASUS TUF VG27AQ',
+            'description' => '27-inch 1440p 165Hz gaming monitor.',
+            'price' => 299.99,
+            'image_url' => '/images/ASUS TUF VG27AQ.png',
+            'stock' => 50,
+            'compatibility' => ['windows', 'mac'],
+            'type' => 'monitor',
+        ]);
+
+        Product::create([
+            'name' => 'AOC 24G2',
+            'description' => '24-inch 1080p 144Hz IPS gaming monitor.',
+            'price' => 159.99,
+            'image_url' => '/images/AOC 24G2.png',
+            'stock' => 50,
+            'compatibility' => ['windows', 'mac', 'linux'],
+            'type' => 'monitor',
+        ]);
+
+        Product::create([
+            'name' => 'LG 27GP850',
+            'description' => '27-inch 1440p high refresh IPS monitor.',
+            'price' => 349.99,
+            'image_url' => '/images/LG 27GP850.png',
+            'stock' => 50,
+            'compatibility' => ['windows', 'mac'],
+            'type' => 'monitor',
+        ]);
+
     }
 }
