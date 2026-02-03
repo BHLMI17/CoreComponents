@@ -13,6 +13,9 @@ Route::view('/about-us', 'pages.about_us')->name('about');
 // Products
 Route::get('/products', [ProductController::class, 'index'])->name('products.list');
 
+// Product Overview
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('products.show');
+
 // Basket (guest + user)
 Route::get('/basket', [BasketController::class, 'index'])->name('basket.index');
 Route::post('/basket/add', [BasketController::class, 'add'])->name('basket.add');

@@ -65,34 +65,32 @@
     @else
 
         {{-- Loop thru products normally --}}
-        @foreach ($products as $product)
-            <div class="product-card">
-                <img 
-                    src="{{ $product->image_url }}"
-                    alt="{{ $product->name }}"
-                    class="{{ $product->type === 'mouse' || $product->type === 'keyboard' ? 'product-img' : 'product-img2' }}"
-                />
+        {{-- Loop thru products normally --}}
+@foreach ($products as $product)
+    <div class="product-card">
+        
+        {{-- --- ADD THIS LINK START --- --}}
+        <a href="{{ route('products.show', $product->id) }}" style="text-decoration: none; color: inherit;">
+            <img 
+                src="{{ $product->image_url }}"
+                alt="{{ $product->name }}"
+                class="{{ $product->type === 'mouse' || $product->type === 'keyboard' ? 'product-img' : 'product-img2' }}"
+            />
 
-                <h3 class="product-title">{{ $product->name }}</h3>
+            <h3 class="product-title">{{ $product->name }}</h3>
+        </a>
+        {{-- --- ADD THIS LINK END --- --}}
 
-                <p class="product-price">£{{ number_format($product->price, 2) }}</p>
+        <p class="product-price">£{{ number_format($product->price, 2) }}</p>
 
-                {{-- Add to Basket Form (Basket Model) --}}
-                {{-- @auth --}}
-                    <form action="{{ route('basket.add') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        <button type="submit" class="add-to-cart">Add to Basket</button>
-                    </form>
-                {{-- @endauth --}}
-
-                {{-- @guest
-                    <a href="{{ route('register') }}" class="add-to-cart">
-                        Sign up to Add to Basket
-                    </a>
-                @endguest --}}
-            </div>
-        @endforeach
+        {{-- Add to Basket Form --}}
+        <form action="{{ route('basket.add') }}" method="POST">
+            @csrf
+            <input type="hidden" name="product_id" value="{{ $product->id }}">
+            <button type="submit" class="add-to-cart">Add to Basket</button>
+        </form>
+    </div>
+@endforeach
         
        
     @endif
