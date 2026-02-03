@@ -80,5 +80,16 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 
+Route::get('/admin/login', function () {
+    return view('auth.login');
+})->name('admin.login');
+
+Route::middleware(['auth', 'can:admin-only'])->group(function () {
+    Route::get('/admin', function () {
+        return view('admin.index');
+    })->name('admin.dashboard');
+});
+
+
 
 require __DIR__.'/auth.php';

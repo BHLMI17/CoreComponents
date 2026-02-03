@@ -22,9 +22,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
-    {
-
+    public function store(LoginRequest $request): RedirectResponse{
         // Capture guest session ID BEFORE authentication regenerates it
         session(['guest_session_id' => session()->getId()]);
 
@@ -34,10 +32,16 @@ class AuthenticatedSessionController extends Controller
         // Laravel regenerates again (this is fine)
         $request->session()->regenerate();
 
-        return redirect()->intended(route('landing'));
+        // Get the authenticated user
+        $user = $request->user();
 
+        // Redirect admins and super admins to admin dashboard
+        if (in_array($user->role, ['admin', 'super_admin'])) {
+            return redirect()->intended('/admin');
+        }
 
-    }
+        // Normal users go to your existing landing route
+        return redirect()->intended(route('landing'));}
 
     /**
      * Destroy an authenticated session.
