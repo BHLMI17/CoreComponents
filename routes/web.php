@@ -4,17 +4,40 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BasketController;
+use App\Models\Product;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
 
 // Public pages
-Route::view('/', 'pages.Landing')->name('landing');
+Route::get('/', function () { // ts for landing pages
+
+    // Featured: newest 8 (or whatever we tryna do)
+    $featuredProducts = Product::orderBy('created_at', 'desc')->take(8)->get();
+
+    // Section categories
+    $categories = ['mouse', 'keyboard', 'cpu', 'gpu', 'monitor'];
+
+    // Grab a few items per category (e.g. 4 each)
+    $productsByCategory = [];
+    foreach ($categories as $cat) {
+        $productsByCategory[$cat] = Product::where('type', $cat)
+            ->orderBy('created_at', 'desc')
+            ->take(4)
+            ->get();
+    }
+
+    return view('pages.Landing', compact('featuredProducts', 'categories', 'productsByCategory'));
+})->name('landing');
+
 Route::view('/contact', 'pages.Contact')->name('contact');
 Route::view('/about-us', 'pages.about_us')->name('about');
 
 // Products
 Route::get('/products', [ProductController::class, 'index'])->name('products.list');
+
+// Product Overview
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('products.show');
 
 // Basket (guest + user)
 Route::get('/basket', [BasketController::class, 'index'])->name('basket.index');
