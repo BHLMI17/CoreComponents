@@ -84,11 +84,11 @@ Route::get('/admin/login', function () {
     return view('auth.login');
 })->name('admin.login');
 
-Route::middleware(['auth', 'can:admin-only'])->group(function () {
+/* Route::middleware(['auth', 'can:admin-only'])->group(function () {
     Route::get('/admin', function () {
         return view('admin.index');
     })->name('admin.dashboard');
-});
+}); */
 
 
 
