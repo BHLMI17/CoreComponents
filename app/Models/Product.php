@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+// Import the Review model
+use App\Models\Review;
 
 /**
  * @mixin IdeHelperProduct
@@ -37,4 +39,14 @@ class Product extends Model
         'stock' => 'integer',
         'compatibility' => 'array',
     ];
+
+    /**
+     * Define the relationship to Reviews.
+     * This allows Product::with('reviews') to function in the controller.
+     */
+    public function reviews()
+    {
+        // One product has many reviews
+        return $this->hasMany(Review::class);
+    }
 }
