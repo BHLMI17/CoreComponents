@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    // SINGLE, CLEAN index() METHOD 
+    // Product listing + filters + search (?q= or ?query=)
     public function index(Request $request)
     {
         // Accept both ?q= and ?query=
-        $query = $request->input('query') ?? $request->input('q');
+        $query = trim($request->input('query') ?? $request->input('q'));
 
         $type = $request->input('type');
         $minPrice = $request->input('min_price');
@@ -22,11 +22,11 @@ class ProductController extends Controller
 
         // Search logic
         if (!empty($query)) {
-            $productsQuery->where(function ($sub) use ($query) {
-                $sub->where('name', 'LIKE', "%{$query}%")
-                    ->orWhere('type', 'LIKE', "%{$query}%")
-                    ->orWhere('description', 'LIKE', "%{$query}%");
-            });
+            $lower = strtolower($query);
+
+            $productsQuery->whereRaw('LOWER(name) LIKE ?', ["%$lower%"])
+                ->orWhereRaw('LOWER(description) LIKE ?', ["%$lower%"])
+                ->orWhereRaw('LOWER(type) LIKE ?', ["%$lower%"]);
         }
 
         // Filters
@@ -65,14 +65,16 @@ class ProductController extends Controller
         ));
     }
 
-    // Dedicated search method for navbar 
+    // Dedicated search route for navbar
     public function search(Request $request)
     {
-        $query = $request->input('query');
+        $query = trim($request->input('query'));
 
-        $products = Product::where('name', 'LIKE', "%{$query}%")
-            ->orWhere('description', 'LIKE', "%{$query}%")
-            ->orWhere('type', 'LIKE', "%{$query}%")
+        $lower = strtolower($query);
+
+        $products = Product::whereRaw('LOWER(name) LIKE ?', ["%$lower%"])
+            ->orWhereRaw('LOWER(description) LIKE ?', ["%$lower%"])
+            ->orWhereRaw('LOWER(type) LIKE ?', ["%$lower%"])
             ->get();
 
         return view('pages.search-results', compact('products', 'query'));

@@ -111,6 +111,10 @@
                 </div>
 
             </div>
+            {{-- Submit Button --}}
+            <button type="submit" class="btn-checkout" style="width: 100%; margin-top: 1rem;">
+                Complete Order
+            </button>
         </form>
     </div>
 
