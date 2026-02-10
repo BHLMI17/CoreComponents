@@ -8,13 +8,17 @@ use App\Models\Product;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
-// Public pages
-Route::get('/', function () {
 
+// Public pages
+Route::get('/', function () { // ts for landing pages
+
+    // Featured: newest 8 (or whatever we tryna do)
     $featuredProducts = Product::orderBy('created_at', 'desc')->take(8)->get();
 
+    // Section categories
     $categories = ['mouse', 'keyboard', 'cpu', 'gpu', 'monitor'];
 
+    // Grab a few items per category (e.g. 4 each)
     $productsByCategory = [];
     foreach ($categories as $cat) {
         $productsByCategory[$cat] = Product::where('type', $cat)
@@ -34,9 +38,6 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.lis
 
 // Product Overview
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('products.show');
-
-// SEARCH ROUTE
-Route::get('/search', [ProductController::class, 'search'])->name('search');
 
 // Basket (guest + user)
 Route::get('/basket', [BasketController::class, 'index'])->name('basket.index');
@@ -60,7 +61,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Email verification
+
+// Email verifcation
+
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
@@ -72,12 +75,22 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
+ 
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-// Admin login
+
 Route::get('/admin/login', function () {
     return view('auth.login');
 })->name('admin.login');
 
+Route::middleware(['auth', 'can:admin-only'])->group(function () {
+    Route::get('/admin', function () {
+        return view('admin.index');
+    })->name('admin.dashboard');
+}); 
+
+
+
 require __DIR__.'/auth.php';
+
