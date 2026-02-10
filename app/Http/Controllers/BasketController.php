@@ -29,32 +29,35 @@ class BasketController extends Controller
     }
 
     public function add(Request $request)
-    {
-        $request->validate([
-            'product_id' => 'required|exists:products,id'
+{
+    $request->validate([
+        'product_id' => 'required|exists:products,id'
+    ]);
+
+    $product = Product::findOrFail($request->product_id);
+    $identifier = $this->identifier();
+
+    $existing = Basket::where($identifier)
+        ->where('product_id', $product->id)
+        ->first();
+
+    if ($existing) {
+        $existing->quantity += 1;
+        $existing->save();
+    } else {
+        Basket::create([
+            'user_id'    => auth()->id(),
+            'session_id' => auth()->check() ? null : session()->getId(),
+            'product_id' => $product->id,
+            'name'       => $product->name,
+            'price'      => $product->price,
+            'image'      => $product->image,
+            'quantity'   => 1,
         ]);
-
-        $product = Product::findOrFail($request->product_id);
-        $identifier = $this->identifier();
-
-        $existing = Basket::where($identifier)
-            ->where('product_id', $product->id)
-            ->first();
-
-        if ($existing) {
-            $existing->quantity += 1;
-            $existing->save();
-        } else {
-            Basket::create([
-                'user_id'    => auth()->id(),
-                'session_id' => auth()->check() ? null : session()->getId(),
-                'product_id' => $product->id,
-                'quantity'   => 1,
-            ]);
-        }
-
-        return back()->with('success', 'Added to basket!');
     }
+
+    return back()->with('success', 'Added to basket!');
+}
 
     public function checkout()
     {

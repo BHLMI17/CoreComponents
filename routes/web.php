@@ -61,6 +61,7 @@ Route::post('/website-review', function (Request $request) {
 
 // Products
 Route::get('/products', [ProductController::class, 'index'])->name('products.list');
+Route::get('/search', [App\Http\Controllers\ProductController::class, 'search'])->name('search');
 
 // Product Overview
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('products.show');
@@ -120,7 +121,13 @@ Route::middleware(['auth', 'can:admin-only'])->group(function () {
 
 Route::get('/search', [App\Http\Controllers\ProductController::class, 'search'])->name('search');
 
+Route::get('/search', [App\Http\Controllers\ProductController::class, 'search'])->name('search');
 
+use App\Http\Controllers\OrderController;
+
+Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
+Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
 
 require __DIR__.'/auth.php';
 

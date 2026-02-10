@@ -13,12 +13,13 @@
     <div class="checkout-form">
         <h2>Checkout</h2>
 
-        <form action="#" method="POST" id="checkoutForm" novalidate>
+        <form action="{{ route('orders.store') }}" method="POST" id="checkoutForm" novalidate>
+    @csrf
             <div class="card form-section">
                 <h3>Contact Information</h3>
                 <div class="form-group">
                     <label>Email Address</label>
-                    <input type="email" placeholder="e.g. user@example.com" required>
+                    <input type="email" name="email" placeholder="e.g. user@example.com" required>
                 </div>
             </div>
 
@@ -27,27 +28,27 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>First Name</label>
-                        <input type="text" placeholder="John" required>
+                        <input type="text" name="first_name" placeholder="John" required>
                     </div>
                     <div class="form-group">
                         <label>Last Name</label>
-                        <input type="text" placeholder="Doe" required>
+                        <input type="text" name="last_name" placeholder="Doe" required>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label>Address</label>
-                    <input type="text" placeholder="123 Tech Lane" required>
+                    <input type="text" name="address" placeholder="123 Tech Lane" required>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label>City</label>
-                        <input type="text" placeholder="Birmingham" required>
+                        <input type="text" name="city" placeholder="Birmingham" required>
                     </div>
                     <div class="form-group">
                         <label>Post Code</label>
-                        <input type="text" placeholder="B1 1AA" required>
+                        <input type="text" name="postcode" placeholder="B1 1AA" required>
                     </div>
                 </div>
             </div>
