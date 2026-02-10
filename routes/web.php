@@ -90,6 +90,8 @@ Route::middleware(['auth', 'can:admin-only'])->group(function () {
     })->name('admin.dashboard');
 }); 
 
+Route::get('/search', [App\Http\Controllers\ProductController::class, 'search'])->name('search');
+
 
 
 require __DIR__.'/auth.php';
