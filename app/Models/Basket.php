@@ -51,4 +51,6 @@ class Basket extends Model
         $price = $this->price_at_time ?? $this->product->price;
         return $this->quantity * $price;
     }
+
+    
 }

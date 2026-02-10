@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Checkout')
+@section('title', 'Basket')
 
 @section('content')
 
@@ -11,8 +11,7 @@
 <div class="container">
 
     <div class="order-summary">
-        <h2>Order Summary</h2>
-
+        <h2>Your Basket</h2>
         <div class="card">
 
             @if($items->isEmpty())
@@ -20,45 +19,88 @@
                     Your basket is empty.
                 </p>
             @else
+                @php $netTotal = 0; @endphp
 
                 @foreach($items as $item)
-                    <div class="cart-item">
-                        <div class="item-info">
-                            {{-- Uses OG CSS: .item-img --}}
-                            <div class="item-img" style="background-image: url('{{ $item->image }}');"></div>
+                    @php
+                        $product = $item->product;
+                        $lineTotal = $item->line_total;
+                        $netTotal += $lineTotal;
+                    @endphp
 
-                            <div class="item-details">
-                                <h4>{{ $item->name }}</h4>
-                                <p>£{{ number_format($item->price, 2) }}</p>
-                                <p>Quantity: {{ $item->quantity }}</p>
-                            </div>
+                    <div class="checkout-item">
+                        <img src="{{ asset('storage/' . $product->image) }}"
+                             alt="{{ $product->name }}"
+                             class="checkout-item-image">
+
+                        <div class="checkout-item-details">
+                            <h4>{{ $product->name }}</h4>
+                            <p>Price: £{{ number_format($product->price, 2) }}</p>
+
+                            {{-- Auto-update quantity --}}
+                            <input 
+                                type="number"
+                                value="{{ $item->quantity }}"
+                                min="1"
+                                class="qty-input"
+                                data-id="{{ $item->id }}"
+                                style="width:60px;"
+                            >
+
+                            {{-- Remove Item (Trash Icon) --}}
+                            <form action="{{ route('basket.remove', $item->id) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn-small btn-danger" style="background:none; border:none; color:#ff4d4d; cursor:pointer;">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+
+                            <p>Line Total: £{{ number_format($lineTotal, 2) }}</p>
                         </div>
-
-                        {{-- Remove button (right side) --}}
-                        <form action="{{ route('basket.remove', $item->id) }}" method="POST" class="remove-item-form">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="remove-item-btn" title="Remove item">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </form>
                     </div>
                 @endforeach
 
-                <div class="summary-totals">
-                    <div class="summary-row total">
-                        <span>Total</span>
-                        <span>£{{ number_format($items->sum(fn($i) => $i->price * $i->quantity), 2) }}</span>
-                    </div>
+                <hr>
+
+                <div class="checkout-total">
+                    <strong>Net Total (before VAT):</strong>
+                    £{{ number_format($netTotal, 2) }}
                 </div>
 
+                <a href="{{ route('checkout') }}" class="btn-checkout">
+                    Proceed to Checkout
+                </a>
             @endif
-
-            <a href="{{ route('checkout') }}" class="btn-checkout">Complete Order</a>
 
         </div>
     </div>
 
 </div>
+
+{{-- Auto-update quantity script --}}
+<script>
+document.querySelectorAll('.qty-input').forEach(input => {
+    input.addEventListener('change', function () {
+        const id = this.dataset.id;
+        const quantity = this.value;
+
+        fetch(`/basket/update/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ quantity })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                location.reload(); // Refresh totals + line totals
+            }
+        });
+    });
+});
+</script>
 
 @endsection

@@ -45,6 +45,7 @@ class BasketService
             Basket::create([
                 'user_id'    => Auth::id(),
                 'session_id' => Auth::check() ? null : session()->getId(),
+                
                 'product_id' => $productId,
                 'quantity'   => $qty,
             ]);

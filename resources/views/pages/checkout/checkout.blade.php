@@ -114,7 +114,7 @@
         </form>
     </div>
 
- {{-- Order Summary --}}
+{{-- Order Summary --}}
 <div class="order-summary">
     <h2>Order Summary</h2>
     <div class="card">
@@ -124,60 +124,77 @@
                 Your basket is empty.
             </p>
         @else
-            @php $netTotal = 0; @endphp
+            @php 
+                $netTotal = 0; 
+            @endphp
 
-@foreach($items as $item)
-    @php
-        $product = $item->product;
-        $lineTotal = $item->line_total;
-        $netTotal += $lineTotal;
-    @endphp
+            @foreach($items as $item)
+                @php
+                    $product = $item->product;
+                    $lineTotal = $item->line_total;
+                    $netTotal += $lineTotal;
+                @endphp
 
-    <div class="checkout-item">
-        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="checkout-item-image">
+                <div class="checkout-item">
+                    <img src="{{ asset('storage/' . $product->image) }}" 
+                         alt="{{ $product->name }}" 
+                         class="checkout-item-image">
 
-        <div class="checkout-item-details">
-            <h4>{{ $product->name }}</h4>
-            <p>Price: £{{ number_format($product->price, 2) }}</p>
+                    <div class="checkout-item-details">
+                        <h4>{{ $product->name }}</h4>
+                        <p>Price: £{{ number_format($product->price, 2) }}</p>
 
-            <form action="{{ route('basket.update', $item->id) }}" method="POST" style="display:inline-block;">
-                @csrf
-                @method('PUT')
-                <label>Quantity:</label>
-                <input type="number" name="quantity" value="{{ $item->quantity }}" min="1" style="width:60px;">
-                <button type="submit" class="btn-small">Update</button>
-            </form>
+                        {{-- Auto-update quantity --}}
+                        <label>Quantity:</label>
+                        <input 
+                            type="number"
+                            value="{{ $item->quantity }}"
+                            min="1"
+                            class="qty-input"
+                            data-id="{{ $item->id }}"
+                            style="width:60px;"
+                        >
 
-            <form action="{{ route('basket.remove', $item->id) }}" method="POST" style="display:inline-block;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn-small btn-danger">Remove</button>
-            </form>
+                        {{-- Remove Item --}}
+                        <form action="{{ route('basket.remove', $item->id) }}" method="POST" style="display:inline-block;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn-small btn-danger" 
+                                style="background:none; border:none; color:#ff4d4d; cursor:pointer;">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
 
-            <p>Line Total: £{{ number_format($lineTotal, 2) }}</p>
-        </div>
-    </div>
-@endforeach
+                        <p>Line Total: £{{ number_format($lineTotal, 2) }}</p>
+                    </div>
+                </div>
+            @endforeach
 
-<hr>
-
-<div class="checkout-total">
-    <strong>Net Total (before VAT):</strong>
-    £{{ number_format($netTotal, 2) }}
-</div>
             <hr>
 
+            {{-- NET TOTAL --}}
             <div class="checkout-total">
                 <strong>Net Total (before VAT):</strong>
                 £{{ number_format($netTotal, 2) }}
             </div>
+
+            {{-- VAT --}}
+            <div class="checkout-total">
+                <strong>VAT (20%):</strong>
+                £{{ number_format($netTotal * 0.20, 2) }}
+            </div>
+
+            {{-- TOTAL WITH VAT --}}
+            <div class="checkout-total">
+                <strong>Total (after VAT):</strong>
+                £{{ number_format($netTotal + ($netTotal * 0.20), 2) }}
+            </div>
+
         @endif
 
-        <button class="btn-checkout" onclick="showPrototypeModal()">Complete Order</button>
     </div>
 </div>
-
-{{--  Prototype Modal --}}
+{{--  Prototype Model --}}
 <div id="prototype-modal" class="modal-overlay">
     <div class="modal-content card">
         <i class="fa-solid fa-triangle-exclamation" style="font-size: 3rem; color: #ffc439; margin-bottom: 20px;"></i>
@@ -249,3 +266,27 @@
 </script>
 
 @endsection
+
+<script>
+document.querySelectorAll('.qty-input').forEach(input => {
+    input.addEventListener('change', function () {
+        const id = this.dataset.id;
+        const quantity = this.value;
+
+        fetch(`/basket/update/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ quantity })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                location.reload(); // Refresh totals + line totals
+            }
+        });
+    });
+});
+</script>

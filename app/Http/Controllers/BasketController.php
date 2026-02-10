@@ -63,26 +63,24 @@ class BasketController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $request->validate([
-            'quantity' => 'required|integer|min:1'
-        ]);
+{
+    $request->validate([
+        'quantity' => 'required|integer|min:1'
+    ]);
 
-        // ✅ Securely find the item that belongs to this user/session
-        $item = Basket::where($this->identifier())
-            ->whereKey($id)
-            ->with('product')
-            ->firstOrFail();
+    $item = Basket::where($this->identifier())
+        ->with('product')
+        ->findOrFail($id);
 
-        $item->quantity = $request->quantity;
-        $item->save();
+    $item->quantity = $request->quantity;
+    $item->save();
 
-        return back();
-    }
+    return response()->json(['success' => true]);
+}
 
     public function destroy($id)
     {
-        // ✅ Securely delete only the item that belongs to this user/session
+        // Securely delete only the item that belongs to this user/session
         $item = Basket::where($this->identifier())
             ->whereKey($id)
             ->firstOrFail();
