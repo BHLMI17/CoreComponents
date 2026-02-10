@@ -91,6 +91,10 @@ Route::middleware(['auth', 'can:admin-only'])->group(function () {
     })->name('admin.dashboard');
 }); 
 
+Route::get('/search', [App\Http\Controllers\ProductController::class, 'search'])->name('search');
+
+Route::get('/search', [App\Http\Controllers\ProductController::class, 'search'])->name('search');
+
 use App\Http\Controllers\OrderController;
 
 Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
