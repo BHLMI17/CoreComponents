@@ -55,7 +55,7 @@ class OrderController extends Controller
             return redirect()->back()->with('error', 'Your basket is empty');
         }
 
-        $total = $basketItems->sum(fn($item) => $item->price * $item->quantity);
+        $total = $basketItems->sum(fn($item) => $item->product->price * $item->quantity);
 
         // To create order
         $order = Order::create([
@@ -71,17 +71,19 @@ class OrderController extends Controller
             'payment_method' => $request->payment_method,
         ]);
 
-        // To create order items
-        foreach ($basketItems as $item) {
-            OrderItem::create([
-                'order_id' => $order->id,
-                'product_id' => $item->product_id,
-                'name' => $item->name,
-                'price' => $item->price,
-                'image' => $item->image,
-                'quantity' => $item->quantity,
-            ]);
-        }
+        // Create order items
+foreach ($basketItems as $item) {
+    $product = $item->product; // Get product via relationship
+    
+    OrderItem::create([
+        'order_id' => $order->id,
+        'product_id' => $item->product_id,
+        'name' => $product->name,
+        'price' => $product->price,
+        'image' => $product->image_url,
+        'quantity' => $item->quantity,
+    ]);
+}
 
         // To clear basket
         Basket::where('user_id', auth()->id())->delete();

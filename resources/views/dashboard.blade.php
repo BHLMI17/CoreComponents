@@ -20,6 +20,14 @@
                             Go to Landing Page
                         </a>
                     </div>
+                    <div class="mt-4">
+    <a 
+        href="{{ route('orders.index') }}" 
+        class="inline-block px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition"
+    >
+        View Your Orders
+    </a>
+</div>
                 </div>
             </div>
         </div>

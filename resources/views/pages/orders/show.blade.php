@@ -4,116 +4,111 @@
 
 @section('content')
 
-<style>
-    .order-details-container {
-        max-width: 900px;
-        margin: 2rem auto;
-        padding: 0 1rem;
-    }
+<link rel="stylesheet" href="{{ asset('css/orders.css') }}">
 
-    .detail-card {
-        background: var(--bg-secondary);
-        border-radius: 8px;
-        padding: 1.5rem;
-        margin-bottom: 1rem;
-        border: 1px solid var(--border-color);
-    }
+<div class="orders-page-wrapper">
+    <div class="orders-container">
 
-    .order-status {
-        padding: 0.5rem 1rem;
-        border-radius: 20px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        display: inline-block;
-    }
+        <div class="glass-card">
+            <h1 class="page-title">Order #{{ $order->id }}</h1>
+            <p class="order-date">Placed on {{ $order->created_at->format('M d, Y \a\t h:i A') }}</p>
+        </div>
 
-    .status-pending { background: #fff3cd; color: #856404; }
-    .status-processing { background: #cfe2ff; color: #084298; }
-    .status-shipped { background: #d1e7dd; color: #0f5132; }
-    .status-delivered { background: #d1e7dd; color: #0a3622; }
-    .status-cancelled { background: #f8d7da; color: #842029; }
+        <!-- Status -->
+        <div class="glass-card">
+            <h2 class="section-title">Order Status</h2>
+            <span class="order-status-badge status-{{ $order->status }}">
+                {{ ucfirst($order->status) }}
+            </span>
+        </div>
 
-    .item-row {
-        display: flex;
-        gap: 1rem;
-        padding: 1rem 0;
-        border-bottom: 1px solid var(--border-color);
-        align-items: center;
-    }
+        <!-- Shipping Info -->
+        <div class="glass-card">
+            <h2 class="section-title">Shipping Information</h2>
 
-    .item-row:last-child {
-        border-bottom: none;
-    }
-
-    .item-img {
-        width: 80px;
-        height: 80px;
-        object-fit: cover;
-        border-radius: 4px;
-    }
-
-    .item-details {
-        flex: 1;
-    }
-
-    .back-btn {
-        background: var(--accent-color);
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
-        text-decoration: none;
-        display: inline-block;
-        margin-top: 1rem;
-    }
-
-    .back-btn:hover {
-        opacity: 0.9;
-    }
-</style>
-
-<div class="order-details-container">
-    <h1>Order #{{ $order->id }}</h1>
-    <p>Placed on {{ $order->created_at->format('M d, Y \a\t h:i A') }}</p>
-
-    <div class="detail-card">
-        <h3>Order Status</h3>
-        <span class="order-status status-{{ $order->status }}">
-            {{ ucfirst($order->status) }}
-        </span>
-    </div>
-
-    <div class="detail-card">
-        <h3>Shipping Information</h3>
-        <p><strong>Name:</strong> {{ $order->first_name }} {{ $order->last_name }}</p>
-        <p><strong>Email:</strong> {{ $order->email }}</p>
-        <p><strong>Address:</strong> {{ $order->shipping_address }}</p>
-        <p><strong>City:</strong> {{ $order->city }}</p>
-        <p><strong>Postcode:</strong> {{ $order->postcode }}</p>
-        <p><strong>Payment Method:</strong> {{ ucfirst($order->payment_method) }}</p>
-    </div>
-
-    <div class="detail-card">
-        <h3>Order Items</h3>
-        @foreach($order->items as $item)
-            <div class="item-row">
-                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" class="item-img">
-                <div class="item-details">
-                    <h4>{{ $item->name }}</h4>
-                    <p>Quantity: {{ $item->quantity }}</p>
-                    <p>£{{ number_format($item->price, 2) }} each</p>
-                </div>
+            <div class="order-meta">
                 <div>
-                    <strong>£{{ number_format($item->price * $item->quantity, 2) }}</strong>
+                    <div class="order-meta-label">Name</div>
+                    <div class="order-meta-value">{{ $order->first_name }} {{ $order->last_name }}</div>
+                </div>
+
+                <div>
+                    <div class="order-meta-label">Email</div>
+                    <div class="order-meta-value">{{ $order->email }}</div>
+                </div>
+
+                <div>
+                    <div class="order-meta-label">Address</div>
+                    <div class="order-meta-value">{{ $order->shipping_address }}</div>
+                </div>
+
+                <div>
+                    <div class="order-meta-label">City</div>
+                    <div class="order-meta-value">{{ $order->city }}</div>
+                </div>
+
+                <div>
+                    <div class="order-meta-label">Postcode</div>
+                    <div class="order-meta-value">{{ $order->postcode }}</div>
+                </div>
+
+                <div>
+                    <div class="order-meta-label">Payment Method</div>
+                    <div class="order-meta-value">{{ ucfirst($order->payment_method) }}</div>
                 </div>
             </div>
-        @endforeach
-
-        <div style="text-align: right; margin-top: 1rem; font-size: 1.2rem;">
-            <strong>Total: £{{ number_format($order->total, 2) }}</strong>
         </div>
-    </div>
 
-    <a href="{{ route('orders.index') }}" class="back-btn">← Back to Orders</a>
+        <!-- Order Items -->
+        <div class="glass-card">
+            <h2 class="section-title">Order Items</h2>
+
+            <table class="order-items-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach($order->items as $item)
+                        <tr>
+                            <td>
+                                <div class="order-item-product">
+                                    <img src="{{ asset(str_replace(' ', '%20', $item->image)) }}" alt="{{ $item->name }}">
+                                    <div class="order-item-name">{{ $item->name }}</div>
+                                </div>
+                            </td>
+
+                            <td>{{ $item->quantity }}</td>
+
+                            <td>£{{ number_format($item->price, 2) }}</td>
+
+                            <td>
+                                <strong>£{{ number_format($item->price * $item->quantity, 2) }}</strong>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+            <div class="order-totals">
+                <div class="order-totals-row">
+                    <div class="order-totals-label">Grand Total</div>
+                    <div class="order-totals-grand">£{{ number_format($order->total, 2) }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back Button -->
+        <div class="order-actions-row">
+            <a href="{{ route('orders.index') }}" class="btn-secondary">← Back to Orders</a>
+        </div>
+
+    </div>
 </div>
 
 @endsection
