@@ -18,6 +18,8 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Support\HtmlString;
+
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -30,7 +32,11 @@ class AdminPanelProvider extends PanelProvider
             ->login()
 
             // Branding 
-            ->brandLogo(asset('images/Logo.png')) 
+            ->brandLogo(fn () => new HtmlString(
+                '<img src="'.asset('images/Logo.png').'" style="height: 30px !important; width: auto;">'
+            ))
+            
+            
             ->brandName('CoreComponents')
 
             ->colors([
