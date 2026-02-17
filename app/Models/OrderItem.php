@@ -15,6 +15,16 @@ class OrderItem extends Model
         'quantity',
     ];
 
+    protected static function booted()
+{
+    static::saving(function ($item) {
+        if ($item->product_id && empty($item->name)) {
+            $item->name = $item->product->name;
+        }
+    });
+}
+
+
     public function order()
     {
         return $this->belongsTo(Order::class);
