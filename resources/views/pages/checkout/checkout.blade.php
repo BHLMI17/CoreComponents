@@ -10,47 +10,125 @@
 
 <div class="container">
 
-    <div class="checkout-form">
-        <h2>Checkout</h2>
+<div class="checkout-form">
+    <h2>Checkout</h2>
 
-        <form action="#" method="POST" id="checkoutForm" novalidate>
-            <div class="card form-section">
-                <h3>Contact Information</h3>
+    <form action="{{ route('orders.store') }}" method="POST" id="checkoutForm" novalidate>
+        @csrf
+
+        <div class="card form-section">
+            <h3>Contact Information</h3>
+
+            <div class="form-group">
+                @error('email')
+                    <p style="color: red; font-size: 0.8rem; margin-bottom: 4px;">
+    {{ $message }}
+</p>
+                @enderror
+
+                <label>Email Address</label>
+                <input 
+                    type="email" 
+                    name="email" 
+                    placeholder="e.g. user@example.com" 
+                    value="{{ old('email') }}"
+                    required
+                >
+            </div>
+        </div>
+
+        <div class="card form-section">
+            <h3>Shipping Address</h3>
+
+            <div class="form-row">
                 <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" placeholder="e.g. user@example.com" required>
+                    @error('first_name')
+                        <p style="color: red; font-size: 0.8rem; margin-bottom: 4px;">
+    {{ $message }}
+</p>
+                    @enderror
+
+                    <label>First Name</label>
+                    <input 
+                        type="text" 
+                        name="first_name" 
+                        placeholder="John" 
+                        value="{{ old('first_name') }}"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    @error('last_name')
+                        <p style="color: red; font-size: 0.8rem; margin-bottom: 4px;">
+    {{ $message }}
+</p>
+                    @enderror
+
+                    <label>Last Name</label>
+                    <input 
+                        type="text" 
+                        name="last_name" 
+                        placeholder="Doe" 
+                        value="{{ old('last_name') }}"
+                        required
+                    >
                 </div>
             </div>
 
-            <div class="card form-section">
-                <h3>Shipping Address</h3>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" placeholder="John" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" placeholder="Doe" required>
-                    </div>
+            <div class="form-group">
+                @error('address')
+                    <p style="color: red; font-size: 0.8rem; margin-bottom: 4px;">
+    {{ $message }}
+</p>
+                @enderror
+
+                <label>Address</label>
+                <input 
+                    type="text" 
+                    name="address" 
+                    placeholder="123 Tech Lane" 
+                    value="{{ old('address') }}"
+                    required
+                >
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    @error('city')
+                        <p style="color: red; font-size: 0.8rem; margin-bottom: 4px;">
+    {{ $message }}
+</p>
+                    @enderror
+
+                    <label>City</label>
+                    <input 
+                        type="text" 
+                        name="city" 
+                        placeholder="Birmingham" 
+                        value="{{ old('city') }}"
+                        required
+                    >
                 </div>
 
                 <div class="form-group">
-                    <label>Address</label>
-                    <input type="text" placeholder="123 Tech Lane" required>
-                </div>
+                    @error('postcode')
+                        <p style="color: red; font-size: 0.8rem; margin-bottom: 4px;">
+    {{ $message }}
+</p>
+                    @enderror
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>City</label>
-                        <input type="text" placeholder="Birmingham" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Post Code</label>
-                        <input type="text" placeholder="B1 1AA" required>
-                    </div>
+                    <label>Post Code</label>
+                    <input 
+                        type="text" 
+                        name="postcode" 
+                        placeholder="B1 1AA" 
+                        value="{{ old('postcode') }}"
+                        required
+                    >
                 </div>
             </div>
+        </div>
 
             <div class="card form-section">
                 <h3>Payment Details</h3>

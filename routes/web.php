@@ -4,7 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BasketController;
+use App\Http\Controllers\ReviewController;
 use App\Models\Product;
+use App\Models\Review;
+use App\Models\WebsiteReview;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -31,7 +34,30 @@ Route::get('/', function () { // ts for landing pages
 })->name('landing');
 
 Route::view('/contact', 'pages.Contact')->name('contact');
-Route::view('/about-us', 'pages.about_us')->name('about');
+
+//About us
+Route::get('/about-us', function () {
+    // Get the 5 highest rated product reviews
+    $topProductReviews = Review::with('product')->orderBy('rating', 'desc')->take(5)->get();
+    
+    // Get the latest website reviews
+    $websiteReviews = WebsiteReview::latest()->take(3)->get();
+
+    return view('pages.about_us', compact('topProductReviews', 'websiteReviews'));
+})->name('about');
+
+// --- ADD THE STORE ROUTE FOR WEBSITE REVIEWS ---
+Route::post('/website-review', function (Request $request) {
+    $validated = $request->validate([
+        'user_name' => 'required|string|max:255',
+        'rating' => 'required|integer|min:1|max:5',
+        'comment' => 'required|string',
+    ]);
+
+    WebsiteReview::create($validated);
+
+    return back()->with('success', 'Thank you for your feedback!');
+})->name('website-reviews.store');
 
 // Products
 Route::get('/products', [ProductController::class, 'index'])->name('products.list');
@@ -39,6 +65,8 @@ Route::get('/search', [App\Http\Controllers\ProductController::class, 'search'])
 
 // Product Overview
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('products.show');
+
+Route::post('/products/{productId}/review', [ReviewController::class, 'store'])->name('reviews.store');
 
 // Basket (guest + user)
 Route::get('/basket', [BasketController::class, 'index'])->name('basket.index');
@@ -91,7 +119,15 @@ Route::middleware(['auth', 'can:admin-only'])->group(function () {
     })->name('admin.dashboard');
 }); 
 
+Route::get('/search', [App\Http\Controllers\ProductController::class, 'search'])->name('search');
 
+Route::get('/search', [App\Http\Controllers\ProductController::class, 'search'])->name('search');
+
+use App\Http\Controllers\OrderController;
+
+Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
+Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
 
 require __DIR__.'/auth.php';
 
