@@ -266,3 +266,20 @@ body {
   margin: 0.5rem 0;
   color: #00ffcc;
 }
+
+.landing-button {
+  background-color: #00ffa2;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  color: #121212;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.landing-button:hover {
+  background-color: #00cc88;
+}

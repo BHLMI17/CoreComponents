@@ -39,8 +39,8 @@
              <h4 class="landing-product-title">{{ $product->name }}</h4>
              <p class="landing-product-price">£{{ number_format($product->price, 2) }}</p>
 
-             <a href="{{ route('products.list', ['type' => $product->type]) }}" class="button">
-                View more {{ $product->type }}
+             <a href="{{ route('products.list', ['type' => $product->type]) }}" class="landing-button">
+                 View more {{ $product->type }}
              </a>
             </div>
          @endforeach
@@ -57,7 +57,7 @@
             <section style="margin-top: 3rem;">
                 <div style="display:flex; justify-content:space-between; align-items:center; max-width:1100px; margin:0 auto;">
                     <h2 style="margin:0;">{{ ucfirst($cat) }}</h2>
-                    <a href="{{ route('products.list', ['type' => $cat]) }}" class="button">
+                    <a href="{{ route('products.list', ['type' => $cat]) }}" class="landing-button">
                         View all
                     </a>
                 </div>
@@ -71,12 +71,12 @@
             <h4 class="landing-product-title">{{ $product->name }}</h4>
             <p class="landing-product-price">£{{ number_format($product->price, 2) }}</p>
 
-            <a href="{{ route('products.list', ['type' => $cat]) }}" class="button">
-                Browse {{ $cat }}
+            <a href="{{ route('products.list', ['type' => $cat]) }}" class="landing-button">
+                 Browse {{ $cat }}
             </a>
         </div>
     @endforeach
- </div>
+    </div>
             </section>
         @endif
     @endforeach
