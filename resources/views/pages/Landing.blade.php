@@ -30,21 +30,21 @@
     <section id="featured-products" style="margin-top: 3rem;">
         <h2 style="text-align:center;">Featured Products</h2>
 
-        <div style="display:flex; flex-wrap:wrap; gap:1.5rem; justify-content:center; margin-top:1.5rem;">
-            @foreach($featuredProducts as $product)
-                <div style="width:220px; background:#1e1e1e; border:1px solid #333; border-radius:8px; padding:1rem; text-align:center;">
-                    <img src="{{ $product->image_url }}" alt="{{ $product->name }}"
-                         style="width:100%; height:140px; object-fit:contain;" />
+    <div class="landing-products-row">
+        @foreach($featuredProducts as $product)
+            <div class="landing-product-card">
+              <img src="{{ $product->image_url }}" alt="{{ $product->name }}"
+                 class="landing-product-img" />
 
-                    <h4 style="margin-top:0.75rem;">{{ $product->name }}</h4>
-                    <p style="margin:0.5rem 0;">£{{ number_format($product->price, 2) }}</p>
+             <h4 class="landing-product-title">{{ $product->name }}</h4>
+             <p class="landing-product-price">£{{ number_format($product->price, 2) }}</p>
 
-                    <a href="{{ route('products.list', ['type' => $product->type]) }}" class="button">
-                        View more {{ $product->type }}
-                    </a>
-                </div>
-            @endforeach
-        </div>
+             <a href="{{ route('products.list', ['type' => $product->type]) }}" class="button">
+                View more {{ $product->type }}
+             </a>
+            </div>
+         @endforeach
+    </div>
     </section>
     @endif
 
@@ -62,21 +62,21 @@
                     </a>
                 </div>
 
-                <div style="display:flex; flex-wrap:wrap; gap:1.5rem; justify-content:center; margin-top:1.5rem;">
-                    @foreach($catProducts as $product)
-                        <div style="width:220px; background:#1e1e1e; border:1px solid #333; border-radius:8px; padding:1rem; text-align:center;">
-                            <img src="{{ $product->image_url }}" alt="{{ $product->name }}"
-                                 style="width:100%; height:140px; object-fit:contain;" />
+                <div class="landing-products-row">
+    @foreach($catProducts as $product)
+        <div class="landing-product-card">
+            <img src="{{ $product->image_url }}" alt="{{ $product->name }}"
+                 class="landing-product-img" />
 
-                            <h4 style="margin-top:0.75rem;">{{ $product->name }}</h4>
-                            <p style="margin:0.5rem 0;">£{{ number_format($product->price, 2) }}</p>
+            <h4 class="landing-product-title">{{ $product->name }}</h4>
+            <p class="landing-product-price">£{{ number_format($product->price, 2) }}</p>
 
-                            <a href="{{ route('products.list', ['type' => $cat]) }}" class="button">
-                                Browse {{ $cat }}
-                            </a>
-                        </div>
-                    @endforeach
-                </div>
+            <a href="{{ route('products.list', ['type' => $cat]) }}" class="button">
+                Browse {{ $cat }}
+            </a>
+        </div>
+    @endforeach
+ </div>
             </section>
         @endif
     @endforeach

@@ -227,4 +227,42 @@ body {
   color: black;
  }
 
+/* Landing page product cards -lowkirkenuinely made by ching */ 
+.landing-products-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
 
+.landing-product-card {
+  width: 220px;
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.landing-product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 255, 204, 0.2);
+  border-color: #00ffcc;
+}
+
+.landing-product-img {
+  width: 100%;
+  height: 140px;
+  object-fit: contain;
+}
+
+.landing-product-title {
+  margin-top: 0.75rem;
+}
+
+.landing-product-price {
+  margin: 0.5rem 0;
+  color: #00ffcc;
+}
