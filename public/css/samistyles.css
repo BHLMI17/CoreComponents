@@ -283,3 +283,56 @@ body {
 .landing-button:hover {
   background-color: #00cc88;
 }
+
+.featured-section {
+  margin-top: 3rem;
+  padding: 0 2rem;
+}
+
+.featured-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.featured-carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.featured-carousel {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  width: 100%;
+  padding: 0.5rem 0;
+  scroll-snap-type: x mandatory;
+}
+
+.featured-card {
+  flex: 0 0 calc((100% - 3rem) / 3);
+  max-width: calc((100% - 3rem) / 3);
+  scroll-snap-align: start;
+  box-sizing: border-box;
+}
+
+.carousel-btn {
+  background-color: #00ffa2;
+  color: #121212;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.carousel-btn:hover {
+  background-color: #00cc88;
+  transform: scale(1.05);
+}
