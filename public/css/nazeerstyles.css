@@ -289,3 +289,42 @@ body {
     text-align: center;
   }
 }
+
+/* Default (Dark) */
+:root {
+    --nav-bg: rgba(18, 18, 18, 0.9);
+    --nav-text: #ffffff;
+    --nav-border: rgba(255, 255, 255, 0.1);
+}
+
+/* Light Mode Override */
+[data-theme="light"] {
+    --nav-bg: rgba(245, 245, 245, 0.9); /* Light grey/white */
+    --nav-text: #121212;               /* Dark text */
+    --nav-border: rgba(0, 0, 0, 0.1);
+}
+
+
+[data-theme="dark"] .individual-review-box {
+    background: rgba(255, 255, 255, 0.03); /* Dark mode specific tint */
+}
+
+.about-glass-card {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--border-color); /* Uses the darker light-mode border */
+    backdrop-filter: blur(20px);
+    border-radius: 30px;
+    padding: 60px 40px;
+    box-shadow: var(--card-shadow); /* This creates the physical "divide" */
+    transition: all 0.3s ease;
+}
+
+/* This fixes the review boxes inside the card */
+.individual-review-box {
+    display: flex;
+    gap: 20px;
+    background: var(--inner-box); 
+    border: 1px solid var(--border-subtle);
+    border-radius: 15px;
+    padding: 20px;
+}
