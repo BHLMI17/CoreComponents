@@ -4,8 +4,17 @@
     --text-main: #ffffff;
     --nav-bg: #1e1e1e;
     --border-color: #333333;
-    --search-bg: #ebebeb;
+    --search-bg: rgba(255, 255, 255, 0.05);
+    --search-border: rgba(255, 255, 255, 0.1);
+    --search-text: #ffffff;
+    --search-placeholder: #888888;
     --accent: #00ffcc;
+    --icon-color: #ffffff;
+    --btn-grad: linear-gradient(90deg, #4a90e2 0%, #00C853 100%);
+    --glow-grad: linear-gradient(90deg, #4a90e2 0%, #00C853 100%);
+    --glow-start: #4a90e2;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --border-subtle: rgba(255, 255, 255, 0.1);
 }
 
 /* 2. Define the Light Theme overrides */
@@ -14,21 +23,30 @@
     --text-main: #121212;
     --nav-bg: #ffffff;
     --border-color: #dddddd;
-    --search-bg: #ffffff;
+    --search-bg: rgba(0, 0, 0, 0.05);
+    --search-border: rgba(0, 0, 0, 0.1);
+    --search-text: #1a1a1a;
+    --search-placeholder: #666666;
     --accent: #008f7a;
+    --icon-color: #1a1a1a;
+    --card-bg: #ffffff;
+    --border-subtle: rgba(0, 0, 0, 0.1);
 }
 
 /* 3. Apply the variables to your elements */
 body {
+    font-family: 'Segoe UI', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-main);
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth fade */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.top-bar, .nav-bar {
+.top-bar,
+.nav-bar {
     background-color: var(--nav-bg);
     border-bottom: 1px solid var(--border-color);
 }
+
 #footer {
     display: flex;
     justify-content: space-around;
@@ -40,44 +58,37 @@ body {
     text-align: center;
 }
 
-/* bg colour of main page*/
-body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #121212;
-    color: #f0f0f0;
-  }
-  
-  .top-bar {
-    position: sticky; /* makes sure absolute elements like search-wrapper are scoped here */
+/* Top bar */
+.top-bar {
+    position: sticky;
     top: 0px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: #1e1e1e;
-    border-bottom: 1px solid #333;
-    z-index: 10; /* Optional: keeps it layered above */
-  }
-  
-  /* Logo stays left */
-  .logo-img {
+    z-index: 10;
+}
+
+/* Logo stays left */
+.logo-img {
     height: 38px;
     width: auto;
-  }
-  
+}
+
+/* Search */
 .search-wrapper {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    max-width: 380px; /* Skinnier design */
+    max-width: 380px;
     z-index: 1001;
 }
 
 .search-bar {
     display: flex;
     align-items: center;
-    background-color: var(--search-bg); /* Controlled by theme variable */
+    background-color: var(--search-bg);
     border: 1px solid var(--search-border);
     backdrop-filter: blur(10px);
     border-radius: 50px;
@@ -95,27 +106,21 @@ body {
     outline: none;
 }
 
-/* Change placeholder color based on theme */
 .search-bar input::placeholder {
     color: var(--search-placeholder);
 }
 
-/* --- THE GRADIENT GLOW EFFECT --- */
 .search-bar:focus-within {
     background-color: var(--nav-bg);
-    /* Border image allows the gradient to show on the border */
     border-color: transparent;
     background-image: linear-gradient(var(--nav-bg), var(--nav-bg)), var(--glow-grad);
     background-origin: border-box;
     background-clip: padding-box, border-box;
     border: 1px solid transparent;
-    
-    /* Glow shadow using your blue color */
-    box-shadow: 0 0 15px rgba(74, 144, 226, 0.4); 
+    box-shadow: 0 0 15px rgba(74, 144, 226, 0.4);
     transform: scale(1.01);
 }
 
-/* Ensure the search icon also matches the glow */
 .search-bar button {
     background: none;
     border: none;
@@ -123,285 +128,46 @@ body {
     cursor: pointer;
     font-size: 0.9rem;
     padding: 0 5px;
-}
-/* Icon style */
-.search-bar button {
-    background: none;
-    border: none;
-    color: var(--icon-color);
-    cursor: pointer;
-    font-size: 0.9rem;
     display: flex;
     align-items: center;
-}
-}
-  /* Icons stay right */
-  .icon-group {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .icon {
-    font-size: 1.2rem;
-    color: #f0f0f0;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  
-  .icon:hover {
-    color: #00ffcc;
-  }
-  
-  /* Lower Nav Bar */
-  .nav-bar {
-    position: sticky;
-    top: 70px;
-    z-index: 999;
-    background-color: #181818;
-    padding: 0.5rem 2rem;
-    border-bottom: 1px solid #333;
-  }
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-  }
-  
-  .nav-links a {
-    text-decoration: none;
-    color: #f0f0f0;
-    font-size: 1rem;
-    transition: color 0.3s ease;
-  }
-  
-  .nav-links a:hover {
-    color: #00ffcc;
-  }
-
-
-  /* End of Nav Bar CSS */
-
- /* Contact Page CSS */ 
- .contact-thumbnail {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
- }
-
-  .field-design {
-    width: 60%;
-    padding: 8px;
-    margin-bottom: 10px;
-    text-align: left;
-    margin-left: 120px;
-    background-color: #272626;
-    color: rgb(244, 244, 244);
-    border: 1px solid rgb(99, 99, 99);
-    border-radius: 10px;
-  }
-  
-  .message-design {
-    width: 60%;
-    color : #121212;
-    height: 150px;
-    padding: 10px;
-    font-size: 14px;
-    text-align: left;
-    margin-left: 120px;
-    background-color: #272626;
-    color: rgb(244, 244, 244);
-    border: 1px solid rgb(99, 99, 99);
-    border-radius: 10px;
-  }
-
-  #form-container {
-    padding: 20px;
-    color: rgb(255, 255, 255);
-}
-
-  #contact-info {
-    padding:20px;
-  }
-
-  .form-subtext {
-    margin-left: 120px;
-  }
-
-  #submit-button {
-    background-color: #e3e0e0;
-    color: rgb(1, 1, 1);
-    padding: 10px 15px;
-    margin-left: 120px;
-    width: 60%;
-    cursor: pointer;
-    border: 1px solid rgb(99, 99, 99);
-    border-radius: 10px;
-  }
-
-  #submit-button:hover {
-    background-color: black;
-    color: white;
-    border: 1px solid black;
-  }
-
-  #contact-info {
-    text-align: center;
-  }
-
-  #form-title {
-    margin-left: 120px;
-  }
-
-  /* End of Contact CSS */
-
-
-  /* Main Page CSS */
-
-  .main-thumbnail {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: inline;
- }
-
- #welcome-text {
-  position: absolute;
-  text-align: center;
-  top: 100%;
-  left: 50%;
-  transform: translate(-50%, -50%);
- }
-
- #welcome-button {
-  text-decoration: none;
-  color: white;
-  background-color: transparent;
-  position: absolute;
-  text-align: center;
-  top: 120%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 15px;
-  border: 2px solid white; 
-  border-radius: 12px;
-  padding: 10px 80px;
- }
-
- #welcome-button:hover {
-  background-color: white;
-  color: black;
- }
-
-/* Landing page product cards -lowkirkenuinely made by ching */ 
-/* --- FEATURED PRODUCTS (2 PER ROW) --- */
-.landing-products-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px; /* Consistent gap */
-  justify-content: center;
-  margin-top: 2rem;
-  width: 100%;
-  max-width: 1200px; /* Allow enough room for 2 cards */
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.landing-product-card {
-  /* Flex-grow: 0, Flex-shrink: 1, Flex-basis: calculation */
-  /* This ensures exactly 2 items fit in the 100% width of the row */
-  flex: 0 1 calc(50% - 20px); 
-  
-  /* Remove or lower min-width so it doesn't break the row on smaller laptops */
-  min-width: 250px; 
-  
-  background: var(--search-bg);
-  border: 1px solid var(--search-border);
-  backdrop-filter: blur(10px);
-  border-radius: 10px;
-  padding: 1rem;
-  text-align: center;
-  box-sizing: border-box; /* Crucial: includes padding in the width calculation */
-  transition: all 0.3s ease;
-}
-
-.landing-product-img {
-  width: 100%;
-  height: 180px;
-  object-fit: contain;
-  margin-bottom: 1.5rem;
-}
-
-/* Mobile: Switch to 1 per row only on phones */
-@media (max-width: 600px) {
-  .landing-product-card {
-    flex: 0 1 100%;
-  }
-}
-
-.landing-product-card:hover {
-  transform: translateY(-8px);
-  border-color: #4a90e2;
-  box-shadow: 0 12px 30px rgba(74, 144, 226, 0.2);
-}
-
-.landing-product-img {
-  width: 100%;
-  height: 200px; /* Made slightly larger to match the bigger cards */
-  object-fit: contain;
-  margin-bottom: 1rem;
-}
-
-/* Gradient Price Fix */
-.landing-product-price {
-  font-size: 1.4rem;
-  font-weight: 800;
-  margin: 0.5rem 0 1.5rem;
-  background: linear-gradient(90deg, #4a90e2 0%, #00C853 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.landing-button {
-background: linear-gradient(90deg, #4a90e2 0%, #00C853 100%);
-    color: white !important;
-    padding:  0.5rem 1rem;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-}
-
-
-
-.landing-button:hover {
-  background-color: #00cc88;
-}
-
-.landing-product-title {
-  font-size: 1.25rem;
-  color: var(--text-main);
-  margin-top: 1rem;
-  font-weight: 700;
-}
-/* Make all icons in the group white */
-.icon-group .icon {
-    color: #ffffff !important;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2); /* Subtle glow for a premium feel */
     transition: all 0.3s ease;
 }
 
-/* Specifically target the FontAwesome theme toggle icon */
+.search-bar button:hover {
+    background: var(--btn-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Icons */
+.icon-group {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.icon-group .icon {
+    color: #ffffff !important;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.icon,
+.theme-toggle-icon {
+    color: var(--icon-color) !important;
+    transition: color 0.3s ease, transform 0.3s ease;
+    text-decoration: none;
+}
+
+.icon {
+    font-size: 1.2rem;
+}
+
 .theme-toggle-icon {
     background: none;
     border: none;
     cursor: pointer;
-    color: #ffffff; /* Sets FontAwesome icon color to white */
+    color: #ffffff;
     font-size: 1.2rem;
     padding: 0;
     display: flex;
@@ -409,139 +175,49 @@ background: linear-gradient(90deg, #4a90e2 0%, #00C853 100%);
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
-/* This targets the 🛒, 👤, and the theme toggle */
-.icon, .theme-toggle-icon {
-    color: var(--icon-color) !important;
-    transition: color 0.3s ease, transform 0.3s ease;
-    text-decoration: none;
-}
-
-/* If you are using emojis and they still look weird in light mode, 
-   add this specific override for light mode: */
 [data-theme="light"] .icon {
-    filter: brightness(0.2); /* Makes emojis darker so they pop on white */
+    filter: brightness(0.2);
 }
 
 [data-theme="dark"] .icon {
-    filter: brightness(1) invert(0); /* Keeps them normal/bright in dark mode */
+    filter: brightness(1) invert(0);
 }
 
-/* Hover effect remains consistent */
-.icon:hover, .theme-toggle-icon:hover {
-    color: #3b82f6 !important; /* Blue glow on hover */
+.icon:hover,
+.theme-toggle-icon:hover {
+    background: var(--btn-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #3b82f6 !important;
     filter: none;
+    transform: translateY(-3px);
 }
 
-/* Ensure the icon group is aligned */
-.icon-group {
+/* Lower Nav Bar */
+.nav-bar {
+    position: sticky;
+    top: 70px;
+    z-index: 999;
+    background-color: #181818;
+    padding: 0.5rem 2rem;
+    border-bottom: 1px solid #333;
+}
+
+.nav-links {
+    list-style: none;
     display: flex;
-    align-items: center;
-    gap: 1.5rem;
-}
-
-/* samistyles.css */
-
-:root {
-    /* DARK THEME */
-    --search-bg: rgba(255, 255, 255, 0.05); /* Dark translucent background */
-    --search-border: rgba(255, 255, 255, 0.1);
-    --search-text: #ffffff;
-    --search-placeholder: #888888;
-    
-    /* YOUR SPECIFIC GRADIENT */
-    --glow-grad: linear-gradient(90deg, #4a90e2 0%, #00C853 100%);
-    --glow-start: #4a90e2;
-}
-
-[data-theme="light"] {
-    /* LIGHT THEME */
-    --search-bg: rgba(0, 0, 0, 0.05); /* Subtle gray background */
-    --search-border: rgba(0, 0, 0, 0.1);
-    --search-text: #1a1a1a;
-    --search-placeholder: #666666;
-}
-
-/* Apply variables to your elements */
-body {
-    background-color: var(--bg-color);
-    color: var(--text-main);
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.top-bar, .nav-bar {
-    background-color: var(--nav-bg);
-    border-bottom: 1px solid var(--border-subtle);
-}
-
-.landing-product-card {
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-subtle);
-}
-
-:root {
-    /* DARK THEME COLORS */
-    --icon-color: #ffffff; /* White icons for dark mode */
-    /* ... other variables ... */
-}
-
-[data-theme="light"] {
-    /* LIGHT THEME COLORS */
-    --icon-color: #1a1a1a; /* Dark icons for light mode */
-    /* ... other variables ... */
-}
-
-/* target the text links in the nav-bar */
-.nav-links a {
-    color: var(--icon-color) !important; /* Uses the same variable we made for the icons */
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-/* Hover effect for the links */
-.nav-links a:hover {
-    background: var(--btn-grad);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: brightness(1.2);
-}
-
-/* --- Navbar Text Hover --- */
-.nav-links a:hover {
-    background: var(--btn-grad);
-    -webkit-background-clip: text; /* Clips the gradient to the text */
-    -webkit-text-fill-color: transparent;
-    transition: all 0.3s ease;
-}
-
-/* --- Icon Hover --- */
-.icon:hover, .theme-toggle-icon:hover {
-    background: var(--btn-grad);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    transform: translateY(-3px); /* Subtle lift effect */
-    transition: all 0.3s ease;
-}
-
-/* --- Search Button Hover --- */
-.search-bar button:hover {
-    background: var(--btn-grad);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-:root {
-    /* The exact gradient from your image */
-    --btn-grad: linear-gradient(90deg, #4a90e2 0%, #00C853 100%);
-    --icon-color: #ffffff;
-}
-
-[data-theme="light"] {
-    --icon-color: #1a1a1a;
+    justify-content: center;
+    gap: 3rem;
 }
 
 .nav-links a {
     position: relative;
     padding: 5px 0;
+    text-decoration: none;
+    color: var(--icon-color) !important;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
 }
 
 .nav-links a::after {
@@ -555,48 +231,177 @@ body {
     transition: width 0.3s ease;
 }
 
+.nav-links a:hover {
+    background: var(--btn-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: brightness(1.2);
+    transition: all 0.3s ease;
+}
+
 .nav-links a:hover::after {
     width: 100%;
 }
 
-/* --- HERO SECTION IMPROVEMENT --- */
+/* Contact Page CSS */
+.contact-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
 
+.field-design {
+    width: 60%;
+    padding: 8px;
+    margin-bottom: 10px;
+    text-align: left;
+    margin-left: 120px;
+    background-color: #272626;
+    color: rgb(244, 244, 244);
+    border: 1px solid rgb(99, 99, 99);
+    border-radius: 10px;
+}
+
+.message-design {
+    width: 60%;
+    height: 150px;
+    padding: 10px;
+    font-size: 14px;
+    text-align: left;
+    margin-left: 120px;
+    background-color: #272626;
+    color: rgb(244, 244, 244);
+    border: 1px solid rgb(99, 99, 99);
+    border-radius: 10px;
+}
+
+#form-container {
+    padding: 20px;
+    color: rgb(255, 255, 255);
+}
+
+#contact-info {
+    padding: 20px;
+    text-align: center;
+}
+
+.form-subtext {
+    margin-left: 120px;
+}
+
+#submit-button {
+    background-color: #e3e0e0;
+    color: rgb(1, 1, 1);
+    padding: 10px 15px;
+    margin-left: 120px;
+    width: 60%;
+    cursor: pointer;
+    border: 1px solid rgb(99, 99, 99);
+    border-radius: 10px;
+}
+
+#submit-button:hover {
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+}
+
+#form-title {
+    margin-left: 120px;
+}
+
+/* Main Page CSS */
+.main-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: inline;
+}
+
+#welcome-text {
+    position: absolute;
+    text-align: center;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#welcome-button {
+    text-decoration: none;
+    color: white;
+    background-color: transparent;
+    position: absolute;
+    text-align: center;
+    top: 120%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 15px;
+    border: 2px solid white;
+    border-radius: 12px;
+    padding: 10px 80px;
+}
+
+#welcome-button:hover {
+    background-color: white;
+    color: black;
+}
+
+/* --- HERO SECTION IMPROVEMENT --- */
 #welcome-hero {
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    min-height: 60vh; /* Adjust this to change how much space it takes up */
+    min-height: 60vh;
     padding: 4rem 2rem;
     position: relative;
     overflow: hidden;
 }
 
+#welcome-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(18, 18, 18, 0) 0%, rgba(18, 18, 18, 0.4) 100%);
+    z-index: 1;
+}
+
 .hero-content {
     max-width: 800px;
     z-index: 2;
+    text-align: center;
+    margin-bottom: 3rem;
 }
 
 .hero-content h1 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 3.5rem;
     font-weight: 800;
-    margin-bottom: 1.5rem;
     line-height: 1.1;
-    /* Using your blue-to-green gradient from the image */
+    letter-spacing: -1.5px;
+    margin-bottom: 1.5rem;
     background: linear-gradient(90deg, #4a90e2 0%, #00C853 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .hero-content h5 {
-    font-size: 1.25rem;
-    color: var(--text-main);
-    opacity: 0.8;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #888888;
+    letter-spacing: 0.2px;
+    text-transform: lowercase;
+    margin-top: 0;
     margin-bottom: 2.5rem;
+    opacity: 0.9;
     line-height: 1.6;
 }
 
-/* --- BUTTON PLACEMENT --- */
 .hero-actions {
     display: flex;
     justify-content: center;
@@ -607,7 +412,7 @@ body {
     background: linear-gradient(90deg, #4a90e2 0%, #00C853 100%);
     color: white;
     padding: 16px 40px;
-    border-radius: 50px; /* Pill shape from login screen */
+    border-radius: 50px;
     font-weight: 700;
     text-decoration: none;
     letter-spacing: 1px;
@@ -621,33 +426,22 @@ body {
     box-shadow: 0 15px 30px rgba(0, 200, 83, 0.4);
 }
 
-#welcome-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* This adds a subtle dark vignette to make the white text pop */
-    background: radial-gradient(circle, rgba(18, 18, 18, 0) 0%, rgba(18, 18, 18, 0.4) 100%);
-    z-index: 1;
-}
 #hero-banner {
     position: relative;
     width: 100%;
-    height: 100; /* Adjust height as needed */
+    height: 100;
     background-image: url('/images/main-thumbnail.png');
     background-size: cover;
     background-position: center;
-    border-radius: 20px; /* Matches your image's rounded look */
+    border-radius: 20px;
     margin-top: 20px;
     overflow: hidden;
-    }
+}
 
 .hero-overlay {
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4); /* Darkens the image so text is readable */
+    background: rgba(0, 0, 0, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -657,7 +451,7 @@ body {
 .hero-text-box {
     max-width: 700px;
     padding: 20px;
-    color: #ffffff; /* Forces white text over the dark overlay */
+    color: #ffffff;
 }
 
 .hero-text-box h1 {
@@ -667,7 +461,6 @@ body {
     background: linear-gradient(90deg, #4a90e2 0%, #00C853 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-
 }
 
 .hero-text-box h5 {
@@ -678,7 +471,6 @@ body {
     color: #f0f0f0;
 }
 
-/* The Button Under the Text */
 .hero-cta-button {
     display: inline-block;
     background: linear-gradient(90deg, #4a90e2 0%, #00C853 100%);
@@ -697,50 +489,77 @@ body {
     transform: translateY(-3px) scale(1.05);
     box-shadow: 0 15px 30px rgba(74, 144, 226, 0.4);
 }
+
 /* --- CATEGORY GRID --- */
-/* --- FIXED 3-OVER-2 CATEGORY GRID --- */
 #category-grid-section {
-    max-width: 1100px; /* Increased slightly to fit 3 cards better */
+    max-width: 1100px;
     margin: 4rem auto;
     padding: 0 20px;
 }
 
+.category-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.category-header h1 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, #4a90e2 0%, #00C853 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.category-header h5 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #888888;
+    letter-spacing: 0.2px;
+    text-transform: lowercase;
+    margin-top: 0;
+    opacity: 0.9;
+}
+
 .category-container {
     display: flex;
-    flex-wrap: wrap; 
-    justify-content: center; /* This centers the bottom 2 cards */
-    gap: 25px; /* Spacing between cards */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+}
+
+.cat-row-top {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.cat-row-bottom {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
 .cat-card {
-    /* (100% / 3) minus the gap. 
-       Using 30% ensures 3 fit on the top row without squeezing. */
-    flex: 0 1 30%; 
-    min-width: 250px; /* Ensures they stay a good size */
+    width: 100%;
     background: var(--search-bg);
     border: 1px solid var(--search-border);
     backdrop-filter: blur(12px);
     border-radius: 20px;
-    padding: 40px 20px;
+    padding: 10px 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-decoration: none;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.4s ease;
 }
 
-/* Tablet: Switch to 2-2-1 if screen gets too narrow */
-@media (max-width: 900px) {
-    .cat-card {
-        flex: 0 1 45%;
-    }
-}
-
-/* Mobile: Stack them 1 by 1 */
-@media (max-width: 550px) {
-    .cat-card {
-        flex: 0 1 100%;
-    }
+.cat-row-bottom .cat-card {
+    max-width: calc(33.33% - 14px);
 }
 
 .cat-icon {
@@ -757,17 +576,10 @@ body {
     font-weight: 700;
 }
 
-/* Hover glow effect */
-.cat-card:hover {
-    transform: translateY(-10px);
-    border-color: #4a90e2;
-    box-shadow: 0 15px 35px rgba(74, 144, 226, 0.25);
-}
-/* --- HOVER ANIMATION --- */
 .cat-card:hover {
     transform: translateY(-8px);
     background: rgba(255, 255, 255, 0.1);
-    border-color: #4a90e2; /* Your primary blue */
+    border-color: #4a90e2;
     box-shadow: 0 12px 24px rgba(74, 144, 226, 0.2);
 }
 
@@ -775,89 +587,90 @@ body {
     background: #ffffff;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
 }
-#category-grid-section {
-    max-width: 1100px;
-    margin: 4rem auto;
-    padding: 0 20px;
-}
 
-/* Forces exactly 3 columns on top */
-.cat-row-top {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-bottom: 20px;
-}
-
-/* Forces 2 centered columns on bottom */
-.cat-row-bottom {
+/* Landing page product cards */
+.landing-products-row {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
     gap: 20px;
+    justify-content: center;
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* Style for the cards remains the same */
-.cat-card {
+.landing-product-card {
+    flex: 0 1 calc(50% - 20px);
+    min-width: 250px;
     background: var(--search-bg);
     border: 1px solid var(--search-border);
-    backdrop-filter: blur(12px);
-    border-radius: 20px;
-    padding: 10px 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    transition: all 0.4s ease;
-    /* Remove any flex-basis or min-width here so they obey the parent rows */
-    width: 100%; 
-}
-
-/* On the bottom row, we want the cards to match the width of the top ones */
-.cat-row-bottom .cat-card {
-    max-width: calc(33.33% - 14px); /* This matches the size of the 3-grid cards */
-}
-
-/* Mobile Responsive: Stack them only when screen is very small */
-@media (max-width: 768px) {
-    .cat-row-top { grid-template-columns: 1fr 1fr; }
-    .cat-row-bottom { flex-wrap: wrap; }
-    .cat-row-bottom .cat-card { max-width: 100%; }
-}
-
-/* Container for the text headers */
-.category-header, .hero-content {
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 1rem;
     text-align: center;
-    margin-bottom: 3rem;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
 }
 
-/* The Main Title (Shop by Category / Welcome) */
-.category-header h1, .hero-content h1 {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 3rem; /* Large and bold */
+.landing-product-card:hover {
+    transform: translateY(-8px);
+    border-color: #4a90e2;
+    box-shadow: 0 12px 30px rgba(74, 144, 226, 0.2);
+}
+
+.landing-product-img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+.landing-product-title {
+    font-size: 1.25rem;
+    color: var(--text-main);
+    margin-top: 1rem;
+    font-weight: 700;
+}
+
+.landing-product-price {
+    font-size: 1.4rem;
     font-weight: 800;
-    letter-spacing: -1.5px; /* Tighter letter spacing for that premium look */
-    margin-bottom: 0.5rem;
-    
-    /* The Blue-to-Green Gradient */
+    margin: 0.5rem 0 1.5rem;
     background: linear-gradient(90deg, #4a90e2 0%, #00C853 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-/* The Subtext */
-.category-header h5, .hero-content h5 {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 400;
-    color: #888888; /* Soft gray color */
-    letter-spacing: 0.2px;
-    text-transform: lowercase; /* Matches the "find the perfect..." look */
-    margin-top: 0;
-    opacity: 0.9;
+.landing-button {
+    background: linear-gradient(90deg, #4a90e2 0%, #00C853 100%);
+    color: white !important;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    display: inline-block;
 }
 
-/* Featured Products Title centering fix */
+.landing-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(74, 144, 226, 0.4);
+}
+
+/* Featured carousel */
+.featured-section {
+    margin-top: 3rem;
+    padding: 0 2rem;
+}
+
+.featured-title,
 #featured-products h2 {
+    text-align: center;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 800;
     font-size: 2.2rem;
@@ -866,4 +679,80 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 2rem;
+}
+
+.featured-carousel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.featured-carousel {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    width: 100%;
+    padding: 0.5rem 0;
+    scroll-snap-type: x mandatory;
+}
+
+.featured-card {
+    flex: 0 0 calc((100% - 3rem) / 3);
+    max-width: calc((100% - 3rem) / 3);
+    scroll-snap-align: start;
+    box-sizing: border-box;
+}
+
+.carousel-btn {
+    background-color: #00ffa2;
+    color: #121212;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.carousel-btn:hover {
+    background-color: #00cc88;
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .cat-card {
+        flex: 0 1 45%;
+    }
+}
+
+@media (max-width: 768px) {
+    .cat-row-top {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .cat-row-bottom {
+        flex-wrap: wrap;
+    }
+
+    .cat-row-bottom .cat-card {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .landing-product-card {
+        flex: 0 1 100%;
+    }
+}
+
+@media (max-width: 550px) {
+    .cat-card {
+        flex: 0 1 100%;
+    }
 }
