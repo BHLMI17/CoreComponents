@@ -55,6 +55,14 @@ class OrderController extends Controller
             return redirect()->back()->with('error', 'Your basket is empty');
         }
 
+        foreach ($basketItems as $item) {
+    if ($item->quantity > $item->product->stock) {
+        return back()->withErrors([
+            'stock' => "Not enough stock for {$item->product->name}, please check again later."
+        ]);
+    }
+}
+
         $total = $basketItems->sum(fn($item) => $item->product->price * $item->quantity);
 
         // To create order
@@ -83,6 +91,8 @@ foreach ($basketItems as $item) {
         'image' => $product->image_url,
         'quantity' => $item->quantity,
     ]);
+    // Remove product quantity from stock
+    $product->decrement('stock', $item->quantity);
 }
 
         // To clear basket
