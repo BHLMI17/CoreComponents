@@ -125,9 +125,10 @@ Route::get('/search', [App\Http\Controllers\ProductController::class, 'search'])
 
 use App\Http\Controllers\OrderController;
 
-Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
-Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
-Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
-
+Route::middleware('auth')->group(function () {
+    Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+});
 require __DIR__.'/auth.php';
 

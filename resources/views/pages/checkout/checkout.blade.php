@@ -218,7 +218,7 @@
                 @endphp
 
                 <div class="checkout-item">
-                    <img src="{{ asset('storage/' . $product->image) }}" 
+                    <img src="{{ asset($product->image_url) }}" 
                          alt="{{ $product->name }}" 
                          class="checkout-item-image">
 

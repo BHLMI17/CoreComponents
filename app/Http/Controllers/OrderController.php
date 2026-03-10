@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -18,7 +19,7 @@ class OrderController extends Controller
                        ->with('items')
                        ->orderBy('created_at', 'desc')
                        ->get();
-        
+
         return view('pages.orders.index', compact('orders'));
     }
 
@@ -30,7 +31,7 @@ class OrderController extends Controller
         $order = Order::where('user_id', auth()->id())
                       ->with('items')
                       ->findOrFail($id);
-        
+
         return view('pages.orders.show', compact('order'));
     }
 
@@ -39,6 +40,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'email' => 'required|email',
             'first_name' => 'required|string',
@@ -56,16 +58,15 @@ class OrderController extends Controller
         }
 
         foreach ($basketItems as $item) {
-    if ($item->quantity > $item->product->stock) {
-        return back()->withErrors([
-            'stock' => "Not enough stock for {$item->product->name}, please check again later."
-        ]);
-    }
-}
+            if ($item->quantity > $item->product->stock) {
+                return back()->withErrors([
+                    'stock' => "Not enough stock for {$item->product->name}, please check again later."
+                ]);
+            }
+        }
 
         $total = $basketItems->sum(fn($item) => $item->product->price * $item->quantity);
 
-        // To create order
         $order = Order::create([
             'user_id' => auth()->id(),
             'total' => $total,
@@ -79,26 +80,24 @@ class OrderController extends Controller
             'payment_method' => $request->payment_method,
         ]);
 
-        // Create order items
-foreach ($basketItems as $item) {
-    $product = $item->product; // Get product via relationship
-    
-    OrderItem::create([
-        'order_id' => $order->id,
-        'product_id' => $item->product_id,
-        'name' => $product->name,
-        'price' => $product->price,
-        'image' => $product->image_url,
-        'quantity' => $item->quantity,
-    ]);
-    // Remove product quantity from stock
-    $product->decrement('stock', $item->quantity);
-}
+        foreach ($basketItems as $item) {
+            $product = $item->product;
 
-        // To clear basket
+            OrderItem::create([
+                'order_id' => $order->id,
+                'product_id' => $item->product_id,
+                'name' => $product->name,
+                'price' => $product->price,
+                'image' => $product->image_url,
+                'quantity' => $item->quantity,
+            ]);
+
+            $product->decrement('stock', $item->quantity);
+        }
+
         Basket::where('user_id', auth()->id())->delete();
 
         return redirect()->route('orders.show', $order->id)
-                        ->with('success', 'Order placed successfully');
+                         ->with('success', 'Order placed successfully');
     }
 }
