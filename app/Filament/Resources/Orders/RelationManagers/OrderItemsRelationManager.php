@@ -3,9 +3,9 @@
 namespace App\Filament\Resources\Orders\RelationManagers;
 
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Forms\Form;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\CreateAction;
@@ -16,9 +16,9 @@ class OrderItemsRelationManager extends RelationManager
 {
     protected static string $relationship = 'items';
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form->schema([
+        return $schema->schema([
             Select::make('product_id')
                 ->relationship('product', 'name')
                 ->required()

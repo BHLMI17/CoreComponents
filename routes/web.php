@@ -37,13 +37,18 @@ Route::view('/contact', 'pages.Contact')->name('contact');
 
 //About us
 Route::get('/about-us', function () {
-    // Get the 5 highest rated product reviews
-    $topProductReviews = Review::with('product')->orderBy('rating', 'desc')->take(5)->get();
-    
-    // Get the latest website reviews
-    $websiteReviews = WebsiteReview::latest()->take(3)->get();
+    // 1. Fetch the products and calculate their average rating
+    // We use withAvg to create a 'reviews_avg_rating' attribute
+    $topRatedProducts = \App\Models\Product::withAvg('reviews', 'rating')
+        ->orderBy('reviews_avg_rating', 'desc')
+        ->take(4) 
+        ->get();
 
-    return view('pages.about_us', compact('topProductReviews', 'websiteReviews'));
+    // 2. Keep your existing website reviews query
+    $websiteReviews = \App\Models\WebsiteReview::latest()->take(3)->get();
+
+    // 3. Pass BOTH variables to the view
+    return view('pages.about_us', compact('topRatedProducts', 'websiteReviews'));
 })->name('about');
 
 // --- ADD THE STORE ROUTE FOR WEBSITE REVIEWS ---
@@ -125,9 +130,10 @@ Route::get('/search', [App\Http\Controllers\ProductController::class, 'search'])
 
 use App\Http\Controllers\OrderController;
 
-Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
-Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
-Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
-
+Route::middleware('auth')->group(function () {
+    Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+});
 require __DIR__.'/auth.php';
 

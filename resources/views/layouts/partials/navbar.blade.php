@@ -3,36 +3,45 @@
 
 <div class="search-wrapper">
     <form id="search-form" class="search-bar" action="{{ route('search') }}" method="GET">
-        <input id="search-input" name="query" type="text" placeholder="Search..." />
-        <button type="submit">🔍</button>
+        <button type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <input id="search-input" name="query" type="text" placeholder="Search for components..." />
     </form>
 </div>
 
 
 
-    <div class="icon-group">
-        <a href="{{ route('basket.index') }}" id="btn-cart" class="icon">🛒</a>
+<div class="icon-group">
+    {{-- Shopping Cart --}}
+    <a href="{{ route('basket.index') }}" id="btn-cart" class="icon">
+        <i class="fa-solid fa-cart-shopping"></i>
+    </a>
 
-        {{-- Logged-in users --}}
-        @auth
-            @if (in_array(auth()->user()->role, ['admin', 'super_admin']))
-                {{-- Admins go to admin dashboard --}}
-                <a href="{{ route('admin.dashboard') }}" id="btn-account" class="icon">👤</a>
-            @else
-                {{-- Normal users go to user dashboard --}}
-                <a href="{{ route('dashboard') }}" id="btn-account" class="icon">👤</a>
-            @endif
-        @endauth
+    @auth
+        {{-- Logged-in Account --}}
+        <a href="{{ route(auth()->user()->role === 'admin' ? 'admin.dashboard' : 'dashboard') }}" id="btn-account" class="icon">
+            <i class="fa-solid fa-user"></i>
+        </a>
+    @endauth
 
-        {{-- Guests --}}
-        @guest
-            {{-- Normal login --}}
-            <a href="{{ route('login') }}" id="btn-account" class="icon">👤</a>
+    @guest
+        {{-- Guest Login --}}
+        <a href="{{ route('login') }}" id="btn-account" class="icon">
+            <i class="fa-regular fa-user"></i>
+        </a>
 
-            {{-- Admin login --}}
-            <a href="{{ route('admin.login') }}" id="btn-admin" class="icon">🛡️</a>
-        @endguest
-    </div>
+        {{-- Admin Login --}}
+        <a href="{{ route('admin.login') }}" id="btn-admin" class="icon">
+            <i class="fa-solid fa-user-shield"></i>
+        </a>
+    @endguest
+
+    {{-- Theme Toggle --}}
+    <button id="theme-toggle" onclick="toggleTheme()" class="theme-toggle-icon">
+        <i class="fa-solid fa-circle-half-stroke"></i>
+    </button>
+</div>
 </header>
 
 <nav class="nav-bar">
