@@ -2,15 +2,15 @@
 
 namespace App\Filament\Resources\Users\Schemas;
 
-use Filament\Forms\Form;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Schema;
 
 class UserForm
 {
-    public static function configure(Form $form): Form
+    public static function configure(Schema $schema): Schema
     {
-        return $form->schema([
+        return $schema->schema([
             TextInput::make('name')
                 ->required(),
 
