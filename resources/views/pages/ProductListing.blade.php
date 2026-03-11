@@ -71,7 +71,7 @@
     <div class="product-card">
         
         {{-- --- ADD THIS LINK START --- --}}
-        <a href="{{ route('products.show', $product->id) }}" style="text-decoration: none; color: inherit;">
+       <a href="{{ route('products.show', $product->id) }}">
             <img 
                 src="{{ $product->image_url }}"
                 alt="{{ $product->name }}"
