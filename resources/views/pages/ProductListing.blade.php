@@ -53,6 +53,7 @@
         Reset
     </a>
 </form>
+</section>
 
 <main class="product-listing">
 

@@ -97,14 +97,15 @@ body {
   color: #00ffcc;
 }
 
-/* Product Listing Grid */
 .product-listing {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 320px));
   gap: 2rem;
   padding: 2rem;
+  justify-content: center;
+  max-width: 1800px;
+  margin: 0 auto;
 }
-
 /* Product Card */
 .product-card {
   background-color: #1e1e1e;
