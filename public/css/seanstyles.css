@@ -109,24 +109,27 @@ body {
 
 /* Product Card */
 .product-card {
-  background-color: #1e1e1e;
-  border: 1px solid #333;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
   padding: 1rem;
   text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
 
-  height: 430px;
+  height: 440px;
   display: flex;
   flex-direction: column;
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0, 255, 204, 0.2);
+  transform: translateY(-8px);
+  border-color: #4a90e2;
+  box-shadow: 0 12px 30px rgba(74, 144, 226, 0.2);
 }
 
-/* Make the clickable content take up the flexible space above price/button */
+/* Make the clickable content fill the space above price/button */
 .product-card > a {
   display: flex;
   flex-direction: column;
@@ -147,8 +150,12 @@ body {
 
 /* Title area gets fixed height so buttons line up */
 .product-title {
-  font-size: 1.1rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.25rem;
+  color: #ffffff;
+  margin-top: 1rem;
   margin-bottom: 0.75rem;
+  font-weight: 700;
   min-height: 56px;
 
   display: flex;
@@ -157,32 +164,39 @@ body {
   text-align: center;
 }
 
-/* Price stays consistent */
 .product-price {
-  font-size: 1rem;
-  color: #00ffcc;
-  margin-bottom: 1rem;
-  min-height: 24px;
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin: 0.5rem 0 1.5rem;
+  background: linear-gradient(90deg, #4a90e2 0%, #00C853 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Form sits at bottom */
 .product-card form {
   margin-top: auto;
 }
 
 .add-to-cart {
-  background-color: #00ffa2;
-  border: none;
+  background: linear-gradient(90deg, #4a90e2 0%, #00C853 100%);
+  color: white !important;
   padding: 0.5rem 1rem;
-  border-radius: 4px;
-  color: #121212;
-  font-weight: bold;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .add-to-cart:hover {
-  background-color: #00cc88;
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(74, 144, 226, 0.4);
 }
 
 /* Filter Bar */
