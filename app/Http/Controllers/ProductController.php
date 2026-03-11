@@ -55,17 +55,22 @@ class ProductController extends Controller
 
     // Dedicated search route for navbar
     public function search(Request $request)
-    {
-        $query = trim($request->input('query'));
-        $lower = strtolower($query);
+{
+    $query = $request->input('query');
 
-        $products = Product::whereRaw('LOWER(name) LIKE ?', ["%$lower%"])
-            ->orWhereRaw('LOWER(description) LIKE ?', ["%$lower%"])
-            ->orWhereRaw('LOWER(type) LIKE ?', ["%$lower%"])
-            ->get();
-
-        return view('pages.search-results', compact('products', 'query'));
+    if (!$query) {
+        return redirect()->back()->with('error', 'Please enter a search term.');
     }
+
+    $lower = strtolower($query);
+
+    $products = Product::whereRaw('LOWER(name) LIKE ?', ["%$lower%"])
+        ->orWhereRaw('LOWER(description) LIKE ?', ["%$lower%"])
+        ->orWhereRaw('LOWER(type) LIKE ?', ["%$lower%"])
+        ->get();
+
+    return view('pages.search-results', compact('products', 'query'));
+}
 
     /**
      * Display the product overview with dynamic review analytics.
