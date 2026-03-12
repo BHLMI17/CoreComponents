@@ -11,7 +11,7 @@
 <div class="container">
 
 <div class="checkout-form">
-    <h2>Checkout</h2>
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.4rem; background:linear-gradient(90deg,#4a90e2,#00C853); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:20px;">Checkout</h2>
 
     <form action="{{ route('orders.store') }}" method="POST" id="checkoutForm" novalidate>
         @csrf
@@ -198,7 +198,7 @@
 
 {{-- Order Summary --}}
 <div class="order-summary">
-    <h2>Order Summary</h2>
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.4rem; background:linear-gradient(90deg,#4a90e2,#00C853); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:20px;">Order Summary</h2>
     <div class="card">
 
         @if($items->isEmpty())
@@ -221,57 +221,35 @@
                     <img src="{{ $product->image_url }}" 
                          alt="{{ $product->name }}" 
                          class="checkout-item-image"
-                         style="width:46px;height:46px;max-width:46px;object-fit:contain;flex-shrink:0;"
+                         style="width:70px;height:70px;max-width:70px;object-fit:contain;flex-shrink:0;"
                          onerror="this.style.opacity='0'">
 
                     <div class="checkout-item-details">
                         <h4>{{ $product->name }}</h4>
-                        <p>Price: £{{ number_format($product->price, 2) }}</p>
-
-                        {{-- Auto-update quantity --}}
-                        <label>Quantity:</label>
-                        <input 
-                            type="number"
-                            value="{{ $item->quantity }}"
-                            min="1"
-                            class="qty-input"
-                            data-id="{{ $item->id }}"
-                            style="width:60px;"
-                        >
-
-                        {{-- Remove Item --}}
-                        <form action="{{ route('basket.remove', $item->id) }}" method="POST" style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn-small btn-danger" 
-                                style="background:none; border:none; color:#ff4d4d; cursor:pointer;">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </form>
-
-                        <p>Line Total: £{{ number_format($lineTotal, 2) }}</p>
+                        <p style="color:var(--text-sub); font-size:0.85rem;">
+                            £{{ number_format($product->price, 2) }} &times; {{ $item->quantity }}
+                        </p>
+                        <p style="font-weight:600; margin-top:4px;">
+                            £{{ number_format($lineTotal, 2) }}
+                        </p>
                     </div>
                 </div>
             @endforeach
 
-            <hr>
-
-            {{-- NET TOTAL --}}
-            <div class="checkout-total">
-                <strong>Net Total (before VAT):</strong>
-                £{{ number_format($netTotal, 2) }}
-            </div>
-
-            {{-- VAT --}}
-            <div class="checkout-total">
-                <strong>VAT (20%):</strong>
-                £{{ number_format($netTotal * 0.20, 2) }}
-            </div>
-
-            {{-- TOTAL WITH VAT --}}
-            <div class="checkout-total">
-                <strong>Total (after VAT):</strong>
-                £{{ number_format($netTotal + ($netTotal * 0.20), 2) }}
+            {{-- Totals --}}
+            <div style="margin-top:16px; border-top:1px solid var(--glass-border); padding-top:16px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:0.9rem; color:var(--text-sub);">
+                    <span>Subtotal</span>
+                    <span>£{{ number_format($netTotal, 2) }}</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:0.9rem; color:var(--text-sub);">
+                    <span>VAT (20%)</span>
+                    <span>£{{ number_format($netTotal * 0.20, 2) }}</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-top:14px; padding-top:14px; border-top:1px solid var(--glass-border); font-size:1.05rem; font-weight:700; color:var(--text-main);">
+                    <span>Total</span>
+                    <span style="background:linear-gradient(90deg,#4a90e2,#00C853); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">£{{ number_format($netTotal * 1.20, 2) }}</span>
+                </div>
             </div>
 
         @endif
