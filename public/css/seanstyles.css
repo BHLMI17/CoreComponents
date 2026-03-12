@@ -1,94 +1,13 @@
 /* bg colour of main page*/
 body {
-    padding-top: 120px;     /* 70px top-bar + ~50px nav-bar */
-
   font-family: 'Segoe UI', sans-serif;
   background-color: #121212;
   color: #f0f0f0;
 }
 
-.top-bar {
-    position: fixed;        /* stays at the top */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 70px;           /* fixed height prevents jumping */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2rem;
-    background-color: #1e1e1e;
-    border-bottom: 1px solid #333;
-    z-index: 1000;
-}
 
+/* Lower Nav Bar handled by samistyles.css */
 
-/* Logo stays left */
-.logo-img {
-  height: 38px;
-  width: auto;
-}
-
-/* Search wrapper is centered cuz ts was off centre due to logo and icon positioning */
-.search-wrapper {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-}
-
-.search-bar {
-  display: flex;
-  background-color: #ebebeb;
-  border-radius: 4px;
-  padding: 0.3rem 0.5rem;
-}
-
-.search-bar input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: #121212;
-  padding: 0.3rem;
-  outline: none;
-}
-
-.search-bar button {
-  background: none;
-  border: none;
-  color: #00ffa2;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-/* Icons stay right */
-.icon-group {
-  display: flex;
-  gap: 1rem;
-}
-
-.icon {
-  font-size: 1.2rem;
-  color: #f0f0f0;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.icon:hover {
-  color: #00ffcc;
-}
-
-/* Lower Nav Bar */
-.nav-bar {
-    position: fixed;
-    top: 70px;              /* matches .top-bar height */
-    left: 0;
-    width: 100%;
-    background-color: #212121;
-    padding: 0.5rem 2rem;
-    border-bottom: 1px solid #333;
-    z-index: 999;
-}
-}
 
 .nav-links {
   list-style: none;
@@ -215,9 +134,9 @@ body {
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;                 /* tighter spacing */
-  align-items: flex-end;     /* align bottoms of inputs/buttons */
-  justify-content: flex-start; /* looks cleaner than centered */
+  gap: 12px;
+  align-items: flex-end;
+  justify-content: center;
   background-color: #1e1e1e;
   padding: 12px 16px;
   border-bottom: 1px solid #333;
@@ -289,7 +208,7 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-end;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 16px;
 }
 
