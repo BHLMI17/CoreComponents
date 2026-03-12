@@ -218,9 +218,11 @@
                 @endphp
 
                 <div class="checkout-item">
-                    <img src="{{ asset($product->image_url) }}" 
+                    <img src="{{ $product->image_url }}" 
                          alt="{{ $product->name }}" 
-                         class="checkout-item-image">
+                         class="checkout-item-image"
+                         style="width:46px;height:46px;max-width:46px;object-fit:contain;flex-shrink:0;"
+                         onerror="this.style.opacity='0'">
 
                     <div class="checkout-item-details">
                         <h4>{{ $product->name }}</h4>

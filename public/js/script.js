@@ -14,8 +14,65 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Open account");
   });
 
-  document.getElementById("search-form")?.addEventListener("submit", e => {
-    e.preventDefault();
-    console.log("Search:", document.getElementById("search-input").value);
-  });
+  // ========== SEARCH SUGGESTIONS LOGIC ==========
+  const searchInput = document.getElementById("search-input");
+  const suggestionsContainer = document.getElementById("search-suggestions");
+  let searchTimeout;
+
+  if (searchInput && suggestionsContainer) {
+    searchInput.addEventListener("input", (e) => {
+      clearTimeout(searchTimeout);
+      const query = e.target.value.trim();
+
+      if (query.length < 2) {
+        suggestionsContainer.innerHTML = "";
+        suggestionsContainer.classList.add("hidden");
+        return;
+      }
+
+      // Debounce request by 300ms
+      searchTimeout = setTimeout(() => {
+        fetch(`/api/search-suggestions?query=${encodeURIComponent(query)}`)
+          .then((res) => res.json())
+          .then((data) => {
+            suggestionsContainer.innerHTML = "";
+
+            if (data.length > 0) {
+              data.forEach((product) => {
+                const item = document.createElement("a");
+                item.href = `/product/${product.id}`;
+                item.className = "suggestion-item";
+                
+                // Fallback image if missing
+                const imgUrl = product.image_url || '/images/default-product.png';
+
+                item.innerHTML = `
+                  <div class="suggestion-img-wrap">
+                    <img src="${imgUrl}" alt="${product.name}" class="suggestion-img">
+                  </div>
+                  <div class="suggestion-info">
+                    <span class="suggestion-name">${product.name}</span>
+                    <span class="suggestion-price">£${product.price}</span>
+                  </div>
+                `;
+                suggestionsContainer.appendChild(item);
+              });
+              suggestionsContainer.classList.remove("hidden");
+            } else {
+              suggestionsContainer.innerHTML = `<div class="suggestion-no-results">No products found for "${query}"</div>`;
+              suggestionsContainer.classList.remove("hidden");
+            }
+          })
+          .catch((err) => console.error("Error fetching suggestions:", err));
+      }, 300);
+    });
+
+    // Close suggestions when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!searchInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+        suggestionsContainer.classList.add("hidden");
+      }
+    });
+  }
 });
+

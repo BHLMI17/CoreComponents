@@ -76,6 +76,7 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.lis
 |
 */
 Route::get('/search', [ProductController::class, 'search'])->name('search');
+Route::get('/api/search-suggestions', [ProductController::class, 'searchSuggestions'])->name('search.suggestions');
 
 // Product Overview
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('products.show');

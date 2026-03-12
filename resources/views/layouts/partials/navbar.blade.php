@@ -6,10 +6,11 @@
         <button type="submit">
             <i class="fa-solid fa-magnifying-glass"></i>
         </button>
-        <input id="search-input" name="query" type="text" placeholder="Search for components..." />
+        <input id="search-input" name="query" type="text" placeholder="Search for components..." autocomplete="off" />
     </form>
+    <!-- Search Suggestions Dropdown -->
+    <div id="search-suggestions" class="search-suggestions-dropdown hidden"></div>
 </div>
-
 
 
 <div class="icon-group">

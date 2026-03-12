@@ -53,35 +53,40 @@ class ProductController extends Controller
         ));
     }
 
-    // Dedicated search route for navbar
- public function search(Request $request)
-{
-    dd('SEARCH WORKING');
-    $query = $request->input('query');
+    // Dedicated search route for navbar (Redirect to products list instead of breaking if view does not exist)
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
 
-    // If empty search, redirect back with message
-    if (!$query) {
-        return redirect()->back()->with('error', 'Please enter a search term.');
+        // If empty search, redirect back with message
+        if (!$query) {
+            return redirect()->back()->with('error', 'Please enter a search term.');
+        }
+
+        // Redirect to the products listing page with the query parameter
+        return redirect()->route('products.list', ['query' => $query]);
     }
 
-    // Search products by name, description, or type
-    $products = Product::where('name', 'like', "%{$query}%")
-        ->orWhere('description', 'like', "%{$query}%")
-        ->orWhere('type', 'like', "%{$query}%")
-        ->get();
+    // API Endpoint for Navbar Search Suggestions
+    public function searchSuggestions(Request $request)
+    {
+        $query = $request->input('query');
 
-    // Return the view you showed me
-    return view('pages.search-results', compact('products', 'query'));
-}
-    $lower = strtolower($query);
+        if (!$query || strlen($query) < 2) {
+            return response()->json([]);
+        }
 
-    $products = Product::whereRaw('LOWER(name) LIKE ?', ["%$lower%"])
-        ->orWhereRaw('LOWER(description) LIKE ?', ["%$lower%"])
-        ->orWhereRaw('LOWER(type) LIKE ?', ["%$lower%"])
-        ->get();
+        $lower = strtolower($query);
 
-    return view('pages.search-results', compact('products', 'query'));
-}
+        $products = Product::whereRaw('LOWER(name) LIKE ?', ["%$lower%"])
+            ->orWhereRaw('LOWER(description) LIKE ?', ["%$lower%"])
+            ->orWhereRaw('LOWER(type) LIKE ?', ["%$lower%"])
+            ->select('id', 'name', 'price', 'image_url')
+            ->take(5)
+            ->get();
+
+        return response()->json($products);
+    }
 
     /**
      * Display the product overview with dynamic review analytics.

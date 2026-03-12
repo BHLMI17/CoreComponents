@@ -410,3 +410,68 @@ input:focus {
     .nav-links-row { flex-wrap: wrap; gap: 20px; }
     .payment-methods-grid { grid-template-columns: repeat(3, 1fr); }
 }
+
+/* ---------------------- */
+/* Basket Page Layout Fix */
+/* ---------------------- */
+
+.basket-card {
+    background: #111;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.basket-card-image {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.basket-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.3rem;
+}
+
+.basket-price {
+    opacity: 0.8;
+    margin-bottom: 1rem;
+}
+
+.basket-qty-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+}
+
+.qty-input {
+    width: 70px;
+    padding: 0.4rem;
+    text-align: center;
+    border-radius: 6px;
+    border: 1px solid #333;
+    background: #222;
+    color: white;
+}
+
+.basket-line-total {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.basket-remove-btn {
+    background: none;
+    border: none;
+    color: #ff4d4d;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.basket-remove-btn:hover {
+    color: #ff7777;
+}
