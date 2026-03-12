@@ -6,11 +6,13 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
+
+use Filament\Actions\CreateAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Tables\Actions\CreateAction;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\DeleteAction;
 
 class OrderItemsRelationManager extends RelationManager
 {
@@ -30,7 +32,7 @@ class OrderItemsRelationManager extends RelationManager
                         $set('price', $product->price * $quantity);
                     }
                 }),
-    
+
             TextInput::make('quantity')
                 ->numeric()
                 ->required()
@@ -41,16 +43,12 @@ class OrderItemsRelationManager extends RelationManager
                         $set('price', $product->price * $state);
                     }
                 }),
-    
+
             TextInput::make('price')
                 ->numeric()
                 ->required(),
         ]);
     }
-    
-
-    
-    
 
     public function table(Table $table): Table
     {
@@ -60,10 +58,12 @@ class OrderItemsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('quantity'),
                 Tables\Columns\TextColumn::make('price')->money('gbp'),
             ])
+
             ->headerActions([
                 CreateAction::make(),
             ])
-            ->actions([
+
+            ->recordActions([
                 EditAction::make(),
                 DeleteAction::make(),
             ]);

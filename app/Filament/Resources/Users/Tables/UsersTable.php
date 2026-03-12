@@ -2,13 +2,11 @@
 
 namespace App\Filament\Resources\Users\Tables;
 
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\CreateAction;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\TextColumn;
+
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
 
 class UsersTable
 {
@@ -18,33 +16,36 @@ class UsersTable
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),
+
                 TextColumn::make('email')
                     ->label('Email address')
                     ->searchable(),
+
                 TextColumn::make('email_verified_at')
                     ->dateTime()
                     ->sortable(),
+
                 TextColumn::make('role')
                     ->searchable(),
+
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
-            ->actions([
+
+            ->filters([])
+
+            ->recordActions([
                 EditAction::make(),
+                DeleteAction::make(),
             ])
-            ->bulkActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
-            ]);
+
+            ->bulkActions([]); // No bulk delete available in your install
     }
 }
