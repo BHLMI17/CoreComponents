@@ -12,7 +12,7 @@
     <div class="product-grid">
         @foreach($products as $product)
             <div class="product-card">
-                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                <img src="{{ asset($product->image_url) }}" alt="{{ $product->name }}">
                 <h3>{{ $product->name }}</h3>
                 <p>£{{ number_format($product->price, 2) }}</p>
                 <a href="{{ route('products.show', $product->id) }}" class="btn">View</a>

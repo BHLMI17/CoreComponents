@@ -54,14 +54,25 @@ class ProductController extends Controller
     }
 
     // Dedicated search route for navbar
-    public function search(Request $request)
+ public function search(Request $request)
 {
+    dd('SEARCH WORKING');
     $query = $request->input('query');
 
+    // If empty search, redirect back with message
     if (!$query) {
         return redirect()->back()->with('error', 'Please enter a search term.');
     }
 
+    // Search products by name, description, or type
+    $products = Product::where('name', 'like', "%{$query}%")
+        ->orWhere('description', 'like', "%{$query}%")
+        ->orWhere('type', 'like', "%{$query}%")
+        ->get();
+
+    // Return the view you showed me
+    return view('pages.search-results', compact('products', 'query'));
+}
     $lower = strtolower($query);
 
     $products = Product::whereRaw('LOWER(name) LIKE ?', ["%$lower%"])
