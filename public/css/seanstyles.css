@@ -100,7 +100,9 @@ body {
   font-weight: 800;
   margin: 0.5rem 0 1.5rem;
   background: linear-gradient(90deg, #4a90e2 0%, #00C853 100%);
+  background-clip: text;
   -webkit-background-clip: text;
+  color: transparent;
   -webkit-text-fill-color: transparent;
 }
 
@@ -177,24 +179,31 @@ body {
 }
 
 /* Buttons */
+/* Buttons */
 .apply-filter {
-  background-color: #00ffa2;
-  border: none;
-  padding: 0 16px;
-  border-radius: 6px;
-  color: #121212;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  height: 40px;              /* match inputs */
+  background: linear-gradient(90deg, #4a90e2 0%, #00C853 100%);
+  color: white !important;
+  padding: 0 18px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: box-shadow 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  text-decoration: none;     /* makes Reset <a> look like a button */
+  border: none;
+  cursor: pointer;
+  height: 40px;
 }
 
 .apply-filter:hover {
-  background-color: #00cc88;
+  opacity: 0.95;
+  filter: brightness(1.05);
+  box-shadow: 0 15px 30px rgba(74, 144, 226, 0.4);
 }
 
 /* Optional: make the price range group a bit narrower */
