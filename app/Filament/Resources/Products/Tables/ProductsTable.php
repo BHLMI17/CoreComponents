@@ -40,6 +40,11 @@ class ProductsTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('benchmark_score')
+                    ->label('Benchmark')
+                    ->sortable()
+                    ->toggleable()
             ])
 
             ->filters([])

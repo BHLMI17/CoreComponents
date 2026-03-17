@@ -44,6 +44,12 @@ class ProductForm
                     'monitor' => 'Monitor',
                 ])
                 ->required(),
+
+            TextInput::make('benchmark_score')
+                ->numeric()
+                ->nullable()
+                ->label('Benchmark Score')
+                ->visible(fn ($get) => in_array($get('type'), ['cpu', 'gpu'])),
         ]);
     }
 }

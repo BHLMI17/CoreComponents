@@ -10,6 +10,7 @@ use App\Models\Review;
 use App\Models\WebsiteReview;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\BottleneckController;
 
 
 // Public pages
@@ -143,5 +144,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
 });
+
+Route::get('/bottleneck', [BottleneckController::class, 'index'])
+    ->name('bottleneck.index');
+Route::post('/bottleneck/calc', [BottleneckController::class, 'calculate'])
+    ->name('bottleneck.calculate');
+
 require __DIR__.'/auth.php';
 
