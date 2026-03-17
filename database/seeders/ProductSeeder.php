@@ -37,6 +37,7 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'compatibility' => ['windows', 'linux'],
             'type' => 'cpu',
+            'benchmark_score' => 28000,
         ]);
 
         Product::create([
@@ -47,6 +48,7 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'compatibility' => ['windows', 'linux'],
             'type' => 'cpu',
+            'benchmark_score' => 38500,
         ]);
 
         Product::create([
@@ -77,6 +79,7 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'compatibility' => ['windows', 'linux'],
             'type' => 'gpu',
+            'benchmark_score' => 15500,
         ]);
 
         Product::create([
@@ -87,6 +90,7 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'compatibility' => ['windows', 'linux'],
             'type' => 'gpu',
+            'benchmark_score' => 22000,
         ]);
 
         Product::create([
@@ -177,6 +181,7 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'compatibility' => ['windows', 'linux'],
             'type' => 'cpu',
+            'benchmark_score' => 28500,
         ]);
 
         Product::create([
@@ -187,6 +192,7 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'compatibility' => ['windows', 'linux'],
             'type' => 'cpu',
+            'benchmark_score' => 39000,
         ]);
 
         Product::create([
@@ -197,6 +203,7 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'compatibility' => ['windows', 'linux'],
             'type' => 'cpu',
+            'benchmark_score' => 49000,
         ]);
 
         Product::create([
@@ -207,6 +214,7 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'compatibility' => ['windows', 'linux'],
             'type' => 'gpu',
+            'benchmark_score' => 19000,
         ]);
 
         Product::create([
@@ -217,6 +225,7 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'compatibility' => ['windows', 'linux'],
             'type' => 'gpu',
+            'benchmark_score' => 22500,
         ]);
 
         Product::create([
@@ -227,6 +236,7 @@ class ProductSeeder extends Seeder
             'stock' => 50,
             'compatibility' => ['windows', 'linux'],
             'type' => 'gpu',
+            'benchmark_score' => 14000,
         ]);
 
         Product::create([
