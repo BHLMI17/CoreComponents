@@ -106,6 +106,43 @@
                 @endforelse
             </div>
         </section>
+    {{-- WEBSITE REVIEW MODAL --}}
+<div id="website-review-modal" class="modal-overlay">
+    <div class="modal-content card">
+        <h3>Rate Your Experience</h3>
+        <p style="color: var(--text-sub); margin-bottom: 20px; font-size: 0.9rem;">Your feedback helps us make CoreComponents better for everyone.</p>
+        
+        <form action="{{ route('website-reviews.store') }}" method="POST">
+            @csrf
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" name="user_name" required placeholder="e.g. Bilal">
+            </div>
+            
+            <div class="form-group">
+                <label>Rating</label>
+                <select name="rating" required>
+                    <option value="5">5 Stars - Excellent</option>
+                    <option value="4">4 Stars - Very Good</option>
+                    <option value="3">3 Stars - Good</option>
+                    <option value="2">2 Stars - Fair</option>
+                    <option value="1">1 Star - Poor</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Your Feedback</label>
+                <textarea name="comment" required placeholder="How was your experience using our site?" rows="4"></textarea>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn-submit-review">Submit Feedback</button>
+                <button type="button" class="btn-cancel-review" onclick="closeWebsiteReviewModal()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 
     </div> 
 <script>
