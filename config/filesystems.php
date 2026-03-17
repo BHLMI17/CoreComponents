@@ -30,6 +30,8 @@ return [
 
     'disks' => [
 
+        
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app/private'),
@@ -45,6 +47,13 @@ return [
             'visibility' => 'public',
             'throw' => false,
             'report' => false,
+        ],
+        
+        'public_uploads' => [
+        'driver' => 'local',
+        'root' => public_path(),          // writes directly into /public
+        'url' => env('APP_URL') . '/',    // so /images/... works
+        'visibility' => 'public',
         ],
 
         's3' => [
@@ -76,5 +85,6 @@ return [
     'links' => [
         public_path('storage') => storage_path('app/public'),
     ],
+    
 
 ];

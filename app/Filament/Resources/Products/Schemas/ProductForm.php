@@ -24,8 +24,20 @@ class ProductForm
                 ->numeric()
                 ->prefix('£'),
 
-            FileUpload::make('image_url')
-                ->image(),
+                FileUpload::make('image_url')
+                ->image()
+                ->directory('images')
+                ->disk('public_uploads')
+                ->visibility('public')
+                ->saveUploadedFileUsing(function ($file, $record) {
+                    $filename = $file->getClientOriginalName();
+            
+                    $file->storeAs('images', $filename, 'public_uploads');
+            
+                    return ' /images/' . $filename;
+                }),
+            
+            
 
             TextInput::make('stock')
                 ->required()
