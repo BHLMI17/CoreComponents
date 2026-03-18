@@ -19,6 +19,11 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Support\HtmlString;
+use Filament\Navigation\MenuItem;
+use Filament\Navigation\NavigationBuilder;
+use Filament\Navigation\NavigationItem;
+
+
 
 
 class AdminPanelProvider extends PanelProvider
@@ -29,7 +34,10 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin-panel')
             ->path('admin-panel')
+            ->authGuard('web')
             ->login()
+
+            
 
             // Branding 
             ->brandLogo(fn () => new HtmlString(
@@ -62,6 +70,17 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+            ])
+            ->navigationItems([
+                NavigationItem::make('Go to Landing Page')
+                    ->url('/')
+                    ->icon('heroicon-o-paper-airplane')
+                    ->sort(0),
+            
+                    NavigationItem::make('Go to Dashboard')
+                    ->url('/dashboard')
+                    ->icon('heroicon-o-user-circle')
+                    ->sort(0),
             ])
             ->authMiddleware([
                 Authenticate::class,

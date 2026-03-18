@@ -21,7 +21,7 @@
 
     @auth
         {{-- Logged-in Account --}}
-        <a href="{{ route(auth()->user()->role === 'admin' ? 'admin.dashboard' : 'dashboard') }}" id="btn-account" class="icon">
+        <a href="{{ auth()->user()->canAccessPanel(app(\Filament\Panel::class)) ? '/admin-panel' : route('dashboard') }}" id="btn-account" class="icon">
             <i class="fa-solid fa-user"></i>
         </a>
     @endauth
@@ -33,7 +33,7 @@
         </a>
 
         {{-- Admin Login --}}
-        <a href="{{ route('admin.login') }}" id="btn-admin" class="icon">
+        <a href="/admin-panel/login" id="btn-admin" class="icon">
             <i class="fa-solid fa-user-shield"></i>
         </a>
     @endguest
