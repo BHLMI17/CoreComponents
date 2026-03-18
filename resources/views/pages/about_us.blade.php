@@ -71,41 +71,86 @@
         </section>
 
     </div>
-{{-- 4. WEBSITE REVIEWS SECTION (NOW MATCHING GLASS STYLE) --}}
-        <section class="about-glass-card" style="margin-top: 40px; text-align: left;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
-                <div class="category-header" style="text-align: left; margin: 0;">
-                    <h1>What People Say About Us</h1>
-                </div>
-                <button class="hero-button small" style="width: 240px; padding: 25px;" onclick="showWebsiteReviewModal()">
-                    <i class="fa-solid fa-pen-to-square"></i> Rate Our Website
-                </button>
-            </div>
+{{-- 4. WEBSITE REVIEWS SECTION (SPLIT LAYOUT STYLE) --}}
+<div class="reviews-wrapper-card" style="margin-top: 40px;">
+    <h2>What People Say About Us</h2>
+    
+    <div class="reviews-split-layout">
+        
+        {{-- LEFT COLUMN: STATS & BARS --}}
+        <div class="reviews-left-stats">
+            @php 
+                $avgRating = $websiteReviews->avg('rating') ?: 0; 
+                $totalReviews = $websiteReviews->count();
+            @endphp
+
+            {{-- Dynamic Average Rating --}}
+            <div class="large-number">{{ number_format($avgRating, 1) }}</div>
             
-            <div class="reviews-right-list" style="margin-top: 30px; display: flex; flex-direction: column; gap: 15px;">
-                @forelse($websiteReviews as $wReview)
-                    <div class="individual-review-box" style="display: flex; gap: 20px; background: rgba(255, 255, 255, 0.03); border: 1.5px solid rgba(255, 255, 255, 0.08); border-radius: 15px; padding: 20px;">
-                        <div class="review-user-icon" style="background: var(--btn-grad); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold;">
-                            {{ strtoupper(substr($wReview->user_name, 0, 1)) }}
-                        </div>
-                        <div class="review-body" style="flex: 1;">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <strong style="color: #fff;">{{ $wReview->user_name }}</strong>
-                                <small style="opacity: 0.5; color: #fff;">{{ $wReview->created_at->diffForHumans() }}</small>
-                            </div>
-                            <div class="stars-row-yellow-sm" style="color: #FFD700; margin: 5px 0;">
-                                @for ($i = 1; $i <= 5; $i++)
-                                    <i class="fa-{{ $i <= $wReview->rating ? 'solid' : 'regular' }} fa-star"></i>
-                                @endfor
-                            </div>
-                            <p style="opacity: 0.9; color: #ccc; margin: 0; line-height: 1.5;">{{ $wReview->comment }}</p>
-                        </div>
-                    </div>
-                @empty
-                    <p style="text-align: center; opacity: 0.5; padding: 40px; color: #fff;">No website reviews yet. Be the first to tell us what you think!</p>
-                @endforelse
+            <div class="stars-row-yellow">
+                @for ($i = 1; $i <= 5; $i++)
+                    <i class="fa-{{ $i <= round($avgRating) ? 'solid' : 'regular' }} fa-star"></i>
+                @endfor
             </div>
-        </section>
+            <p>Based on {{ $totalReviews }} website reviews</p>
+
+            {{-- Rating Bar Stack --}}
+            <div class="rating-bar-stack">
+                @for ($i = 5; $i >= 1; $i--)
+                    @php 
+                        $count = $websiteReviews->where('rating', $i)->count();
+                        $percent = $totalReviews > 0 ? ($count / $totalReviews) * 100 : 0;
+                    @endphp
+                    <div class="rating-line">
+                        <span>{{ $i }} ★</span>
+                        <div class="bar-bg">
+                            <div class="bar-fill" style="width: {{ $percent }}%"></div>
+                        </div>
+                        <span>{{ round($percent) }}%</span>
+                    </div>
+                @endfor
+            </div>
+
+            <button class="btn-write-review-grad" onclick="showWebsiteReviewModal()">
+                <i class="fa-solid fa-pen-to-square"></i> Rate Our Website
+            </button>
+        </div>
+
+        {{-- RIGHT COLUMN: SCROLLABLE LIST --}}
+        <div class="reviews-right-list">
+            @forelse($websiteReviews as $wReview)
+                <div class="individual-review-box">
+                    <div class="review-user-icon" style="background: var(--btn-grad); color: white;">
+                        {{ strtoupper(substr($wReview->user_name, 0, 1)) }}
+                    </div>
+                    
+                    <div class="review-body">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <strong>{{ $wReview->user_name }}</strong>
+                            <span class="review-date" style="opacity: 0.6; font-size: 0.85rem;">
+                                {{ $wReview->created_at->diffForHumans() }}
+                            </span>
+                        </div>
+
+                        <div class="stars-row-yellow-sm">
+                            @for ($i = 1; $i <= 5; $i++)
+                                <i class="fa-{{ $i <= $wReview->rating ? 'solid' : 'regular' }} fa-star"></i>
+                            @endfor
+                        </div>
+
+                        {{-- If your website reviews don't have titles, you can remove this <h4> --}}
+                        <p style="margin-top: 10px;">{{ $wReview->comment }}</p>
+                    </div>
+                </div>
+            @empty
+                <div style="text-align: center; opacity: 0.5; padding: 40px;">
+                    <p>No website reviews yet. Be the first to tell us what you think!</p>
+                </div>
+            @endforelse
+        </div>
+
+    </div>
+</div>
     {{-- WEBSITE REVIEW MODAL --}}
 <div id="website-review-modal" class="modal-overlay">
     <div class="modal-content card">
