@@ -1,14 +1,54 @@
-<h1>Bottleneck Result</h1>
+@extends('layouts.main')
 
-<p><strong>CPU:</strong> {{ $cpu->name }}</p>
-<p><strong>GPU:</strong> {{ $gpu->name }}</p>
+@section('title', 'Bottleneck Result')
 
-@if($type === 'cpu')
-    <p>Your <strong>CPU</strong> is bottlenecking your GPU by <strong>{{ $bottleneck }}%</strong>.</p>
-@else
-    <p>Your <strong>GPU</strong> is bottlenecking your CPU by <strong>{{ $bottleneck }}%</strong>.</p>
-@endif
+@section('content')
 
-<p><strong>Severity:</strong> {{ $severity }}</p>
+<link rel="stylesheet" href="{{ asset('css/seanstyles.css') }}">
 
-<a href="{{ route('bottleneck.index') }}">Calculate Again</a>
+<div class="bottleneck-page">
+    <div class="bottleneck-hero">
+        <h1 class="bottleneck-title">Bottleneck Result</h1>
+        <p class="bottleneck-subtext">
+            Here’s the outcome for the selected CPU and GPU combination.
+        </p>
+    </div>
+
+    <div class="bottleneck-card">
+        <div class="bottleneck-result-grid">
+            <div class="bottleneck-stat">
+                <div class="bottleneck-stat-label">CPU</div>
+                <div class="bottleneck-stat-value">{{ $cpu->name }}</div>
+            </div>
+
+            <div class="bottleneck-stat">
+                <div class="bottleneck-stat-label">GPU</div>
+                <div class="bottleneck-stat-value">{{ $gpu->name }}</div>
+            </div>
+        </div>
+
+        <div class="bottleneck-outcome">
+            <div class="bottleneck-percent">{{ $bottleneck }}%</div>
+
+            @if($type === 'cpu')
+                <p class="bottleneck-message">
+                    Your <strong>CPU</strong> is bottlenecking your GPU.
+                </p>
+            @else
+                <p class="bottleneck-message">
+                    Your <strong>GPU</strong> is bottlenecking your CPU.
+                </p>
+            @endif
+
+            <div class="bottleneck-severity">
+                Severity: {{ $severity }}
+            </div>
+        </div>
+
+        <div class="bottleneck-actions">
+            <a href="{{ route('bottleneck.index') }}" class="bottleneck-link">Calculate Again</a>
+        </div>
+    </div>
+</div>
+
+@endsection
