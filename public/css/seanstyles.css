@@ -530,10 +530,16 @@ body {
 }
 
 .bottleneck-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  gap: 1rem;
-  align-items: end;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.bottleneck-form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
 }
 
 .bottleneck-field {
@@ -675,12 +681,40 @@ body {
   box-shadow: 0 15px 30px rgba(74, 144, 226, 0.4);
 }
 
-@media (max-width: 900px) {
-  .bottleneck-form {
-    grid-template-columns: 1fr;
-  }
+.bottleneck-preview-grid {
+  margin-top: 1.5rem;
+}
 
-  .bottleneck-result-grid {
-    grid-template-columns: 1fr;
-  }
+.bottleneck-product-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.bottleneck-product-img {
+  width: 100%;
+  max-width: 220px;
+  height: 140px;
+  object-fit: contain;
+  margin: 0.75rem 0 1rem;
+}
+
+.bottleneck-stat-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-align: center;
+}
+
+.bottleneck-select-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.bottleneck-form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.25rem;
 }

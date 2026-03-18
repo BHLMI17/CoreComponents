@@ -16,13 +16,19 @@
 
     <div class="bottleneck-card">
         <div class="bottleneck-result-grid">
-            <div class="bottleneck-stat">
+            <div class="bottleneck-stat bottleneck-product-stat">
                 <div class="bottleneck-stat-label">CPU</div>
+                @if(!empty($cpu->image_url))
+                    <img src="{{ $cpu->image_url }}" alt="{{ $cpu->name }}" class="bottleneck-product-img">
+                @endif
                 <div class="bottleneck-stat-value">{{ $cpu->name }}</div>
             </div>
 
-            <div class="bottleneck-stat">
+            <div class="bottleneck-stat bottleneck-product-stat">
                 <div class="bottleneck-stat-label">GPU</div>
+                @if(!empty($gpu->image_url))
+                    <img src="{{ $gpu->image_url }}" alt="{{ $gpu->name }}" class="bottleneck-product-img">
+                @endif
                 <div class="bottleneck-stat-value">{{ $gpu->name }}</div>
             </div>
         </div>
