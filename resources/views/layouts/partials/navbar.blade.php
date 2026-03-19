@@ -1,5 +1,7 @@
 <header class="top-bar">
+<a href="{{ route('landing') }}">
     <img src="/images/CoreComponentsLogo.png" alt="CoreComponents Logo" class="logo-img" />
+</a>
 
 <div class="search-wrapper">
     <form id="search-form" class="search-bar" action="{{ route('search') }}" method="GET">
@@ -21,7 +23,7 @@
 
     @auth
         {{-- Logged-in Account --}}
-        <a href="{{ route(auth()->user()->role === 'admin' ? 'admin.dashboard' : 'dashboard') }}" id="btn-account" class="icon">
+        <a href="{{ auth()->user()->canAccessPanel(app(\Filament\Panel::class)) ? '/admin-panel' : route('dashboard') }}" id="btn-account" class="icon">
             <i class="fa-solid fa-user"></i>
         </a>
     @endauth
@@ -33,7 +35,7 @@
         </a>
 
         {{-- Admin Login --}}
-        <a href="{{ route('admin.login') }}" id="btn-admin" class="icon">
+        <a href="/admin-panel/login" id="btn-admin" class="icon">
             <i class="fa-solid fa-user-shield"></i>
         </a>
     @endguest
@@ -45,12 +47,20 @@
 </div>
 </header>
 
-<nav class="nav-bar">
+
+ <nav class="nav-bar">
     <ul class="nav-links">
         <li><a href="{{ route('landing') }}">Home</a></li>
         <li><a href="{{ route('products.list') }}">Browse</a></li>
         <li><a href="{{ route('contact') }}">Contact</a></li>
         <li><a href="{{ route('about') }}">About Us</a></li>
         <li><a href="{{ route('checkout') }}">Checkout</a></li>
+        {{-- Fixed the duplicate Checkout link to point to your Bottleneck Calculator --}}
+        <li>
+            <a href="{{ route('bottleneck.index') }}" 
+               class="{{ request()->routeIs('bottleneck.*') ? 'active' : '' }}">
+               Compare
+            </a>
+        </li>
     </ul>
 </nav>

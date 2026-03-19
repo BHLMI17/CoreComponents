@@ -2,6 +2,7 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/productoverview.css') }}">
+
 {{-- Success Toast Notification --}}
 @if(session('success'))
     <div class="success-toast card">
@@ -35,34 +36,57 @@
             <div class="price-display">£{{ number_format($product->price, 2) }}</div>
 
             <p class="product-description">{{ $product->description }}</p>
+{{-- ACTION AREA --}}
+<div class="action-row" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+    
+    {{-- Top Row: Quantity and Bottleneck --}}
+    <div style="display: flex; gap: 10px; align-items: center;"> {{-- Changed stretch to center --}}
+        
+        {{-- Quantity Box: Now restricted in width --}}
+        <div class="quantity-input-box" style="margin: 0; width: 140px; flex-shrink: 0;"> {{-- Set a fixed width --}}
+            <button type="button" onclick="changeQty(-1)">-</button>
+            <input type="text" id="qty" value="1" readonly style="width: 40px; text-align: center;">
+            <button type="button" onclick="changeQty(1)">+</button>
+        </div>
 
-            <div class="action-row">
-                <div class="quantity-input-box">
-                    <button type="button" onclick="changeQty(-1)">-</button>
-                    <input type="text" id="qty" value="1" readonly>
-                    <button type="button" onclick="changeQty(1)">+</button>
-                </div>
+        {{-- Bottleneck Button (Only shows for CPU/GPU) --}}
+        @if($product->type === 'cpu' || $product->type === 'gpu')
+            <a href="{{ route('bottleneck.index') }}" class="btn-bottleneck-glass" style="flex: 1;">
+                <i class="fa-solid fa-microchip"></i> Bottleneck Check
+            </a>
+        @endif
+    </div>
 
-                <form action="{{ route('basket.add') }}" method="POST" style="flex-grow:1; display:flex;">
+                {{-- Bottom Row: Add to Basket --}}
+                <form action="{{ route('basket.add') }}" method="POST" style="width: 100%;">
                     @csrf
                     <input type="hidden" name="product_id" value="{{ $product->id }}">
-                    <button type="submit" class="btn-gradient-add">
+                    <button type="submit" class="btn-gradient-add" style="
+                        width: 100%;
+                        padding: 16px;
+                        font-size: 1.1rem;
+                        font-weight: 700;
+                        border-radius: 10px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 12px;
+                        box-shadow: 0 4px 15px rgba(0, 255, 136, 0.2);
+                    ">
                         <i class="fa-solid fa-cart-shopping"></i> Add to Basket
                     </button>
                 </form>
-            </div>
-        </div>
-    </div>
+            </div> {{-- End Action Row --}}
+        </div> {{-- End Product Info Area --}}
+    </div> {{-- End Product Hero Card (Crucial this closes here) --}}
 
-    {{-- REVIEWS SECTION --}}
+    {{-- REVIEWS SECTION (Now sits safely below the grid) --}}
     <div class="reviews-wrapper-card">
         <h2>Customer Reviews</h2>
         <div class="reviews-split-layout">
             <div class="reviews-left-stats">
-                {{-- Dynamic Average Rating --}}
                 <div class="large-number">{{ number_format($product->reviews->avg('rating') ?: 0, 1) }}</div>
                 <div class="stars-row-yellow">
-                    {{-- Large Star Logic --}}
                     @php $avg = $product->reviews->avg('rating') ?: 0; @endphp
                     @for ($i = 1; $i <= 5; $i++)
                         <i class="fa-{{ $i <= round($avg) ? 'solid' : 'regular' }} fa-star"></i>
@@ -70,7 +94,6 @@
                 </div>
                 <p>Based on {{ $product->reviews->count() }} reviews</p>
 
-                {{-- Rating Bar Stack --}}
                 <div class="rating-bar-stack">
                     @for ($i = 5; $i >= 1; $i--)
                         @php 

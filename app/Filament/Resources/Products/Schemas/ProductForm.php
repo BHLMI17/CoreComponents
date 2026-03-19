@@ -34,7 +34,7 @@ class ProductForm
             
                     $file->storeAs('images', $filename, 'public_uploads');
             
-                    return ' /images/' . $filename;
+                    return '/images/' . $filename;
                 }),
             
             

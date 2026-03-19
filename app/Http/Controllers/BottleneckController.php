@@ -24,11 +24,14 @@ class BottleneckController extends Controller
         $cpuScore = $cpu->benchmark_score;
         $gpuScore = $gpu->benchmark_score;
 
-        $ratio = $cpuScore / $gpuScore;
-        $bottleneck = abs(1 - $ratio) * 100;
-        $bottleneck = min($bottleneck, 50);
+        $maxScore = max($cpuScore, $gpuScore);
+        $diff = abs($cpuScore - $gpuScore);
 
-        $type = $ratio < 1 ? 'cpu' : 'gpu';
+        $bottleneck = ($diff / $maxScore) * 100;
+
+        // Determine bottleneck type
+        $type = $cpuScore < $gpuScore ? 'cpu' : 'gpu';
+
 
         // Determine severity
         if ($bottleneck <= 10) {

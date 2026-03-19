@@ -486,6 +486,7 @@ body {
   }
 }
 
+<<<<<<< HEAD
 /* Success Toast Styling (Copied from productoverview.css) */
 .success-toast {
     background-color: rgba(0, 255, 204, 0.1) !important; /* Semi-transparent accent */
@@ -510,4 +511,237 @@ body {
 @keyframes slideDown {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
+=======
+/* ------------------------------
+   Bottleneck Calculator
+------------------------------ */
+.bottleneck-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 3rem;
+}
+
+.bottleneck-hero {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.bottleneck-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 0.75rem;
+  background: var(--btn-grad);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.bottleneck-subtext {
+  color: var(--search-placeholder);
+  font-size: 1rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.bottleneck-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.bottleneck-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.bottleneck-form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.bottleneck-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bottleneck-field label {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.bottleneck-field select {
+  background-color: var(--search-bg);
+  border: 1px solid var(--search-border);
+  border-radius: 10px;
+  color: var(--search-text);
+  padding: 0.85rem 1rem;
+  min-height: 48px;
+  width: 100%;
+}
+
+.bottleneck-field select:focus {
+  outline: none;
+  border-color: var(--glow-start);
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+}
+
+.bottleneck-submit {
+  background: var(--btn-grad);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 0.9rem 1.4rem;
+  min-height: 48px;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.bottleneck-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(74, 144, 226, 0.4);
+}
+
+.bottleneck-result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.bottleneck-stat {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+}
+
+.bottleneck-stat-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--search-placeholder);
+  margin-bottom: 0.4rem;
+}
+
+.bottleneck-stat-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.bottleneck-outcome {
+  text-align: center;
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+}
+
+.bottleneck-percent {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  background: var(--btn-grad);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.bottleneck-message {
+  font-size: 1.05rem;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+}
+
+.bottleneck-severity {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(74, 144, 226, 0.15);
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+.bottleneck-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.bottleneck-link {
+  background: var(--btn-grad);
+  color: white !important;
+  border-radius: 30px;
+  padding: 0.8rem 1.3rem;
+  text-decoration: none;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+}
+
+.bottleneck-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(74, 144, 226, 0.4);
+}
+
+.bottleneck-preview-grid {
+  margin-top: 1.5rem;
+}
+
+.bottleneck-product-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.bottleneck-product-img {
+  width: 100%;
+  max-width: 220px;
+  height: 140px;
+  object-fit: contain;
+  margin: 0.75rem 0 1rem;
+}
+
+.bottleneck-stat-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-align: center;
+}
+
+.bottleneck-select-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.bottleneck-form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.25rem;
+>>>>>>> 443473dc6979b40812f1be4d42c0d614506e656f
 }
