@@ -45,12 +45,20 @@
 </div>
 </header>
 
-<nav class="nav-bar">
+
+ <nav class="nav-bar">
     <ul class="nav-links">
         <li><a href="{{ route('landing') }}">Home</a></li>
         <li><a href="{{ route('products.list') }}">Browse</a></li>
         <li><a href="{{ route('contact') }}">Contact</a></li>
         <li><a href="{{ route('about') }}">About Us</a></li>
         <li><a href="{{ route('checkout') }}">Checkout</a></li>
+        {{-- Fixed the duplicate Checkout link to point to your Bottleneck Calculator --}}
+        <li>
+            <a href="{{ route('bottleneck.index') }}" 
+               class="{{ request()->routeIs('bottleneck.*') ? 'active' : '' }}">
+               Compare
+            </a>
+        </li>
     </ul>
 </nav>

@@ -775,3 +775,134 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+/* Glass Effect for Bottleneck button */
+.btn-bottleneck-glass:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    transform: translateY(-2px);
+}
+
+/* Enhancing your existing gradient button */
+.btn-gradient-add {
+    background: var(--btn-grad, linear-gradient(90deg, #00d2ff, #3a7bd5)); /* Use your green/blue grad here */
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-gradient-add:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 210, 255, 0.4);
+}
+/* Ensure the container stacks sections correctly */
+.product-container {
+    display: flex;
+    flex-direction: column;
+    gap: 60px; /* Increased gap for better breathing room */
+    width: 100%;
+}
+
+/* Force the Review Section to always start below the Hero */
+.reviews-wrapper-card {
+    width: 100%;
+    clear: both;
+    display: block; /* Ensure it's not fighting a grid layout */
+}
+
+/* Improved Bottleneck Button Styling for your Theme */
+.btn-bottleneck-glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.btn-bottleneck-glass:hover {
+    background: var(--btn-grad) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: var(--card-shadow);
+}
+
+.product-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* This forces all children to be 100% width of the 1200px */
+    gap: 40px;
+}
+
+.product-hero-card, 
+.reviews-wrapper-card {
+    width: 100%; /* Take up the full 1200px */
+    box-sizing: border-box; /* Includes padding in the width calculation */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- GRID & CARD POLISH --- */
+    .product-listing-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 20px;
+        padding: 0 20px 50px 20px;
+    }
+
+    .about-glass-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    }
+
+    .about-glass-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4) !important;
+        border-color: rgba(255, 255, 255, 0.2) !important;
+    }
+
+    /* --- BADGES --- */
+    .product-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 0.65rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        z-index: 2;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .badge-new { background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%); color: white; }
+    .badge-hot { background: linear-gradient(135deg, #f83600 0%, #f9d423 100%); color: white; }
+
+    /* --- QUICK VIEW STYLES --- */
+    #quickview-modal .modal-content {
+        max-width: 850px;
+        width: 90%;
+        display: flex;
+        gap: 30px;
+        flex-direction: row;
+        padding: 40px;
+        position: relative;
+    }
+
+    @media (max-width: 768px) {
+        #quickview-modal .modal-content { flex-direction: column; align-items: center; text-align: center; }
+        .filter-form { flex-direction: column; align-items: stretch !important; }
