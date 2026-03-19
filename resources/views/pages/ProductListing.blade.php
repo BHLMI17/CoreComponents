@@ -52,66 +52,10 @@
                 </select>
             </div>
 
-<<<<<<< HEAD
-     {{-- Submit + reset --}}
-    <button type="submit" class="apply-filter">Apply Filters</button>
-
-    <a href="{{ route('products.list') }}" class="apply-filter" style="text-decoration:none;">
-        Reset
-    </a>
-</form>
-</section>
-
-
-{{-- Success Toast Notification --}}
-@if(session('success'))
-    <div class="success-toast">
-        <i class="fa-solid fa-circle-check"></i>
-        <span>{{ session('success') }}</span>
-    </div>
-@endif
-
-<main class="product-listing">
-
-
-    {{-- Show "No results" msg if search finds nothin --}}
-    @if($products->count() === 0)
-        <div class="no-results-msg" style="text-align:center; padding:2rem; width:100%;">
-            <h3>No results found{{ isset($query) ? ' for "' . $query . '"' : '' }}</h3>
-            <p>Try checking your spelling or using different keywords.</p>
-        </div>
-    @else
-
-        {{-- Loop thru products normally --}}
-        {{-- Loop thru products normally --}}
-@foreach ($products as $product)
-    <div class="product-card">
-        
-        {{-- --- ADD THIS LINK START --- --}}
-       <a href="{{ route('products.show', $product->id) }}">
-            <img 
-                src="{{ $product->image_url }}"
-                alt="{{ $product->name }}"
-                class="{{ $product->type === 'mouse' || $product->type === 'keyboard' ? 'product-img' : 'product-img2' }}"
-            />
-
-            <h3 class="product-title">{{ $product->name }}</h3>
-        </a>
-        {{-- --- ADD THIS LINK END --- --}}
-
-        <p class="product-price">£{{ number_format($product->price, 2) }}</p>
-
-        {{-- Add to Basket Form --}}
-        <form action="{{ route('basket.add') }}" method="POST">
-            @csrf
-            <input type="hidden" name="product_id" value="{{ $product->id }}">
-            <button type="submit" class="add-to-cart">Add to Basket</button>
-=======
             <div style="display: flex; gap: 8px;">
                 <button type="submit" class="btn-gradient-add" style="height: 40px; padding: 0 15px; font-size: 0.85rem;">Apply</button>
                 <a href="{{ route('products.list') }}" class="btn-cancel-review" style="height: 40px; padding: 0 15px; font-size: 0.85rem; text-decoration: none; display: flex; align-items: center; background: rgba(255,255,255,0.05); border-radius: 8px;">Reset</a>
             </div>
->>>>>>> 443473dc6979b40812f1be4d42c0d614506e656f
         </form>
     </div>
 </section>
