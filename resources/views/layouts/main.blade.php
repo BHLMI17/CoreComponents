@@ -6,6 +6,7 @@
     <title>@yield('title', 'CoreComponents')</title>
 
     <link rel="stylesheet" href="/css/samistyles.css">
+    <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <script src="/js/script.js"></script>
@@ -20,6 +21,9 @@
     <main>
         @yield('content')
     </main>
+    {{-- Footer --}}
+    @include('layouts.partials.footer')
+
 <script>
     // Function to switch themes
     function toggleTheme() {

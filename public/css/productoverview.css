@@ -331,9 +331,9 @@ body {
 }
 /* Success Toast Styling */
 .success-toast {
-    background-color: rgba(0, 200, 83, 0.1) !important; /* Semi-transparent green */
-    border: 1px solid rgba(0, 200, 83, 0.3) !important;
-    color: #00C853;
+    background-color: rgba(0, 255, 204, 0.1) !important;
+    border: 1px solid var(--accent) !important;
+    color: var(--accent);
     padding: 15px 25px;
     margin-bottom: 25px;
     display: flex;
@@ -342,6 +342,7 @@ body {
     font-weight: 600;
     border-radius: 8px;
     animation: slideDown 0.4s ease-out;
+    backdrop-filter: blur(10px);
 }
 
 .success-toast i {

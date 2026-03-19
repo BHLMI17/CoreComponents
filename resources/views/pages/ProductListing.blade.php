@@ -55,7 +55,17 @@
 </form>
 </section>
 
+
+{{-- Success Toast Notification --}}
+@if(session('success'))
+    <div class="success-toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span>{{ session('success') }}</span>
+    </div>
+@endif
+
 <main class="product-listing">
+
 
     {{-- Show "No results" msg if search finds nothin --}}
     @if($products->count() === 0)

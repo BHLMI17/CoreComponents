@@ -1,0 +1,130 @@
+/* public/css/footer.css */
+.main-footer {
+    background-color: var(--nav-bg);
+    color: var(--text-main);
+    padding: 60px 0 40px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+}
+
+.footer-column:first-child {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 5px; /* Alignment with h3 tops */
+}
+
+.footer-column .footer-logo {
+    max-width: 220px;
+    height: auto;
+    filter: drop-shadow(0 0 8px rgba(0, 255, 204, 0.2));
+    transition: all 0.4s ease;
+}
+
+.footer-column .footer-logo:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 15px rgba(0, 255, 204, 0.4));
+}
+
+.footer-column h3 {
+    background: var(--btn-grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 12px;
+}
+
+.footer-column ul li a {
+    color: var(--footer-text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.footer-column ul li a:hover {
+    color: var(--accent);
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-item {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.contact-item i {
+    color: var(--accent);
+    font-size: 1.1rem;
+    margin-top: 5px;
+}
+
+.contact-item span, .contact-item a {
+    color: var(--footer-text);
+    text-decoration: none;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.footer-bottom {
+    background-color: var(--bg-color);
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-bottom-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    font-size: 0.85rem;
+    color: var(--text-sub);
+}
+
+.footer-bottom-content a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.footer-separator {
+    margin: 0 10px;
+    color: #ccc;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .contact-item {
+        justify-content: center;
+    }
+}
