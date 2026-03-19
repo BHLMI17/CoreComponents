@@ -27,3 +27,8 @@ Thumbs.db
 /storage/framework/cache/*
 /storage/framework/sessions/*
 /storage/framework/testing/*
+/bootstrap/cache/*.php
+/bootstrap/cache/*.json
+/bootstrap/cache/*.services.php
+/bootstrap/cache/*.manifest
+/bootstrap/cache/schedule-*
