@@ -32,3 +32,4 @@ Thumbs.db
 /bootstrap/cache/*.services.php
 /bootstrap/cache/*.manifest
 /bootstrap/cache/schedule-*
+/storage/debugbar/*
