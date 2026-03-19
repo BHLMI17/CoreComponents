@@ -33,14 +33,14 @@
                 <span class="ms-2 text-sm">{{ __('Remember me') }}</span>
             </label>
         </div>
-        @if (!request()->routeIs('admin.login'))
+        {{-- @if (!request()->routeIs('admin.login')) --}}
         <div class="flex items-center justify-end mt-4 auth-actions">
             @if (Route::has('password.request'))
                 <a class="underline text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 auth-link" href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
                 </a>
             @endif
-        @endif
+        {{-- @endif --}}
         @endif
 
             <x-primary-button class="ms-3 auth-button">
