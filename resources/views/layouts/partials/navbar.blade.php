@@ -1,5 +1,7 @@
 <header class="top-bar">
+<a href="{{ route('landing') }}">
     <img src="/images/CoreComponentsLogo.png" alt="CoreComponents Logo" class="logo-img" />
+</a>
 
 <div class="search-wrapper">
     <form id="search-form" class="search-bar" action="{{ route('search') }}" method="GET">
