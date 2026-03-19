@@ -1663,3 +1663,31 @@ body {
     -webkit-text-fill-color: transparent;
     transform: translateY(-3px);
 }
+
+    /* 1. PREVENT VERTICAL STRETCHING */
+    .featured-carousel {
+        display: flex;
+        gap: 25px;
+        overflow-x: auto;
+        padding: 20px 10px;
+        align-items: flex-start; /* CRITICAL: Stops cards from stretching to the bottom */
+        scroll-behavior: smooth;
+        scrollbar-width: none; 
+    }
+    .featured-carousel::-webkit-scrollbar { display: none; }
+
+    /* 2. LOCK CARD SIZE */
+    .featured-card {
+        width: 280px !important;
+        min-width: 280px !important;
+        max-width: 280px !important;
+        flex-shrink: 0;
+        height: auto !important; /* Let content decide height */
+    }
+
+    /* 3. FIX CAROUSEL BUTTONS */
+    .featured-carousel-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
