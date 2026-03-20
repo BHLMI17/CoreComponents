@@ -486,7 +486,6 @@ body {
   }
 }
 
-<<<<<<< HEAD
 /* Success Toast Styling (Copied from productoverview.css) */
 .success-toast {
     background-color: rgba(0, 255, 204, 0.1) !important; /* Semi-transparent accent */
@@ -511,7 +510,7 @@ body {
 @keyframes slideDown {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
-=======
+}
 /* ------------------------------
    Bottleneck Calculator
 ------------------------------ */
@@ -743,5 +742,4 @@ body {
   display: flex;
   justify-content: center;
   margin-top: 0.25rem;
->>>>>>> 443473dc6979b40812f1be4d42c0d614506e656f
 }
