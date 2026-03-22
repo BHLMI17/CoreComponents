@@ -68,6 +68,5 @@
     </div>
 </div>
 
-<footer id="footer" style="margin-top: 60px;"></footer>
 
 @endsection

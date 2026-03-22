@@ -89,14 +89,7 @@
             </div>
         </section>
     @endif
-
-   
-        
-
-    <footer id="footer">
-        <br><br>
-    </footer>
-
+    
 </main>
 
 <script>
