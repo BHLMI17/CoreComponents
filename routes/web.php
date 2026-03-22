@@ -11,45 +11,60 @@ use App\Models\WebsiteReview;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BottleneckController;
+use App\Support\DatabaseAvailability;
 
 
 // Public pages
 Route::get('/', function () { // ts for landing pages
-
-    // Featured: newest 8 (or whatever we tryna do)
-    $featuredProducts = Product::orderBy('created_at', 'desc')->take(8)->get();
-
-    // Section categories
     $categories = ['mouse', 'keyboard', 'cpu', 'gpu', 'monitor'];
 
-    // Grab a few items per category (e.g. 4 each)
-    $productsByCategory = [];
-    foreach ($categories as $cat) {
-        $productsByCategory[$cat] = Product::where('type', $cat)
+    return DatabaseAvailability::fallback(function () use ($categories) {
+        $featuredProducts = Product::with('reviews')
             ->orderBy('created_at', 'desc')
-            ->take(4)
+            ->take(8)
             ->get();
-    }
 
-    return view('pages.Landing', compact('featuredProducts', 'categories', 'productsByCategory'));
+        $productsByCategory = [];
+        foreach ($categories as $cat) {
+            $productsByCategory[$cat] = Product::where('type', $cat)
+                ->orderBy('created_at', 'desc')
+                ->take(4)
+                ->get();
+        }
+
+        return view('pages.Landing', compact('featuredProducts', 'categories', 'productsByCategory'));
+    }, function () use ($categories) {
+        $productsByCategory = collect($categories)
+            ->mapWithKeys(fn ($category) => [$category => collect()])
+            ->all();
+
+        return view('pages.Landing', [
+            'featuredProducts' => collect(),
+            'categories' => $categories,
+            'productsByCategory' => $productsByCategory,
+            'databaseWarning' => DatabaseAvailability::warningMessage(),
+        ]);
+    });
 })->name('landing');
 
 Route::view('/contact', 'pages.Contact')->name('contact');
 
 //About us
 Route::get('/about-us', function () {
-    // 1. Fetch the products and calculate their average rating
-    // We use withAvg to create a 'reviews_avg_rating' attribute
-    $topRatedProducts = \App\Models\Product::withAvg('reviews', 'rating')
-        ->orderBy('reviews_avg_rating', 'desc')
-        ->take(4) 
-        ->get();
+    return DatabaseAvailability::fallback(function () {
+        $topRatedProducts = \App\Models\Product::withAvg('reviews', 'rating')
+            ->orderBy('reviews_avg_rating', 'desc')
+            ->take(4)
+            ->get();
 
-    // 2. Keep your existing website reviews query
-    $websiteReviews = \App\Models\WebsiteReview::latest()->take(3)->get();
+        $websiteReviews = \App\Models\WebsiteReview::latest()->take(3)->get();
 
-    // 3. Pass BOTH variables to the view
-    return view('pages.about_us', compact('topRatedProducts', 'websiteReviews'));
+        return view('pages.about_us', compact('topRatedProducts', 'websiteReviews'));
+    }, fn () => view('pages.about_us', [
+        'topRatedProducts' => collect(),
+        'websiteReviews' => collect(),
+        'databaseWarning' => DatabaseAvailability::warningMessage(),
+    ]));
 })->name('about');
 
 // --- ADD THE STORE ROUTE FOR WEBSITE REVIEWS ---
@@ -60,9 +75,11 @@ Route::post('/website-review', function (Request $request) {
         'comment' => 'required|string',
     ]);
 
-    WebsiteReview::create($validated);
+    return DatabaseAvailability::fallback(function () use ($validated) {
+        WebsiteReview::create($validated);
 
-    return back()->with('success', 'Thank you for your feedback!');
+        return back()->with('success', 'Thank you for your feedback!');
+    }, fn () => back()->with('error', DatabaseAvailability::warningMessage()));
 })->name('website-reviews.store');
 
 // Products
@@ -151,4 +168,3 @@ Route::post('/bottleneck/calc', [BottleneckController::class, 'calculate'])
     ->name('bottleneck.calculate');
 
 require __DIR__.'/auth.php';
-

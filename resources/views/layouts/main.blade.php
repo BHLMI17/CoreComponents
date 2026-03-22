@@ -17,6 +17,25 @@
     {{-- Navbar --}}
     @include('layouts.partials.navbar')
 
+    @php
+        $hasDatabaseWarning = isset($databaseWarning) && filled($databaseWarning);
+        $statusMessage = $hasDatabaseWarning ? $databaseWarning : (session('warning') ?? session('error'));
+        $statusClass = $hasDatabaseWarning || session('warning') ? '#8b5e00' : '#8f1d1d';
+        $statusBorder = $hasDatabaseWarning || session('warning') ? '#f0b429' : '#f87171';
+    @endphp
+
+    @if(session('success'))
+        <div style="max-width: 1100px; margin: 18px auto 0; padding: 12px 16px; border-radius: 10px; border: 1px solid #10b981; background: rgba(16, 185, 129, 0.12); color: #d1fae5;">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if($statusMessage)
+        <div style="max-width: 1100px; margin: 18px auto 0; padding: 12px 16px; border-radius: 10px; border: 1px solid {{ $statusBorder }}; background: rgba(248, 113, 113, 0.12); color: {{ $statusClass }};">
+            {{ $statusMessage }}
+        </div>
+    @endif
+
     {{-- Page content --}}
     <main>
         @yield('content')

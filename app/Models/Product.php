@@ -27,6 +27,7 @@ class Product extends Model
         'stock',
         'compatibility',
         'type',
+        'benchmark_score',
     ];
 
     /**
@@ -38,6 +39,7 @@ class Product extends Model
         'price' => 'decimal:2',
         'stock' => 'integer',
         'compatibility' => 'array',
+        'benchmark_score' => 'integer',
     ];
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Support\DatabaseAvailability;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -16,41 +17,52 @@ class ProductController extends Controller
         $maxPrice = $request->input('max_price');
         $sort = $request->input('sort', 'newest');
 
-        $productsQuery = Product::query();
+        $data = DatabaseAvailability::fallback(function () use ($query, $type, $minPrice, $maxPrice, $sort) {
+            $productsQuery = Product::with('reviews');
 
-        if (!empty($query)) {
-            $lower = strtolower($query);
-            $productsQuery->whereRaw('LOWER(name) LIKE ?', ["%$lower%"])
-                ->orWhereRaw('LOWER(description) LIKE ?', ["%$lower%"])
-                ->orWhereRaw('LOWER(type) LIKE ?', ["%$lower%"]);
-        }
+            if (! empty($query)) {
+                $lower = strtolower($query);
+                $productsQuery->where(function ($builder) use ($lower) {
+                    $builder->whereRaw('LOWER(name) LIKE ?', ["%$lower%"])
+                        ->orWhereRaw('LOWER(description) LIKE ?', ["%$lower%"])
+                        ->orWhereRaw('LOWER(type) LIKE ?', ["%$lower%"]);
+                });
+            }
 
-        if (!empty($type)) {
-            $productsQuery->where('type', $type);
-        }
+            if (! empty($type)) {
+                $productsQuery->where('type', strtolower($type));
+            }
 
-        if ($minPrice !== null && $minPrice !== '') {
-            $productsQuery->where('price', '>=', (float) $minPrice);
-        }
+            if ($minPrice !== null && $minPrice !== '') {
+                $productsQuery->where('price', '>=', (float) $minPrice);
+            }
 
-        if ($maxPrice !== null && $maxPrice !== '') {
-            $productsQuery->where('price', '<=', (float) $maxPrice);
-        }
+            if ($maxPrice !== null && $maxPrice !== '') {
+                $productsQuery->where('price', '<=', (float) $maxPrice);
+            }
 
-        if ($sort === 'price_asc') {
-            $productsQuery->orderBy('price', 'asc');
-        } elseif ($sort === 'price_desc') {
-            $productsQuery->orderBy('price', 'desc');
-        } else {
-            $productsQuery->orderBy('created_at', 'desc');
-        }
+            if ($sort === 'price_asc') {
+                $productsQuery->orderBy('price', 'asc');
+            } elseif ($sort === 'price_desc') {
+                $productsQuery->orderBy('price', 'desc');
+            } else {
+                $productsQuery->orderBy('created_at', 'desc');
+            }
 
-        $products = $productsQuery->get();
-        $types = Product::select('type')->distinct()->orderBy('type')->pluck('type');
+            return [
+                'products' => $productsQuery->get(),
+                'types' => Product::select('type')->distinct()->orderBy('type')->pluck('type'),
+                'databaseWarning' => null,
+            ];
+        }, [
+            'products' => collect(),
+            'types' => collect(),
+            'databaseWarning' => DatabaseAvailability::warningMessage(),
+        ]);
 
-        return view('pages.ProductListing', compact(
-            'products', 'query', 'types', 'type', 'minPrice', 'maxPrice', 'sort'
-        ));
+        return view('pages.ProductListing', array_merge($data, compact(
+            'query', 'type', 'minPrice', 'maxPrice', 'sort'
+        )));
     }
 
     // Dedicated search route for navbar (Redirect to products list instead of breaking if view does not exist)
@@ -78,12 +90,16 @@ class ProductController extends Controller
 
         $lower = strtolower($query);
 
-        $products = Product::whereRaw('LOWER(name) LIKE ?', ["%$lower%"])
-            ->orWhereRaw('LOWER(description) LIKE ?', ["%$lower%"])
-            ->orWhereRaw('LOWER(type) LIKE ?', ["%$lower%"])
-            ->select('id', 'name', 'price', 'image_url')
-            ->take(5)
-            ->get();
+        $products = DatabaseAvailability::fallback(function () use ($lower) {
+            return Product::where(function ($builder) use ($lower) {
+                $builder->whereRaw('LOWER(name) LIKE ?', ["%$lower%"])
+                    ->orWhereRaw('LOWER(description) LIKE ?', ["%$lower%"])
+                    ->orWhereRaw('LOWER(type) LIKE ?', ["%$lower%"]);
+            })
+                ->select('id', 'name', 'price', 'image_url')
+                ->take(5)
+                ->get();
+        }, collect());
 
         return response()->json($products);
     }
@@ -94,29 +110,31 @@ class ProductController extends Controller
     public function show($id)
     {
         // 1. Fetch the product with its reviews
-        $product = Product::with('reviews')->findOrFail($id);
-        
-        // 2. Calculate basic stats
-        $totalReviews = $product->reviews->count();
-        $avgRating = $totalReviews > 0 ? $product->reviews->avg('rating') : 0;
+        return DatabaseAvailability::fallback(function () use ($id) {
+            $product = Product::with('reviews')->findOrFail($id);
 
-        // 3. Calculate breakdown for the 5-level rating stack
-        $starCounts = [];
-        for ($i = 5; $i >= 1; $i--) {
-            $count = $product->reviews->where('rating', $i)->count();
-            // Calculate percentage for CSS bar width
-            $starCounts[$i] = [
-                'count' => $count,
-                'percent' => $totalReviews > 0 ? ($count / $totalReviews) * 100 : 0
-            ];
-        }
+            $totalReviews = $product->reviews->count();
+            $avgRating = $totalReviews > 0 ? $product->reviews->avg('rating') : 0;
 
-        return view('pages.product-overview', compact('product', 'totalReviews', 'avgRating', 'starCounts'));
+            $starCounts = [];
+            for ($i = 5; $i >= 1; $i--) {
+                $count = $product->reviews->where('rating', $i)->count();
+                $starCounts[$i] = [
+                    'count' => $count,
+                    'percent' => $totalReviews > 0 ? ($count / $totalReviews) * 100 : 0,
+                ];
+            }
+
+            return view('pages.product-overview', compact('product', 'totalReviews', 'avgRating', 'starCounts'));
+        }, fn () => redirect()->route('products.list')->with('error', DatabaseAvailability::warningMessage()));
     }
 
     public function purchase($id)
     {
-        $product = Product::findOrFail($id);
-        return view('frontend.basket', compact('product'));
+        return DatabaseAvailability::fallback(function () use ($id) {
+            $product = Product::findOrFail($id);
+
+            return view('frontend.basket', compact('product'));
+        }, fn () => redirect()->route('products.list')->with('error', DatabaseAvailability::warningMessage()));
     }
 }

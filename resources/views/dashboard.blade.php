@@ -3,8 +3,21 @@
 @endpush
 
 <x-app-layout>
+    @push('styles')
+    <style>
+        .dashboard-header {
+            display: inline-block;
+            background-color: white;
+            color: black;
+            border-radius: 999px;
+            padding: 0.5rem 1rem;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.18);
+        }
+    </style>
+    @endpush
+
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-white leading-tight">
+        <h2 class="dashboard-header font-semibold text-xl leading-tight">
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
