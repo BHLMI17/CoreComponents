@@ -299,12 +299,8 @@ body {
     /* Added for clarity */
     --border-color: #333333;
     --card-bg: rgba(255, 255, 255, 0.05);
-<<<<<<< HEAD
     --glass-tint: rgba(18, 18, 18, 0.75);
     /* Darker for About Page */
-=======
-    
->>>>>>> 443473dc6979b40812f1be4d42c0d614506e656f
 }
 
 [data-theme="light"] {
@@ -314,12 +310,8 @@ body {
     --nav-text: #121212;
     --border-color: #dddddd;
     --card-bg: #ffffff;
-<<<<<<< HEAD
     --glass-tint: rgba(255, 255, 255, 0.8);
     /* Light Frosted Glass */
-=======
-  
->>>>>>> 443473dc6979b40812f1be4d42c0d614506e656f
 }
 
 /* --- NAVBAR FIXES --- */
@@ -1499,8 +1491,6 @@ body {
     --nav-bg: rgba(18, 18, 18, 0.9);
     --nav-text: #ffffff;
     --nav-border: rgba(255, 255, 255, 0.1);
-<<<<<<< HEAD
-=======
 }
 
 
@@ -1710,5 +1700,4 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     transform: translateY(-3px);
->>>>>>> 443473dc6979b40812f1be4d42c0d614506e656f
 }

@@ -403,18 +403,7 @@ body {
     margin: 0;
 }
 
-/* -----------------------------------------------------------
-   3. NAVIGATION
------------------------------------------------------------ */
-.top-bar, .nav-bar {
-    background-color: var(--nav-bg) !important;
-    border-bottom: 1px solid var(--border-color);
-    transition: all 0.3s ease;
-}
 
-[data-theme="light"] .top-bar {
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
 
 /* -----------------------------------------------------------
    4. LAYOUT & CARDS (Product & About)
