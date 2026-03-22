@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const item = document.createElement("a");
                 item.href = `/product/${product.id}`;
                 item.className = "suggestion-item";
-                
+
                 // Fallback image if missing
                 const imgUrl = product.image_url || '/images/default-product.png';
 
@@ -73,6 +73,19 @@ document.addEventListener("DOMContentLoaded", () => {
         suggestionsContainer.classList.add("hidden");
       }
     });
+  }
+
+  // ========== AUTO-HIDE SUCCESS TOASTS ==========
+  const successToast = document.querySelector(".success-toast");
+  if (successToast) {
+    setTimeout(() => {
+      successToast.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+      successToast.style.opacity = "0";
+      successToast.style.transform = "translateY(-10px)";
+      setTimeout(() => {
+        successToast.remove();
+      }, 500); // Remove from DOM after fade out
+    }, 3000); // 3 seconds delay
   }
 });
 

@@ -486,6 +486,31 @@ body {
   }
 }
 
+/* Success Toast Styling (Copied from productoverview.css) */
+.success-toast {
+    background-color: rgba(0, 255, 204, 0.1) !important; /* Semi-transparent accent */
+    border: 1px solid var(--accent) !important;
+    color: var(--accent);
+    padding: 15px 25px;
+    margin: 20px auto;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    border-radius: 8px;
+    animation: slideDown 0.4s ease-out;
+    backdrop-filter: blur(10px);
+}
+
+.success-toast i {
+    font-size: 1.2rem;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 /* ------------------------------
    Bottleneck Calculator
 ------------------------------ */
@@ -535,11 +560,10 @@ body {
   gap: 1.5rem;
 }
 
-.bottleneck-form-actions {
-  grid-column: 1 / -1;
-  display: flex;
-  justify-content: center;
-  margin-top: 0.5rem;
+.bottleneck-select-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 }
 
 .bottleneck-field {
@@ -553,6 +577,7 @@ body {
   color: var(--text-main);
 }
 
+/* Fallback native select styling */
 .bottleneck-field select {
   background-color: var(--search-bg);
   border: 1px solid var(--search-border);
@@ -567,6 +592,131 @@ body {
   outline: none;
   border-color: var(--glow-start);
   box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+}
+
+.bottleneck-field select option {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+}
+
+/* Tom Select */
+.ts-wrapper .ts-control {
+  background: var(--search-bg) !important;
+  border: 1px solid var(--search-border) !important;
+  border-radius: 10px !important;
+  min-height: 48px;
+  padding: 0.75rem 1rem !important;
+  box-shadow: none !important;
+}
+
+.ts-wrapper.single .ts-control,
+.ts-wrapper.single.input-active .ts-control {
+  background: var(--search-bg) !important;
+}
+
+.ts-wrapper .ts-control input {
+  color: var(--search-text) !important;
+}
+
+.ts-wrapper .item {
+  color: var(--search-text) !important;
+}
+
+.ts-dropdown {
+  background: #1e1e1e !important;
+  border: 1px solid var(--search-border) !important;
+  border-radius: 10px !important;
+  color: #f0f0f0 !important;
+  overflow: hidden;
+}
+
+.ts-dropdown .option {
+  background: #1e1e1e !important;
+  color: #f0f0f0 !important;
+  padding: 0.75rem 1rem !important;
+}
+
+.ts-dropdown .option:hover,
+.ts-dropdown .active {
+  background: rgba(74, 144, 226, 0.15) !important;
+  color: #ffffff !important;
+}
+
+.ts-dropdown .selected {
+  background: rgba(74, 144, 226, 0.22) !important;
+  color: #ffffff !important;
+}
+
+/* Preview grid */
+.bottleneck-preview-grid,
+.bottleneck-result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.bottleneck-stat {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 1.25rem 1.1rem;
+}
+
+.bottleneck-stat-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--search-placeholder);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Preview cards */
+.bottleneck-product-stat {
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.bottleneck-product-placeholder {
+  width: 100%;
+  max-width: 220px;
+  height: 140px;
+  margin: 0.75rem 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.bottleneck-product-img {
+  width: 100%;
+  max-width: 220px;
+  height: 140px;
+  object-fit: contain;
+  display: block;
+}
+
+.bottleneck-stat-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-align: center;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Submit button */
+.bottleneck-form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.25rem;
 }
 
 .bottleneck-submit {
@@ -590,34 +740,7 @@ body {
   box-shadow: 0 15px 30px rgba(74, 144, 226, 0.4);
 }
 
-.bottleneck-result-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-  margin-bottom: 1.5rem;
-}
-
-.bottleneck-stat {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-subtle);
-  border-radius: 14px;
-  padding: 1rem 1.1rem;
-}
-
-.bottleneck-stat-label {
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: var(--search-placeholder);
-  margin-bottom: 0.4rem;
-}
-
-.bottleneck-stat-value {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text-main);
-}
-
+/* Result page bits */
 .bottleneck-outcome {
   text-align: center;
   margin: 1.5rem 0;
@@ -681,40 +804,3 @@ body {
   box-shadow: 0 15px 30px rgba(74, 144, 226, 0.4);
 }
 
-.bottleneck-preview-grid {
-  margin-top: 1.5rem;
-}
-
-.bottleneck-product-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.bottleneck-product-img {
-  width: 100%;
-  max-width: 220px;
-  height: 140px;
-  object-fit: contain;
-  margin: 0.75rem 0 1rem;
-}
-
-.bottleneck-stat-value {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text-main);
-  text-align: center;
-}
-
-.bottleneck-select-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.bottleneck-form-actions {
-  display: flex;
-  justify-content: center;
-  margin-top: 0.25rem;
-}

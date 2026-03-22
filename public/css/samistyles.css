@@ -151,89 +151,89 @@ body {
 
 /* --- Search Suggestions Dropdown --- */
 .search-suggestions-dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  margin-top: 5px;
-  background: var(--nav-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-  overflow: hidden;
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 5px;
+    background: var(--nav-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
 }
 
 .search-suggestions-dropdown.hidden {
-  display: none;
+    display: none;
 }
 
 .suggestion-item {
-  display: flex;
-  align-items: center;
-  padding: 10px 15px;
-  text-decoration: none;
-  color: var(--text-main);
-  gap: 12px;
-  border-bottom: 1px solid var(--border-color);
-  transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: var(--text-main);
+    gap: 12px;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s ease;
 }
 
 .suggestion-item:last-child {
-  border-bottom: none;
+    border-bottom: none;
 }
 
 .suggestion-item:hover {
-  background-color: var(--search-bg);
+    background-color: var(--search-bg);
 }
 
 .suggestion-img-wrap {
-  width: 40px;
-  height: 40px;
-  border-radius: 6px;
-  overflow: hidden;
-  flex-shrink: 0;
-  background: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .suggestion-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .suggestion-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
 .suggestion-name {
-  font-size: 0.9rem;
-  font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 200px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
 }
 
 .suggestion-price {
-  font-size: 0.85rem;
-  color: var(--accent);
-  font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 600;
 }
 
 .suggestion-no-results {
-  padding: 15px;
-  text-align: center;
-  color: var(--search-placeholder);
-  font-size: 0.9rem;
-  font-style: italic;
+    padding: 15px;
+    text-align: center;
+    color: var(--search-placeholder);
+    font-size: 0.9rem;
+    font-style: italic;
 }
 
 /* Icons */
@@ -295,10 +295,16 @@ body {
     --bg-color: #121212;
     --text-main: #ffffff;
     --nav-bg: #1e1e1e;
-    --nav-text: #ffffff; /* Added for clarity */
+    --nav-text: #ffffff;
+    /* Added for clarity */
     --border-color: #333333;
     --card-bg: rgba(255, 255, 255, 0.05);
+<<<<<<< HEAD
+    --glass-tint: rgba(18, 18, 18, 0.75);
+    /* Darker for About Page */
+=======
     
+>>>>>>> 443473dc6979b40812f1be4d42c0d614506e656f
 }
 
 [data-theme="light"] {
@@ -308,7 +314,12 @@ body {
     --nav-text: #121212;
     --border-color: #dddddd;
     --card-bg: #ffffff;
+<<<<<<< HEAD
+    --glass-tint: rgba(255, 255, 255, 0.8);
+    /* Light Frosted Glass */
+=======
   
+>>>>>>> 443473dc6979b40812f1be4d42c0d614506e656f
 }
 
 /* --- NAVBAR FIXES --- */
@@ -319,8 +330,10 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    z-index: 1001; /* Ensure it stays above everything */
-    background-color: var(--nav-bg) !important; /* Forces the variable */
+    z-index: 1001;
+    /* Ensure it stays above everything */
+    background-color: var(--nav-bg) !important;
+    /* Forces the variable */
     border-bottom: 1px solid var(--border-color);
     transition: all 0.3s ease;
 }
@@ -329,9 +342,11 @@ body {
     position: sticky;
     top: 70px;
     z-index: 999;
-    background-color: var(--nav-bg) !important; /* Fixed hardcoded #181818 */
+    background-color: var(--nav-bg) !important;
+    /* Fixed hardcoded #181818 */
     padding: 0.5rem 2rem;
-    border-bottom: 1px solid var(--border-color); /* Fixed hardcoded #333 */
+    border-bottom: 1px solid var(--border-color);
+    /* Fixed hardcoded #333 */
     transition: all 0.3s ease;
 }
 
@@ -369,8 +384,8 @@ body {
 }
 
 /* Ensure Nav Links change color */
-.nav-links a, 
-.icon-group .icon, 
+.nav-links a,
+.icon-group .icon,
 .theme-toggle-icon {
     color: var(--nav-text) !important;
 }
@@ -382,6 +397,7 @@ body {
     backdrop-filter: blur(15px);
     color: var(--text-main);
 }
+
 .nav-links {
     list-style: none;
     display: flex;
@@ -935,6 +951,7 @@ body {
         flex: 0 1 100%;
     }
 }
+
 /* --- ABOUT PAGE SPECIFIC --- */
 
 .about-hero-bg {
@@ -983,7 +1000,9 @@ body {
     transition: transform 0.3s ease;
 }
 
-.value-glass-card:hover { transform: translateY(-10px); }
+.value-glass-card:hover {
+    transform: translateY(-10px);
+}
 
 .value-icon {
     font-size: 2.5rem;
@@ -1023,7 +1042,9 @@ body {
     flex-shrink: 0;
 }
 
-.site-avatar { background: var(--btn-grad); }
+.site-avatar {
+    background: var(--btn-grad);
+}
 
 .prod-tag {
     font-size: 0.75rem;
@@ -1034,7 +1055,11 @@ body {
     margin-left: 10px;
 }
 
-.stars { color: #FFD700; font-size: 0.8rem; margin: 5px 0; }
+.stars {
+    color: #FFD700;
+    font-size: 0.8rem;
+    margin: 5px 0;
+}
 
 .section-header-row {
     display: flex;
@@ -1043,7 +1068,10 @@ body {
     margin-bottom: 1.5rem;
 }
 
-.hero-button.small { padding: 10px 20px; font-size: 0.8rem; }
+.hero-button.small {
+    padding: 10px 20px;
+    font-size: 0.8rem;
+}
 
 /* --- TOP RATED SECTION --- */
 .top-rated-section {
@@ -1127,14 +1155,17 @@ body {
     padding: 12px;
     font-size: 0.85rem;
 }
+
 /* 1. Fix the Container */
 .about-content-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 6rem 20px; /* Gives top room for the nav bar */
+    padding: 6rem 20px;
+    /* Gives top room for the nav bar */
     display: flex;
     flex-direction: column;
-    gap: 4rem; /* Even spacing between all sections */
+    gap: 4rem;
+    /* Even spacing between all sections */
 }
 
 /* 2. The "Glass" Panel Look */
@@ -1152,7 +1183,8 @@ body {
     display: flex;
     justify-content: center;
     gap: 20px;
-    flex-wrap: wrap; /* Important for mobile */
+    flex-wrap: wrap;
+    /* Important for mobile */
 }
 
 .value-glass-card {
@@ -1174,14 +1206,17 @@ body {
     gap: 25px;
     margin-top: 2rem;
 }
+
 /* 1. Fix the Container */
 .about-content-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 6rem 20px; /* Gives top room for the nav bar */
+    padding: 6rem 20px;
+    /* Gives top room for the nav bar */
     display: flex;
     flex-direction: column;
-    gap: 4rem; /* Even spacing between all sections */
+    gap: 4rem;
+    /* Even spacing between all sections */
 }
 
 /* 2. The "Glass" Panel Look */
@@ -1199,7 +1234,8 @@ body {
     display: flex;
     justify-content: center;
     gap: 20px;
-    flex-wrap: wrap; /* Important for mobile */
+    flex-wrap: wrap;
+    /* Important for mobile */
 }
 
 .value-glass-card {
@@ -1227,7 +1263,8 @@ body {
 .about-hero-bg {
     background: url("/images/about-us-thumbnail.png") center/cover no-repeat fixed;
     min-height: 100vh;
-    padding: 100px 20px; /* Space for navbar */
+    padding: 100px 20px;
+    /* Space for navbar */
 }
 
 /* Centered container that keeps content from stretching to the edges */
@@ -1236,17 +1273,20 @@ body {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 50px; /* Space between the glass sections */
+    gap: 50px;
+    /* Space between the glass sections */
 }
 
 
 .about-glass-card {
     background: var(--card-bg) !important;
-    border: 1px solid var(--border-color); /* Uses the darker light-mode border */
+    border: 1px solid var(--border-color);
+    /* Uses the darker light-mode border */
     backdrop-filter: blur(20px);
     border-radius: 30px;
     padding: 60px 40px;
-    box-shadow: var(--card-shadow); /* This creates the physical "divide" */
+    box-shadow: var(--card-shadow);
+    /* This creates the physical "divide" */
     transition: all 0.3s ease;
 }
 
@@ -1254,7 +1294,7 @@ body {
 .individual-review-box {
     display: flex;
     gap: 20px;
-    background: var(--inner-box); 
+    background: var(--inner-box);
     border: 1px solid var(--border-subtle);
     border-radius: 15px;
     padding: 20px;
@@ -1301,11 +1341,11 @@ body {
 }
 
 .top-product-card {
-    background: rgba(255,255,255,0.03);
+    background: rgba(255, 255, 255, 0.03);
     border-radius: 20px;
     padding: 20px;
     position: relative;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .top-product-card img {
@@ -1332,13 +1372,15 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    text-align: left; /* Ensures text stays left inside the glass card */
+    text-align: left;
+    /* Ensures text stays left inside the glass card */
 }
 
 .individual-review-box {
     display: flex;
     gap: 20px;
-    background: rgba(255, 255, 255, 0.03); /* Subtle dark glass look */
+    background: rgba(255, 255, 255, 0.03);
+    /* Subtle dark glass look */
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     padding: 20px;
@@ -1360,7 +1402,7 @@ body {
     font-weight: 800;
     font-size: 1.2rem;
     flex-shrink: 0;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .review-body {
@@ -1385,7 +1427,8 @@ body {
 }
 
 .stars-row-yellow-sm {
-    color: #FFD700; /* Gold/Yellow Stars */
+    color: #FFD700;
+    /* Gold/Yellow Stars */
     font-size: 0.85rem;
     margin-bottom: 10px;
 }
@@ -1409,7 +1452,8 @@ body {
 .individual-review-box {
     display: flex;
     gap: 20px;
-    background: rgba(255, 255, 255, 0.03); /* Subtle dark contrast */
+    background: rgba(255, 255, 255, 0.03);
+    /* Subtle dark contrast */
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 15px;
     padding: 20px;
@@ -1439,7 +1483,8 @@ body {
 }
 
 .stars-row-yellow-sm {
-    color: #FFD700; /* Bright yellow stars */
+    color: #FFD700;
+    /* Bright yellow stars */
     margin: 5px 0 10px;
 }
 
@@ -1448,11 +1493,14 @@ body {
     font-size: 0.95rem;
     line-height: 1.5;
 }
+
 /* Default (Dark) */
 :root {
     --nav-bg: rgba(18, 18, 18, 0.9);
     --nav-text: #ffffff;
     --nav-border: rgba(255, 255, 255, 0.1);
+<<<<<<< HEAD
+=======
 }
 
 
@@ -1662,6 +1710,7 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     transform: translateY(-3px);
+<<<<<<< HEAD
 }
 
     /* 1. PREVENT VERTICAL STRETCHING */
@@ -1691,3 +1740,7 @@ body {
         display: flex;
         align-items: center;
     }
+=======
+>>>>>>> 443473dc6979b40812f1be4d42c0d614506e656f
+}
+>>>>>>> eaf0e971a336da1a1d028133f83607668ba354ba

@@ -20,6 +20,7 @@
 
         <!-- Vite compiled assets -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <link rel="stylesheet" href="/css/footer.css">
     </head>
     <body class="font-sans antialiased">
 
@@ -30,6 +31,9 @@
         <main>
             @yield('content')
         </main>
+
+        {{-- Footer --}}
+        @include('layouts.partials.footer')
 
         <!-- Scripts -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
