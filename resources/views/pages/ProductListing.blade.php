@@ -7,6 +7,50 @@
 <link rel="stylesheet" href="/css/seanstyles.css">
 <link rel="stylesheet" href="{{ asset('css/productoverview.css') }}">
 
+<style>
+    .filter-section select,
+    .filter-section input {
+        color: #fff;
+    }
+
+    .filter-section input::placeholder {
+        color: var(--text-sub);
+        opacity: 1;
+    }
+
+    .filter-section select option {
+        background: var(--inner-bg);
+        color: #fff;
+    }
+
+    .product-price {
+        color: #fff;
+    }
+
+    #qv-price {
+        color: #fff;
+    }
+
+    [data-theme="light"] .filter-section select,
+    [data-theme="light"] .filter-section input {
+        color: #1f2937 !important;
+        background: #ffffff !important;
+    }
+
+    [data-theme="light"] .filter-section input::placeholder {
+        color: #6b7280 !important;
+    }
+
+    [data-theme="light"] .filter-section select option {
+        background: #ffffff !important;
+        color: #1f2937 !important;
+    }
+
+    [data-theme="light"] .product-price,
+    [data-theme="light"] #qv-price {
+        color: #1f2937 !important;
+    }
+</style>
 
 
 {{-- 1. SUCCESS TOAST --}}
@@ -25,7 +69,7 @@
    
             <div style="flex: 1;">
                 <label style="display: block; margin-bottom: 5px; font-size: 0.7rem; text-transform: uppercase; color: var(--text-sub); text-align: center;">Category</label>
-                <select name="type" style="width: 100%; padding: 10px; background: var(--inner-bg); border: 1px solid var(--border-color); border-radius: 6px; color: #fff;">
+                <select name="type" style="width: 100%; padding: 10px; background: var(--inner-bg); border: 1px solid var(--border-color); border-radius: 6px;">
                     <option value="">All</option>
                     @foreach ($types as $t)
                         <option value="{{ $t }}" {{ request('type') === $t ? 'selected' : '' }}>{{ ucfirst($t) }}</option>
@@ -37,15 +81,15 @@
                 <label style="display: block; margin-bottom: 5px; font-size: 0.7rem; text-transform: uppercase; color: var(--text-sub); text-align: center;">Price Range</label>
                 <div style="display: flex; gap: 5px;">
                     <input type="number" name="min_price" placeholder="Min" value="{{ request('min_price') }}" 
-                           style="width: 50%; padding: 10px; background: var(--inner-bg); border: 1px solid var(--border-color); border-radius: 6px; color: #fff;">
+                           style="width: 50%; padding: 10px; background: var(--inner-bg); border: 1px solid var(--border-color); border-radius: 6px;">
                     <input type="number" name="max_price" placeholder="Max" value="{{ request('max_price') }}" 
-                           style="width: 50%; padding: 10px; background: var(--inner-bg); border: 1px solid var(--border-color); border-radius: 6px; color: #fff;">
+                           style="width: 50%; padding: 10px; background: var(--inner-bg); border: 1px solid var(--border-color); border-radius: 6px;">
                 </div>
             </div>
 
             <div style="flex: 1;">
                 <label style="display: block; margin-bottom: 5px; font-size: 0.7rem; text-transform: uppercase; color: var(--text-sub); text-align: center;">Sort By</label>
-                <select name="sort" style="width: 100%; padding: 10px; background: var(--inner-bg); border: 1px solid var(--border-color); border-radius: 6px; color: #fff;">
+                <select name="sort" style="width: 100%; padding: 10px; background: var(--inner-bg); border: 1px solid var(--border-color); border-radius: 6px;">
                     <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Newest</option>
                     <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>Price: Low</option>
                     <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Price: High</option>
@@ -89,7 +133,7 @@
             </a>
 
             <div style="margin-top: auto; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 12px;">
-                <p style="font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 12px;">£{{ number_format($product->price, 2) }}</p>
+                <p class="product-price" style="font-size: 1.2rem; font-weight: 800; margin-bottom: 12px;">£{{ number_format($product->price, 2) }}</p>
                 
                 <div style="display: flex; flex-direction: column; gap: 8px;">
                     <button type="button" class="btn-bottleneck-glass" style="width: 100%; padding: 8px; font-size: 0.75rem;" 
@@ -126,7 +170,7 @@
         <div style="flex: 1.2; text-align: left;">
             <span id="qv-type" class="category-label" style="font-size: 0.7rem;"></span>
             <h2 id="qv-name" style="margin: 10px 0; font-size: 1.8rem;"></h2>
-            <div id="qv-price" class="price-display" style="font-size: 2rem; margin: 15px 0; color: #fff;"></div>
+            <div id="qv-price" class="price-display" style="font-size: 2rem; margin: 15px 0;"></div>
             
             <p id="qv-desc" style="font-size: 0.9rem; color: var(--text-sub); line-height: 1.6; margin-bottom: 25px; height: 120px; overflow-y: auto; padding-right: 10px;"></p>
 
