@@ -72,14 +72,20 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->navigationItems([
-                NavigationItem::make('Go to Landing Page')
+
+                NavigationItem::make('Go to Users Dashboard')
+                ->url('/dashboard')
+                ->icon('heroicon-o-user-circle')
+                ->sort(0),
+
+                NavigationItem::make('Return to Landing Page')
                     ->url('/')
                     ->icon('heroicon-o-paper-airplane')
                     ->sort(0),
             
-                    NavigationItem::make('Go to Dashboard')
-                    ->url('/dashboard')
-                    ->icon('heroicon-o-user-circle')
+                NavigationItem::make('Return to Product Page')
+                    ->url('/products')
+                    ->icon('heroicon-o-paper-airplane')
                     ->sort(0),
             ])
             ->authMiddleware([
