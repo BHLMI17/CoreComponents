@@ -58,12 +58,12 @@
         <div class="card" style="padding: 25px; text-align: center; border-radius: 12px; background: var(--glass-bg); border: 1px solid var(--glass-border);">
             <i class="fa-solid fa-envelope" style="font-size: 2rem; color: #4a90e2; margin-bottom: 15px;"></i>
             <h3 style="margin-bottom: 10px;">Email Us</h3>
-            <p style="color: var(--text-sub);">support@yourstore.com</p>
+            <p style="color: var(--text-sub);">corecomponentshelp@gmail.com</p>
         </div>
         <div class="card" style="padding: 25px; text-align: center; border-radius: 12px; background: var(--glass-bg); border: 1px solid var(--glass-border);">
             <i class="fa-solid fa-location-dot" style="font-size: 2rem; color: #00C853; margin-bottom: 15px;"></i>
             <h3 style="margin-bottom: 10px;">Visit Us</h3>
-            <p style="color: var(--text-sub);">123 Tech Lane, London, UK</p>
+            <p style="color: var(--text-sub);">1 Aston St, Birmingham B4 7ET</p>
         </div>
     </div>
 </div>

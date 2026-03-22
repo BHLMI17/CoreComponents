@@ -34,11 +34,11 @@
             <div class="contact-info">
                 <div class="contact-item">
                     <i class="fa-solid fa-location-dot"></i>
-                    </span>
+                    <a>1 Aston St, Birmingham B4 7ET</a>
                 </div>
                 <div class="contact-item">
                     <i class="fa-solid fa-envelope"></i>
-                    <a href="mailto:sales@corecomponents.com">sales@corecomponents.com</a>
+                    <a href="mailto:corecomponentshelp@gmail.com">corecomponentshelp@gmail.com</a>
                 </div>
                 <div class="contact-item">
                     <i class="fa-solid fa-phone"></i>
