@@ -132,12 +132,6 @@
             </div>
         </section>
     @endif
-<<<<<<< HEAD
-
-    <footer id="footer"><br><br></footer>
-=======
-    
->>>>>>> eaf0e971a336da1a1d028133f83607668ba354ba
 </main>
 
 {{-- QUICK VIEW MODAL (Same as listing page for consistency) --}}
