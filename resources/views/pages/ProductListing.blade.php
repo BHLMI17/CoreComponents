@@ -155,7 +155,7 @@
         document.getElementById('qv-price').innerText = '£' + parseFloat(product.price).toFixed(2);
         document.getElementById('qv-desc').innerText = product.description;
         document.getElementById('qv-id').value = product.id;
-        document.getElementById('qv-link').href = "/products/" + product.id;
+        document.getElementById('qv-link').href = "/product/" + product.id;
         document.getElementById('quickview-modal').classList.add('show');
     }
 
