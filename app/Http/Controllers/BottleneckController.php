@@ -7,12 +7,25 @@ use Illuminate\Http\Request;
 
 class BottleneckController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $cpus = Product::where('type', 'cpu')->get();
         $gpus = Product::where('type', 'gpu')->get();
 
-        return view('bottleneck.index', compact('cpus', 'gpus'));
+        $selectedCpuId = Product::where('id', $request->cpu_id)
+            ->where('type', 'cpu')
+            ->value('id');
+
+        $selectedGpuId = Product::where('id', $request->gpu_id)
+            ->where('type', 'gpu')
+            ->value('id');
+
+        return view('bottleneck.index', compact(
+            'cpus',
+            'gpus',
+            'selectedCpuId',
+            'selectedGpuId'
+        ));
     }
 
     public function calculate(Request $request)
@@ -31,7 +44,6 @@ class BottleneckController extends Controller
 
         // Determine bottleneck type
         $type = $cpuScore < $gpuScore ? 'cpu' : 'gpu';
-
 
         // Determine severity
         if ($bottleneck <= 10) {

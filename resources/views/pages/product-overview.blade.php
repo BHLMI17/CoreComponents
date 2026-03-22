@@ -36,26 +36,33 @@
             <div class="price-display">£{{ number_format($product->price, 2) }}</div>
 
             <p class="product-description">{{ $product->description }}</p>
-{{-- ACTION AREA --}}
-<div class="action-row" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
-    
-    {{-- Top Row: Quantity and Bottleneck --}}
-    <div style="display: flex; gap: 10px; align-items: center;"> {{-- Changed stretch to center --}}
-        
-        {{-- Quantity Box: Now restricted in width --}}
-        <div class="quantity-input-box" style="margin: 0; width: 140px; flex-shrink: 0;"> {{-- Set a fixed width --}}
-            <button type="button" onclick="changeQty(-1)">-</button>
-            <input type="text" id="qty" value="1" readonly style="width: 40px; text-align: center;">
-            <button type="button" onclick="changeQty(1)">+</button>
-        </div>
 
-        {{-- Bottleneck Button (Only shows for CPU/GPU) --}}
-        @if($product->type === 'cpu' || $product->type === 'gpu')
-            <a href="{{ route('bottleneck.index') }}" class="btn-bottleneck-glass" style="flex: 1;">
-                <i class="fa-solid fa-microchip"></i> Bottleneck Check
-            </a>
-        @endif
-    </div>
+            {{-- ACTION AREA --}}
+            <div class="action-row" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+                
+                {{-- Top Row: Quantity and Bottleneck --}}
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    
+                    {{-- Quantity Box --}}
+                    <div class="quantity-input-box" style="margin: 0; width: 140px; flex-shrink: 0;">
+                        <button type="button" onclick="changeQty(-1)">-</button>
+                        <input type="text" id="qty" value="1" readonly style="width: 40px; text-align: center;">
+                        <button type="button" onclick="changeQty(1)">+</button>
+                    </div>
+
+                    {{-- Bottleneck Button (Only shows for CPU/GPU) --}}
+                    @if($product->type === 'cpu' || $product->type === 'gpu')
+                        <a
+                            href="{{ route('bottleneck.index', $product->type === 'cpu'
+                                ? ['cpu_id' => $product->id]
+                                : ['gpu_id' => $product->id]) }}"
+                            class="btn-bottleneck-glass"
+                            style="flex: 1;"
+                        >
+                            <i class="fa-solid fa-microchip"></i> Bottleneck Check
+                        </a>
+                    @endif
+                </div>
 
                 {{-- Bottom Row: Add to Basket --}}
                 <form action="{{ route('basket.add') }}" method="POST" style="width: 100%;">
@@ -76,11 +83,11 @@
                         <i class="fa-solid fa-cart-shopping"></i> Add to Basket
                     </button>
                 </form>
-            </div> {{-- End Action Row --}}
-        </div> {{-- End Product Info Area --}}
-    </div> {{-- End Product Hero Card (Crucial this closes here) --}}
+            </div>
+        </div>
+    </div>
 
-    {{-- REVIEWS SECTION (Now sits safely below the grid) --}}
+    {{-- REVIEWS SECTION --}}
     <div class="reviews-wrapper-card">
         <h2>Customer Reviews</h2>
         <div class="reviews-split-layout">
@@ -207,7 +214,7 @@
     function changeQty(n) {
         let q = document.getElementById('qty');
         let v = parseInt(q.value) + n;
-        if(v > 0 && v <= 10) {
+        if (v > 0 && v <= 10) {
             q.value = v;
         }
     }
