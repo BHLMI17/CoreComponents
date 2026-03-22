@@ -11,7 +11,7 @@
 
 {{-- 1. SUCCESS TOAST --}}
 @if(session('success'))
-    <div class="success-toast card" id="listing-toast" style="position: fixed; top: 20px; right: 20px; z-index: 2000;">
+    <div class="success-toast card" id="listing-toast" style="position: fixed; top: 75px; right: 20px; z-index: 2000;">
         <i class="fa-solid fa-circle-check"></i>
         <span>{{ session('success') }}</span>
     </div>
