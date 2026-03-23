@@ -166,6 +166,8 @@
     color: white !important;
     font-size: 0.9rem !important;
     font-weight: 600 !important;
+    line-height: 1.5 !important;
+    box-sizing: border-box !important;
     cursor: pointer !important;
     text-align: center !important;
     text-decoration: none !important;
