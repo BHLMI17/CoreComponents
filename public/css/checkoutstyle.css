@@ -254,15 +254,18 @@ input:focus {
 /* --- CHECKOUT BUTTON --- */
 .btn-checkout {
     width: 100%;
-    padding: 15px;
+    padding: 14px;
     margin-top: 25px;
     background: var(--btn-grad);
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     color: white;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: block;
     transition: opacity 0.3s;
 }
 
