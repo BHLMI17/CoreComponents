@@ -15,7 +15,7 @@ use Filament\Tables\Table;
 class OrderResource extends Resource
 {
 
-    protected static ?string $slug = 'Orders';
+    protected static ?string $slug = 'orders';
 
     protected static ?string $model = Order::class;
 

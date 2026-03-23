@@ -15,7 +15,7 @@ use Filament\Tables\Table;
 class UserResource extends Resource
 {
 
-    protected static ?string $slug = 'Users';
+    protected static ?string $slug = 'users';
 
     protected static ?string $model = User::class;
 
