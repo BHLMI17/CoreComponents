@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Increase the PHP memory limit for memory-intensive operations (like Filament 4.x)
+ */
+ini_set('memory_limit', '256M');
+
+
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 

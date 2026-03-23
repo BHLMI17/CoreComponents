@@ -387,6 +387,9 @@ body {
     background: var(--glass-tint) !important;
     border: 1px solid var(--border-subtle);
     backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    transform: translateZ(0);
+    will-change: transform;
     color: var(--text-main);
 }
 

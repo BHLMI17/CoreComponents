@@ -67,6 +67,9 @@ body {
   background: var(--card-bg);
   border: 1px solid var(--border-subtle);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transform: translateZ(0);
+  will-change: transform;
   border-radius: 10px;
   padding: 1rem;
   text-align: center;

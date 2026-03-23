@@ -53,14 +53,7 @@
 </style>
 
 
-{{-- 1. SUCCESS TOAST --}}
-@if(session('success'))
-    <div class="success-toast card" id="listing-toast" style="position: fixed; top: 75px; right: 20px; z-index: 2000;">
-        <i class="fa-solid fa-circle-check"></i>
-        <span>{{ session('success') }}</span>
-    </div>
-    <script>setTimeout(() => { document.getElementById('listing-toast')?.remove(); }, 4000);</script>
-@endif
+
 
 {{-- 2. REWORKED FILTER BAR --}}
 <section class="filter-section" style="padding: 20px 0;">

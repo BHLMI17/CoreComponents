@@ -98,7 +98,6 @@ Route::get('/api/search-suggestions', [ProductController::class, 'searchSuggesti
 
 // Product Overview
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('products.show');
-
 Route::post('/products/{productId}/review', [ReviewController::class, 'store'])->name('reviews.store');
 
 // Basket (guest + user)
@@ -124,22 +123,6 @@ Route::middleware('auth')->group(function () {
 });
 
 
-// Email verifcation
-
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
-
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect()->route('dashboard');
-})->middleware(['auth', 'signed', 'throttle:6,1'])->name('verification.verify');
-
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
- 
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 
 Route::get('/admin/login', function () {
@@ -151,8 +134,6 @@ Route::middleware(['auth', 'can:admin-only'])->group(function () {
         return view('admin.index');
     })->name('admin.dashboard');
 }); 
-
-Route::get('/search', [App\Http\Controllers\ProductController::class, 'search'])->name('search');
 
 use App\Http\Controllers\OrderController;
 

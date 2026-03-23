@@ -3,13 +3,7 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/productoverview.css') }}">
 
-{{-- Success Toast Notification --}}
-@if(session('success'))
-    <div class="success-toast card">
-        <i class="fa-solid fa-circle-check"></i>
-        <span>{{ session('success') }}</span>
-    </div>
-@endif
+
 
 <div class="product-container">
     

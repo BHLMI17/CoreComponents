@@ -25,9 +25,11 @@
     @endphp
 
     @if(session('success'))
-        <div style="max-width: 1100px; margin: 18px auto 0; padding: 12px 16px; border-radius: 10px; border: 1px solid #10b981; background: rgba(16, 185, 129, 0.12); color: #d1fae5;">
-            {{ session('success') }}
+        <div class="success-toast card" id="global-toast" style="position: fixed; top: 75px; right: 20px; z-index: 2000;">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>{{ session('success') }}</span>
         </div>
+        <script>setTimeout(() => { document.getElementById('global-toast')?.remove(); }, 4000);</script>
     @endif
 
     @if($statusMessage)
