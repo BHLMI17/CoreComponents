@@ -16,8 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //seed reviews
-        $this->call(ReviewSeeder::class);
+        
 
 
 
@@ -25,6 +24,14 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ProductSeeder::class,
         ]);
+
+        //seed reviews
+        $this->call(ReviewSeeder::class);
+
+        $this->call([
+        WebsiteReviewSeeder::class,
+    ]);
+
 
         // Create admin user
         User::updateOrCreate(
