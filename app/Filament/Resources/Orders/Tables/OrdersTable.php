@@ -5,8 +5,8 @@ namespace App\Filament\Resources\Orders\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\DeleteAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
 
 class OrdersTable
 {
