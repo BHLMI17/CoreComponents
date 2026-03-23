@@ -19,11 +19,32 @@ return new class extends Migration
             });
         }
 
-        // 2. Fix unique constraints (SOCIALLY DISTANCED VERSION)
-        // We cannot drop the unique index easily on some MySQL versions if it's used by FKs.
-        // For now, let's at least ensure the column exists so the 'Add to Basket' works.
-        // If the unique index still blocks, we will have to drop the FKs first, then the index, then re-add FKs.
-        // But the immediate error was "session_id not found", so adding the column is the priority.
+        // 2. Fix unique constraints safely
+        try {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+            
+            Schema::table('baskets', function (Blueprint $table) {
+                $uniqueIndex = 'baskets_user_id_product_id_unique';
+                $indexes = Schema::getIndexes('baskets');
+                
+                $exists = false;
+                foreach ($indexes as $index) {
+                    if ($index['name'] === $uniqueIndex) {
+                        $exists = true;
+                        break;
+                    }
+                }
+                
+                if ($exists) {
+                    $table->dropUnique($uniqueIndex);
+                }
+            });
+
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        } catch (\Exception $e) {
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+            \Illuminate\Support\Facades\Log::warning('Could not drop unique index on baskets: ' . $e->getMessage());
+        }
     }
 
     /**
