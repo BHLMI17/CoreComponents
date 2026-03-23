@@ -52,7 +52,7 @@ return [
         'public_uploads' => [
         'driver' => 'local',
         'root' => public_path(),          // writes directly into /public
-        'url' => env('APP_URL') . '/',    // so /images/... works
+        'url' => '/',                     // relative root — works on any server regardless of APP_URL
         'visibility' => 'public',
         ],
 

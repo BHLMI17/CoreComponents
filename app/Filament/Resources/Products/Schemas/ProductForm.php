@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Products\Schemas;
 
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -24,18 +23,12 @@ class ProductForm
                 ->numeric()
                 ->prefix('£'),
 
-                FileUpload::make('image_url')
-                ->image()
-                ->directory('images')
-                ->disk('public_uploads')
-                ->visibility('public')
-                ->saveUploadedFileUsing(function ($file, $record) {
-                    $filename = $file->getClientOriginalName();
-            
-                    $file->storeAs('images', $filename, 'public_uploads');
-            
-                    return '/images/' . $filename;
-                }),
+            TextInput::make('image_url')
+                ->label('Image URL')
+                ->placeholder('e.g. /images/my-product.jpg or https://example.com/photo.jpg')
+                ->helperText('Paste a direct image URL or a path like /images/filename.jpg')
+                ->url()
+                ->nullable(),
             
             
 
