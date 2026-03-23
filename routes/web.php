@@ -97,6 +97,7 @@ Route::get('/search', [ProductController::class, 'search'])->name('search');
 Route::get('/api/search-suggestions', [ProductController::class, 'searchSuggestions'])->name('search.suggestions');
 
 // Product Overview
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('products.show');
 Route::post('/products/{productId}/review', [ReviewController::class, 'store'])->name('reviews.store');
 
 // Basket (guest + user)
