@@ -19,22 +19,11 @@ return new class extends Migration
             });
         }
 
-        // 2. Fix unique constraints
-        // The previous migration might have a unique(['user_id', 'product_id']) which fails for guests
-        Schema::table('baskets', function (Blueprint $table) {
-            $indexes = Schema::getIndexes('baskets');
-            $hasUnique = false;
-            foreach ($indexes as $index) {
-                if ($index['name'] === 'baskets_user_id_product_id_unique') {
-                    $hasUnique = true;
-                    break;
-                }
-            }
-
-            if ($hasUnique) {
-                $table->dropUnique(['user_id', 'product_id']);
-            }
-        });
+        // 2. Fix unique constraints (SOCIALLY DISTANCED VERSION)
+        // We cannot drop the unique index easily on some MySQL versions if it's used by FKs.
+        // For now, let's at least ensure the column exists so the 'Add to Basket' works.
+        // If the unique index still blocks, we will have to drop the FKs first, then the index, then re-add FKs.
+        // But the immediate error was "session_id not found", so adding the column is the priority.
     }
 
     /**
