@@ -1,0 +1,345 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* =========================================
+   1. THEME VARIABLES (Light/Dark Logic)
+   ========================================= */
+:root {
+    /* DEFAULT (Dark Mode) */
+    --bg-color: #121212;
+    --text-main: #ffffff;
+    --text-sub: #aaaaaa;
+    
+    /* Glass Effect */
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    
+    /* Inputs */
+    --input-bg: rgba(0, 0, 0, 0.3);
+    --input-border: rgba(255, 255, 255, 0.1);
+    
+    /* Buttons & Accents */
+    --btn-grad: linear-gradient(90deg, #4a90e2 0%, #00C853 100%);
+    --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    --toggle-bg: rgba(255,255,255,0.1);
+}
+
+[data-theme="light"] {
+    /* LIGHT MODE OVERRIDES */
+    --bg-color: #f0f2f5;
+    --text-main: #1a1a1a;
+    --text-sub: #555555;
+    
+    /* Glass Effect (Frosty White) */
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    
+    /* Inputs */
+    --input-bg: #ffffff;
+    --input-border: #cccccc;
+    
+    /* Accents */
+    --shadow: 0 15px 35px rgba(0,0,0,0.1);
+    --toggle-bg: rgba(0,0,0,0.05);
+}
+
+/* =========================================
+   2. GLOBAL LAYOUT & BODY
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    
+    /* Layout Logic to prevent touching edges */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Safety gap around the screen */
+    
+    /* Scrolling support */
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Background Glowing Blob */
+body::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: var(--btn-grad);
+    border-radius: 50%;
+    filter: blur(150px);
+    opacity: 0.15;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+/* =========================================
+   3. COMPACT GLASS CONTAINER
+   ========================================= */
+.glass-container {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    
+    /* Compact Padding */
+    padding: 2rem; 
+    
+    border-radius: 20px;
+    width: 100%;
+    max-width: 400px; /* Default width (Login) */
+    
+    box-shadow: var(--shadow);
+    text-align: center;
+    position: relative;
+    margin: auto; /* Centers it if the screen height changes */
+}
+
+/* Wide Variation (Register Page) */
+.glass-container.wide-box {
+    max-width: 600px; /* Compact but wide enough for horizontal rows */
+}
+
+/* =========================================
+   4. TOGGLE BUTTON
+   ========================================= */
+.theme-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--toggle-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-main);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    z-index: 1000;
+}
+.theme-btn:hover { transform: scale(1.1); }
+
+/* =========================================
+   5. FORM ELEMENTS (Compact)
+   ========================================= */
+.logo-img { height: 35px; margin-bottom: 1rem; display: inline-block; }
+h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.2rem; color: var(--text-main); }
+.sub-text { color: var(--text-sub); margin-bottom: 1.5rem; font-size: 0.85rem; }
+
+.input-group {
+    margin-bottom: 0.8rem; /* Tighter spacing */
+    width: 100%;
+    text-align: left;
+    position: relative;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-sub);
+    margin-bottom: 4px;
+    margin-left: 5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px 14px; /* Slimmer inputs */
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.1);
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--btn-grad);
+    color: white;
+}
+.btn-submit:hover { transform: translateY(-2px); }
+
+.auth-links { margin-top: 1.2rem; color: var(--text-sub); font-size: 0.85rem; }
+.auth-links a { color: #4a90e2; text-decoration: none; font-weight: 500; }
+.error-msg { background: rgba(220, 38, 38, 0.1); border: 1px solid rgba(220, 38, 38, 0.4); color: #ff6b6b; padding: 10px; border-radius: 8px; margin-bottom: 1rem; font-size: 0.9rem; }
+
+/* =========================================
+   6. HORIZONTAL LAYOUT (Updated)
+   ========================================= */
+
+/* Only applies inside .wide-box */
+.wide-box .input-group {
+    display: flex;
+    align-items: center;
+    /* justify-content: flex-start;  <-- This keeps them packed to the left */
+    margin-bottom: 1rem;
+}
+
+.wide-box .input-group label {
+    /* 1. Set a fixed width just wide enough for "Confirm Password" */
+    width: 140px; 
+    
+    /* 2. Push the text to the right so it hugs the input bar */
+    text-align: right; 
+    
+    /* 3. Add a small gap between text and bar */
+    margin-right: 15px; 
+    margin-bottom: 0;
+    
+    /* Prevent shrinking */
+    flex-shrink: 0; 
+    
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.wide-box .input-group input {
+    /* 4. The input takes up all remaining space */
+    flex-grow: 1; 
+    width: auto; /* Reset fixed width */
+}
+
+/* Mobile Responsiveness for Register Page */
+@media (max-width: 600px) {
+    .wide-box .input-group {
+        flex-direction: column; /* Stack vertically on phones */
+        align-items: flex-start;
+    }
+    .wide-box .input-group label {
+        width: 100%;
+        text-align: left; /* Reset text alignment for mobile */
+        margin-bottom: 5px;
+    }
+    .wide-box .input-group input {
+        width: 100%;
+    }
+}
+
+/* =========================================
+   7. HOME PAGE / NAV (Index.php)
+   ========================================= */
+.main-header {
+    background-color: var(--bg-color);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 15px 40px;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+}
+
+.search-bar {
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 4px;
+    display: flex;
+    width: 50%;
+    padding: 8px 15px;
+}
+.search-bar input { border: none; background: transparent; width: 100%; outline: none; color: var(--text-main); }
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding-top: 15px;
+    border-top: 1px solid var(--glass-border);
+}
+.nav-links a { color: var(--text-sub); text-decoration: none; transition: 0.3s; }
+.nav-links a:hover { color: var(--text-main); }
+
+/* --- Themed Error Message --- */
+.error-msg {
+    /* Semi-transparent gradient background (Blue to Green) */
+    background: linear-gradient(90deg, rgba(74, 144, 226, 0.2) 0%, rgba(0, 200, 83, 0.2) 100%);
+    
+    /* Subtle border matching the blue start of the gradient */
+    border: 1px solid rgba(74, 144, 226, 0.3);
+    
+    /* White text for maximum readability against the dark theme */
+    color: #ffffff;
+    
+    /* Structural styles */
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+    
+    /* A very subtle glow effect to match the theme vibe */
+    box-shadow: 0 4px 15px rgba(0, 200, 83, 0.1);
+}
+/* --- CUSTOM VALIDATION BUBBLE --- */
+.custom-tooltip {
+    position: absolute;
+    top: -45px; /* Hover above the input */
+    left: 0;
+    
+    /* YOUR THEME GRADIENT */
+    background: linear-gradient(90deg, #4a90e2 0%, #00C853 100%);
+    color: white;
+    
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+    z-index: 100;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    
+    /* Animation */
+    opacity: 0; 
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    pointer-events: none; /* Let clicks pass through it */
+}
+
+.custom-tooltip.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* The little arrow pointing down */
+.custom-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -6px; /* Hangs off the bottom */
+    left: 15px;
+    border-width: 6px 6px 0;
+    border-style: solid;
+    /* This color matches the start of your gradient (Blue) */
+    border-color: #4a90e2 transparent transparent transparent;
+}
